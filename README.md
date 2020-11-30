@@ -71,6 +71,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 ### Examples 
-https://shop.redq.now.sh/bakery
-https://designreset.com/cork/ltr/demo4/
+https://shop.redq.now.sh/bakery .
+
+https://designreset.com/cork/ltr/demo4/ .
+
 http://www.themesground.com/flipmart-demo/HTML/home.html
