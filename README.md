@@ -76,3 +76,5 @@ https://shop.redq.now.sh/bakery .
 https://designreset.com/cork/ltr/demo4/ .
 
 http://www.themesground.com/flipmart-demo/HTML/home.html
+
+https://mironmahmud.com/vegana/singles/signin-up.html
