@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {useState, Fragment} from 'react';
 import {Link} from "react-router-dom";
 
 import logo from "../../assets/images/logo.png"
@@ -6,6 +6,17 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
 export default function Registration() {
+    const [isShowSignIn, setIsShowSignIn] = useState(true);
+
+    const changePage = (type) => {
+        console.log(type);
+        if (type === "signup") {
+            setIsShowSignIn(false);
+        } else if (type === 'signin') {
+            setIsShowSignIn(true);
+        }
+    }
+
     return (
         <Fragment>
             <div className="sign-part">
@@ -21,17 +32,15 @@ export default function Registration() {
                 <div className="sign-form">
                     <div className="sign-card">
                         <ul class="nav nav-tabs">
-                            <li><span class="nav-link active" data-toggle="tab">sign in</span></li>
-                            <li><span class="nav-link" data-toggle="tab">sign up</span></li>
+                            <li onClick={() => setIsShowSignIn(true)}><span class={`nav-link ${isShowSignIn ? ' active': ''}`} data-toggle="tab">sign in</span></li>
+                            <li onClick={() => setIsShowSignIn(false)}><span class={`nav-link ${isShowSignIn ? '': ' active'}`} data-toggle="tab">sign up</span></li>
                         </ul>
                     </div>
 
                     <div className="tab-pane active" id="signIn">
-                        <SignIn/>
-                    </div>
-
-                    <div className="tab-pane" id="signUp">
-                        <SignUp/>
+                        {
+                            isShowSignIn ? <SignIn handelSetShowPage={changePage}/> : <SignUp handelSetShowPage={changePage}/>
+                        }
                     </div>
                 </div>
             </div>

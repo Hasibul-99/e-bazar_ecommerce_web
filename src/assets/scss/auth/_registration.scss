@@ -133,5 +133,54 @@
                 }
             }
         }
+
+        .tab-pane {
+            display: block;
+            padding: 0px 50px;
+
+            @media (max-width: 1199px) and (min-width: 576px) {
+                padding: 0px 25px;
+            }
+
+            @media (max-width: 767px) {
+                padding: 0px 25px;
+            }
+        }
+    }
+}
+
+.register-content{
+    .sign-heading {
+        text-align: center;
+        margin-bottom: 45px;
+
+        h2 {
+            margin-bottom: 1em;
+        }
+    }
+
+    .form {
+        button {
+            width: 100%;
+        }
+    }
+
+    .form-bottom {
+        text-align: center;
+        margin-bottom: 50px;
+
+        p {
+            width: 260px;
+            color: #666666;
+            font-size: 18px;
+            width: 290px;
+            margin: 25px auto;
+
+            span {
+                font-weight: 500;
+                color: $brandcolor;
+                cursor: pointer;
+            }
+        }
     }
 }
