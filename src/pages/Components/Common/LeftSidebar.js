@@ -22,7 +22,7 @@ export default function LeftSidebar() {
 							<i class="flaticon-381-television"></i>
 							<span class="nav-text">Apps</span>
 						</a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" className="mm-collapse">
                             <li><a href="app-profile.html">Profile</a></li>
                             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
                                 <ul aria-expanded="false">

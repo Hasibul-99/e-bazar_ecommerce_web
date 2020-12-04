@@ -5,7 +5,7 @@ import user from "../../../assets/images/profile/17.jpg";
 export default function TopNavBar() {
     return (
         <Fragment>
-            <div class="nav-header">
+            <div class="nav-header custom-nav-header">
                 <a href="index.html" class="brand-logo">
                     <img class="logo-abbr" src={logo} alt=""/>
                 </a>
@@ -17,7 +17,7 @@ export default function TopNavBar() {
                 </div>
             </div>
 
-            <div class="header">
+            <div class="header custom-header">
                 <div class="header-content">
                     <nav class="navbar navbar-expand">
                         <div class="collapse navbar-collapse justify-content-between">
