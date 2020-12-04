@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import routes from "../router/public-router";
 
+import TopNavBar from "../pages/Components/Common/TopNavBar";
+import SideBar from "../pages/Components/Common/LeftSidebar";
+
 
 class Public extends Component {
     constructor(props) {
@@ -26,10 +29,16 @@ class Public extends Component {
 
     render() {
         return (
-            <div>
-                <Switch>
-                  {this.getRoutes(routes)}
-                </Switch>
+            <div class="show" id="main-wrapper">
+              <TopNavBar></TopNavBar>
+              <SideBar/>
+              <div class="content-body">
+                <div class="container-fluid">
+                  <Switch>
+                    {this.getRoutes(routes)}
+                  </Switch>
+                </div>
+              </div>
             </div>
         )
     }
