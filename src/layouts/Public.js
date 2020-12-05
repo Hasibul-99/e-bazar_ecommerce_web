@@ -4,6 +4,7 @@ import routes from "../router/public-router";
 
 import TopNavBar from "../pages/Components/Common/TopNavBar";
 import SideBar from "../pages/Components/Common/LeftSidebar";
+import CartBox from "../pages/Components/Common/CartBox";
 
 
 class Public extends Component {
@@ -37,6 +38,8 @@ class Public extends Component {
                   <Switch>
                     {this.getRoutes(routes)}
                   </Switch>
+
+                  <CartBox></CartBox>
                 </div>
               </div>
             </div>
