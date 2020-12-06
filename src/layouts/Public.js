@@ -5,6 +5,7 @@ import routes from "../router/public-router";
 import TopNavBar from "../pages/Components/Common/TopNavBar";
 import SideBar from "../pages/Components/Common/LeftSidebar";
 import CartBox from "../pages/Components/Common/CartBox";
+import Footer from "../pages/Components/Common/Footer";
 
 
 class Public extends Component {
@@ -42,6 +43,7 @@ class Public extends Component {
                   <CartBox></CartBox>
                 </div>
               </div>
+              <Footer></Footer>
             </div>
         )
     }
