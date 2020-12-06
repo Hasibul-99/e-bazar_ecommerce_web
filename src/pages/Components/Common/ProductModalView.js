@@ -1,23 +1,32 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import $ from "jquery";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
 import QuantityInput from "../Common/QuantityInput";
 
-export default function ProductModalView() {
+export default function ProductModalView(props) {
+    const {productId, isOpen} = props;
+
+    useEffect(() => {
+        if (isOpen) {
+            setTimeout(() => {
+                $(`#js-modal-dialog-${productId}`).addClass('modal-lg');
+                $(`#js-image-content-${productId}`).addClass('col-6');
+                $(`#card-content-${productId}`).show();
+            }, 1000)
+        };
+      }, [isOpen]);
+
     return (
-        <div class="modal fade bd-example-modal-lg product-preview-modal" id="bd-example-modal-lg" tabindex="-1" 
+        <div class="modal fade product-preview-modal" id={`product-view-modal-${productId}`} tabindex="-1" 
             role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div id={`js-modal-dialog-${productId}`} class="modal-dialog"> {/* modal-lg*/}
                 <div class="modal-content">
-                    {/* <div class="modal-header">
-                        {/* <h5 class="modal-title">Modal title</h5> 
-                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                        </button>
-                    </div> */}
                     <div class="modal-body">
                         <div className="row">
-                            <div className="col-6">
+                            <div id={`js-image-content-${productId}`} className="">
                             <Carousel>
                                 <div>
                                     <img src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_01-920x1140.jpg" />
@@ -33,7 +42,7 @@ export default function ProductModalView() {
                                 </div>
                             </Carousel>
                             </div>
-                            <div className="col-6 pt-5">
+                            <div id={`card-content-${productId}`} className="col-6 pt-5" style={{display: 'none'}}>
                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                     </button>
 

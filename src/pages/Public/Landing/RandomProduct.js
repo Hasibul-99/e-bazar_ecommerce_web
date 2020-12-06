@@ -1,4 +1,6 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
+import $ from "jquery";
+
 import ProductModalView from "../../Components/Common/ProductModalView";
 
 export default function RandomProduct() {
@@ -10,7 +12,7 @@ export default function RandomProduct() {
                     <div className="row">
                         {
                             [1,2,3,4,5,6,7,8,9, 10, 11, 12, 13].map(e => {
-                                return <div className="col-md-3 col-sm-1 col-6"><ProductCard></ProductCard></div>
+                                return <div className="col-md-3 col-sm-1 col-6"><ProductCard productId={e}></ProductCard></div>
                             })
                         }
                     </div>
@@ -20,7 +22,17 @@ export default function RandomProduct() {
     )
 };
 
-function ProductCard(){
+function ProductCard(props){
+    const [isOpen, setIsOpen] = useState(false);
+    const {productId} = props;
+
+    const openModal = (productId) => {
+        console.log("productId", productId);
+
+        $(`#product-view-modal-${productId}`).modal("show");
+        setIsOpen(true);
+    }
+
     return (
         <Fragment>
             <div class="product-card">
@@ -35,8 +47,8 @@ function ProductCard(){
                     <div class="product-bottom-details">
                         <div class="product-price"><small>$96.00</small>$230.99</div>
                         <div class="product-links">
-                            <span className="cursor-pointer" 
-                                data-toggle="modal" data-target="#bd-example-modal-lg"><i class="fa fa-eye"></i>
+                        {/* data-toggle="modal"  data-target={`#product-view-modal-${productId}`} */}
+                            <span className="cursor-pointer" onClick={()=> openModal(productId)}><i class="fa fa-eye"></i>
                             </span>
                             <a href=""><i class="fa fa-shopping-cart"></i></a>
                         </div>
@@ -44,7 +56,9 @@ function ProductCard(){
                 </div>
             </div>
 
-            <ProductModalView></ProductModalView>
+            <ProductModalView productId={productId} 
+                isOpen={isOpen}>
+            </ProductModalView>
         </Fragment>
         
     )
