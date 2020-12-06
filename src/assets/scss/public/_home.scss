@@ -144,3 +144,172 @@
       }
     }
 }
+
+.non-Brand-items {
+    .xs-organic-product-thumb {
+        background: #f7f6f2;
+        background: -webkit-gradient(linear,left top,left bottom,from(#f7f6f2),color-stop(60%,#f7f6f2),color-stop(60%,#fff),to(#fff));
+        background: linear-gradient(to bottom,#f7f6f2 0,#f7f6f2 60%,#fff 60%,#fff 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f6f2',endColorstr='#ffffff',GradientType=0);
+        border-radius: 4px;
+        padding: 30px 30px 40px;
+        position: relative;
+        text-align: center;
+        z-index: 1;
+        overflow: hidden;
+        -webkit-transition: all .4s ease;
+        transition: all .4s ease;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        margin-bottom: 30px;
+        border: 1px solid #f5f5f5;
+
+        &:before {
+            position: absolute;
+            content: "";
+            top: calc(60% - 42px);
+            left: 0;
+            background-image: url(../../images/curve.png);
+            width: 100%;
+            height: 42px;
+            z-index: -1;
+        }
+
+        &:hover {
+            .hover-box {
+                bottom: -19;
+                opacity: 1;
+                visibility: inherit;
+            }
+        }
+
+        .product-item-meta {
+            top: -25px;
+        } 
+
+        .product-thumb {
+            margin: 30px 0;
+            min-height: 197px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+
+        .product-title {
+            font-size: 1.28571em;
+            margin-bottom: 8px;
+            a {
+                color: #222;
+                -webkit-transition: all .4s ease;
+                transition: all .4s ease;
+                display: inline-block;
+            }
+        }
+
+        .content-box {
+            position: relative;
+            -webkit-transition: all .4s ease;
+            transition: all .4s ease;
+
+            .price {
+                color: #83b735;
+                font-size: 1.14286em;
+            }
+        }
+
+        .hover-box {
+            -webkit-transition: all .4s ease;
+            transition: all .4s ease;
+            bottom: -20px;
+            opacity: 0;
+            position: absolute;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            width: 100%;
+        }
+
+        $star-size: 60px;
+        $star-color: #fff;
+        $star-background: #fc0;
+
+        
+        
+#full-stars-example {
+
+    /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
+    .rating-group {
+      display: inline-flex;
+    }
+    
+    /* make hover effect work properly in IE */
+    .rating__icon {
+      pointer-events: none;
+    }
+    
+    /* hide radio inputs */
+    .rating__input {
+     position: absolute !important;
+     left: -9999px !important;
+    }
+  
+    /* set icon padding and size */
+    .rating__label {
+      cursor: pointer;
+      padding: 0 0.1em;
+      font-size: 1rem;
+    }
+    
+    /* set default star color */
+    .rating__icon--star {
+      color: orange;
+    }
+    
+    /* set color of none icon when unchecked */
+    .rating__icon--none {
+      color: #eee;
+    }
+  
+    /* if none icon is checked, make it red */
+    .rating__input--none:checked + .rating__label .rating__icon--none {
+      color: red;
+    }
+  
+    /* if any input is checked, make its following siblings grey */
+    .rating__input:checked ~ .rating__label .rating__icon--star {
+      color: #ddd;
+    }
+  
+    /* make all stars orange on rating group hover */
+    .rating-group:hover .rating__label .rating__icon--star {
+      color: orange;
+    }
+  
+    /* make hovered input's following siblings grey on hover */
+    .rating__input:hover ~ .rating__label .rating__icon--star {
+      color: #ddd;
+    }
+    
+    /* make none icon grey on rating group hover */
+    .rating-group:hover .rating__input--none:not(:hover) + .rating__label .rating__icon--none {
+       color: #eee;
+    }
+  
+    /* make none icon red on hover */
+    .rating__input--none:hover + .rating__label .rating__icon--none {
+      color: red;
+    }
+  }
+  
+  
+    }
+}
