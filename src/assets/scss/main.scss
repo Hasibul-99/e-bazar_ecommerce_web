@@ -1,5 +1,8 @@
 // @import '~bootstrap/scss/bootstrap.scss';
 
+body {
+    background-color: #eee;
+}
 
 @import "common.scss";
 @import "./auth/registration";
