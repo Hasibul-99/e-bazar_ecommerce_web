@@ -7,7 +7,7 @@ import { Carousel } from 'react-responsive-carousel';
 import QuantityInput from "../Common/QuantityInput";
 
 export default function ProductModalView(props) {
-    const {productId, isOpen} = props;
+    const {productId, isOpen, HandelModalClose} = props;
 
     useEffect(() => {
         if (isOpen) {
@@ -27,20 +27,17 @@ export default function ProductModalView(props) {
                     <div class="modal-body">
                         <div className="row">
                             <div id={`js-image-content-${productId}`} className="">
-                            <Carousel>
-                                <div>
-                                    <img src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_01-920x1140.jpg" />
-                                    {/* <p className="legend">Legend 1</p> */}
-                                </div>
-                                <div>
-                                    <img src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_02-920x1139.jpg" />
-                                    {/* <p className="legend">Legend 2</p> */}
-                                </div>
-                                <div>
-                                    <img src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_03-920x1139.jpg" />
-                                    {/* <p className="legend">Legend 3</p> */}
-                                </div>
-                            </Carousel>
+                                <Carousel>
+                                    <div>
+                                        <img src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_01-920x1140.jpg" />
+                                    </div>
+                                    <div>
+                                        <img src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_02-920x1139.jpg" />
+                                    </div>
+                                    <div>
+                                        <img src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_03-920x1139.jpg" />
+                                    </div>
+                                </Carousel>
                             </div>
                             <div id={`card-content-${productId}`} className="col-6 pt-5" style={{display: 'none'}}>
                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span>

@@ -27,10 +27,12 @@ function ProductCard(props){
     const {productId} = props;
 
     const openModal = (productId) => {
-        console.log("productId", productId);
-
         $(`#product-view-modal-${productId}`).modal("show");
         setIsOpen(true);
+    }
+
+    const handelModalClose = () => {
+        
     }
 
     return (
@@ -56,8 +58,10 @@ function ProductCard(props){
                 </div>
             </div>
 
-            <ProductModalView productId={productId} 
-                isOpen={isOpen}>
+            <ProductModalView 
+                productId={productId} 
+                isOpen={isOpen}
+                HandelModalClose={handelModalClose}>
             </ProductModalView>
         </Fragment>
         

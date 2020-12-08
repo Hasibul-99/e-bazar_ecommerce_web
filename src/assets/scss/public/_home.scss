@@ -1,3 +1,5 @@
+@import "../colors";
+
 .home-landing {
     .top-slider {
         .slider-content {
@@ -288,5 +290,21 @@
   }
   
   
+    }
+}
+
+.item-types {
+    padding: 0 2rem;
+
+    .item-type-container {
+        padding: 2.5em 2em;
+        border-right: 1px solid #eee;
+        text-align: center;
+    }
+
+    .slick-arrow {
+        &:before {
+            color: $brandcolor;
+        }
     }
 }
