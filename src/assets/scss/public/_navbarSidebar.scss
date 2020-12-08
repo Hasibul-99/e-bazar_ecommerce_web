@@ -1,14 +1,14 @@
 .nav-header {
     .logo-abbr {
-        max-width: 10em;
+        max-width: 8em;
     }
 }
 
 .left-sidebar {
     position: fixed;
-    height: 25em;
+    max-height: 30em;
     overflow-y: scroll;
-    margin-top: 7em;
+    margin-top: 8em;
     padding-top: 0;
     border-radius: 10px;
 
@@ -53,14 +53,14 @@
     position: fixed;
     width: 100%;
     z-index: 999;
-    height: 5.5rem;
+    height: 6.8rem;
 }
 
 .custom-nav-header {
     position: fixed;
     z-index: 100000;
     overflow: inherit;
-    height: 5.5rem;
+    height: 6.8rem;
 }
 
 .content-body {

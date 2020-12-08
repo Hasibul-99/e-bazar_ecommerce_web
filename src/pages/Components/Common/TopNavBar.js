@@ -1,13 +1,14 @@
 import React, {Fragment} from 'react';
 import logo from "../../../assets/images/logo.png";
 import user from "../../../assets/images/profile/17.jpg";
+import logo1 from "../../../assets/images/Easyexpress24-final.png";
 
 export default function TopNavBar() {
     return (
         <Fragment>
             <div class="nav-header custom-nav-header">
                 <a href="index.html" class="brand-logo">
-                    <img class="logo-abbr" src={logo} alt=""/>
+                    <img class="logo-abbr" src={logo1} alt=""/>
                 </a>
 
                 <div class="nav-control">
@@ -33,7 +34,7 @@ export default function TopNavBar() {
                             </div>
                             <ul class="navbar-nav header-right">
                                 <li class="nav-item">
-                                    <button type="button" class="btn btn-primary">Login</button>
+                                    <button type="button" class="btn btn-primary btn-brand">Login</button>
                                 </li>
 
                                 <li class="nav-item dropdown header-profile">
