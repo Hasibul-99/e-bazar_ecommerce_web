@@ -42,11 +42,13 @@
                                         color-stop(0.86, #9c9c9c));
     }
 
-    // &:hover {
-    //     &::-webkit-scrollbar {
-    //         display: block
-    //     }
-    // }
+    .menu-list {
+        border-bottom: 1px solid #ccc;
+
+        .menu-list-header {
+            padding-bottom: 0;
+        }
+    }
 } 
 
 .custom-header {
