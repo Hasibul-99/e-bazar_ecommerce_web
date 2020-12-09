@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import PublicLayout from "../layouts/Public";
+import PrivateLayout from "../layouts/Private";
 import AuthLayout from "../layouts/Auth";
 
 // Redux
@@ -29,7 +30,7 @@ class App extends Component {
         return (
             // <Provider store={store}>
                 <Switch>
-                    {/* <Route path="/admin" render={props => <AdminLayout {...props} />} ></Route>*/}
+                    <Route path="/admin" render={props => <PrivateLayout {...props} />} ></Route>
                     <Route path="/auth" render={props => <AuthLayout {...props} />}></Route> 
                     <Route path="/" render={props => <PublicLayout {...props} />}></Route>
                     <Redirect from="/" to="/" /> 
