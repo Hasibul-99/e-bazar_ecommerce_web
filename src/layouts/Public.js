@@ -6,6 +6,7 @@ import TopNavBar from "../pages/Components/Common/TopNavBar";
 import SideBar from "../pages/Components/Common/LeftSidebar";
 import CartBox from "../pages/Components/Common/CartBox";
 import Footer from "../pages/Components/Common/Footer";
+import BundlesPackagesOffer from "../pages/Components/Common/BundlesPackagesOffer";
 
 
 class Public extends Component {
@@ -34,6 +35,7 @@ class Public extends Component {
             <div class="show" id="main-wrapper">
               <TopNavBar></TopNavBar>
               <SideBar/>
+              <BundlesPackagesOffer/>
               <div class="content-body">
                 <div class="container-fluid">
                   <Switch>
