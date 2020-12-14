@@ -5,31 +5,24 @@ export default class Orders extends Component {
         return (
             <div className="order">
                 <div className="row">
-                    <div className="col-4">
+                    <div className="col-6">
                         <h3>Orders</h3>
                     </div>
-                    <div className="col-8">
+                    <div className="col-6">
                         <div className="row">
-                            <div className="col-4">
+                            <div className="col-6">
                                 <div class="form-group">
                                     <input type="text" class="form-control input-default "
                                         placeholder="Quick Search by ID"/>
                                 </div>
                             </div>
-                            <div className="col-4">
+                            <div className="col-6">
                                 <div class="form-group">
                                     <select class="form-control form-control-lg">
                                         <option>Status</option>
                                         <option>Option 2</option>
                                         <option>Option 3</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div className="col-4 text-right">
-                                <div class="form-group">
-                                    <button type="button" class="btn light btn-success">
-                                    <i className="fa fa-plus mr-2"></i>
-                                     Add Order</button>
                                 </div>
                             </div>
                         </div>
