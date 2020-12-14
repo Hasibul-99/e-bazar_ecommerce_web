@@ -32,3 +32,14 @@ h2 {
     border-radius: 5px;
     padding: 10px 20px;
 }
+
+#main-wrapper {
+    position: relative;
+    min-height: 100vh;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

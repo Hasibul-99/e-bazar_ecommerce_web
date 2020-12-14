@@ -1,53 +1,38 @@
-import React, {Fragment} from 'react'
+import React, {Fragment} from 'react';
+import {Link} from "react-router-dom";
 
 export default function Sidebar() {
-    const productCatagory = [
-        {
-            parent: ""
-        },
-        {
-            parent: "Products"
-        }, 
-        {
-            parent: "Users"
-        },
-        {
-            parent: "Customers"
-        }
-    ];
-
     return (
         <div className="deznav left-sidebar">
             <div className="deznav-scroll mm-active ps ps--active-y">
                 <ul className="metismenu mm-show" id="menu">
-                                {/* // className="mm-active" */}
                     <li className="menu-list mm-active">
-                        <a className="ai-icon menu-list-header"
-                        href="javascript:void()" aria-expanded="false">
-                            <i className="flaticon-381-television"></i>
+                        <Link className="ai-icon menu-list-header"
+                            to="/admin/orders" aria-expanded="false">
+                            <i className="fa fa-first-order"></i>
                             <span className="nav-text">Orders</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="menu-list">
-                        <a className="ai-icon menu-list-header" 
-                        href="javascript:void()" aria-expanded="false">
-                            <i className="flaticon-381-television"></i>
+                        <Link className="ai-icon menu-list-header" 
+                            to='/admin/products' aria-expanded="false">
+                            <i className="fa fa-archive"></i>
                             <span className="nav-text">Products</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="menu-list">
-                        <a className="ai-icon menu-list-header" 
-                        href="javascript:void()" aria-expanded="false">
-                            <i className="flaticon-381-television"></i>
+                        <Link className="ai-icon menu-list-header" 
+                            to="/admin/users" aria-expanded="false">
+                            <i className="fa fa-users"></i>
                             <span className="nav-text">Users</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="menu-list">
-                        <a className="ai-icon menu-list-header" 
-                        href="javascript:void()" aria-expanded="false">
+                        <Link className="ai-icon menu-list-header" 
+                            to="#!" aria-expanded="false">
                             <i className="flaticon-381-television"></i>
                             <span className="nav-text">Customers</span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>
