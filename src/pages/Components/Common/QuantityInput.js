@@ -10,8 +10,6 @@ export default function QuantityInput() {
     }
 
     const incriseValue = () => {
-
-        console.log("hello");
         if (value < maxValue) setValue(value + 1);
     }
 

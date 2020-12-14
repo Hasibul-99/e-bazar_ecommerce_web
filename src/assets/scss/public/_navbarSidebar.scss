@@ -68,3 +68,38 @@
 .content-body {
     margin-top: 6rem;
 }
+
+.has-child-arrow {
+    &:after {
+        position: absolute;
+        content: "";
+        border-width: 1px 0 0 1px;
+        border-style: solid;
+        transform: rotate(-45deg) translateY(-50%);
+        transform-origin: top;
+        transition: all .3s ease-out;
+        
+        width: .5rem;
+        height: .5rem;
+        right: 1.875rem;
+        top: 48%;
+        border-color: inherit;
+        transform: rotate(-225deg) translateY(-50%);
+    }
+}
+
+.has-selected {
+    .has-arrow {
+        &:after {
+            transform: rotate(-135deg) translateY(-50%) !important;
+        }
+    }
+}
+
+.has-child-selected {
+    .has-child-arrow {
+        &:after {
+            transform: rotate(-135deg) translateY(-50%) !important;
+        }
+    }
+}
