@@ -130,7 +130,7 @@ function ChildCategory(props) {
         <li className={`${isActive ? 'has-child-selected' : ''}`}>
             <a onClick={selectChildCategory} className={`${sChild?.child?.length ? "has-child-arrow" :""}`} 
                 href="javascript:void()" aria-expanded="false">
-                -{sChild.parent}</a>
+                {sChild.parent}</a>
                 {
                     sChild?.child?.length ? 
                     <ul className={`ml-3 ${!isActive ? 'mm-collapse': ''}`} aria-expanded="false">
@@ -138,7 +138,7 @@ function ChildCategory(props) {
                             sChild?.child?.length ? sChild.child.map((tChild, k) => {
                                 return (
                                     <Fragment>
-                                        <li><a>--{tChild}</a></li>
+                                        <li><a>{tChild}</a></li>
                                     </Fragment>
                                 )
                             }) : "" 

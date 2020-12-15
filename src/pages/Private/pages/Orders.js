@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
-
+import React, { Component, Fragment } from 'react';
+import AlertModal from "../../Components/Common/AlertModal"; 
+import $ from "jquery";
 export default class Orders extends Component {
     render() {
         return (
-            <div className="order">
+            <Fragment>
+<div className="order">
                 <div className="row">
                     <div className="col-6">
                         <h3>Orders</h3>
@@ -63,8 +65,10 @@ export default class Orders extends Component {
 															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
 														</button>
 														<div class="dropdown-menu">
-															<a class="dropdown-item" href="#">Edit</a>
-															<a class="dropdown-item" href="#">Delete</a>
+															<a class="dropdown-item">View</a>
+															<a class="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Successful</a>
+															<a class="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Canceled</a>
+															<a class="dropdown-item">Pending</a>
 														</div>
 													</div>
 												</td>
@@ -82,8 +86,10 @@ export default class Orders extends Component {
 															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
 														</button>
 														<div class="dropdown-menu">
-															<a class="dropdown-item" href="#">Edit</a>
-															<a class="dropdown-item" href="#">Delete</a>
+															<a class="dropdown-item">View</a>
+															<a class="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Successful</a>
+															<a class="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Canceled</a>
+															<a class="dropdown-item">Pending</a>
 														</div>
 													</div>
 												</td>
@@ -103,8 +109,10 @@ export default class Orders extends Component {
                                                             </svg>
 														</button>
 														<div class="dropdown-menu">
-															<a class="dropdown-item" href="#">Edit</a>
-															<a class="dropdown-item" href="#">Delete</a>
+															<a class="dropdown-item">View</a>
+															<a class="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Successful</a>
+															<a class="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Canceled</a>
+															<a class="dropdown-item">Pending</a>
 														</div>
 													</div>
 												</td>
@@ -117,6 +125,20 @@ export default class Orders extends Component {
                     </div>
                 </div>
             </div>
+            <AlertModal
+            heading={"Success!"}
+            type={"success"}
+            message={"Password Change successfully"}
+            modalId={"successModal"}
+            />
+
+            <AlertModal
+            heading={"Alert!"}
+            type={"danger"}
+            message={"Are you Sure"}
+            modalId={"errorModal"}
+            />
+            </Fragment>
         )
     }
 }
