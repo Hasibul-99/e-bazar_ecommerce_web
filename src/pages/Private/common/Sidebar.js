@@ -29,9 +29,9 @@ export default function Sidebar() {
                     </li>
                     <li className="menu-list">
                         <Link className="ai-icon menu-list-header" 
-                            to="#!" aria-expanded="false">
+                            to="/admin/category" aria-expanded="false">
                             <i className="flaticon-381-television"></i>
-                            <span className="nav-text">Customers</span>
+                            <span className="nav-text">Category</span>
                         </Link>
                     </li>
                 </ul>
