@@ -54,6 +54,116 @@ export default function MarchentSignup() {
                                         placeholder="Enter Email"/>
                                 </div>
 
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-sm-3 pt-0">Gender</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" value="option1" checked/>
+                                                <label class="form-check-label">
+                                                    Male
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" value="option2"/>
+                                                <label class="form-check-label">
+                                                    Female
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Mobile Number</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Date of Birth</label>
+                                    <input type="date" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Business Catelog</label>
+                                    <select class="form-control form-control-lg">
+                                        <option>Option 1</option>
+                                        <option>Option 2</option>
+                                        <option>Option 3</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">You're Role</label>
+                                    <select class="form-control form-control-lg">
+                                        <option>Owner</option>
+                                        <option>Manager</option>
+                                        <option>Employer</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Address</label>
+                                    <textarea class="form-control form-control-lg"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Name of A/C Holder</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Bank A/C</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                </div>
+
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Name of Branch</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                </div>
+
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">District</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                </div>
+
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">City</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                </div>
+
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Name of Shop</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Shop Address</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Product Discretion</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                </div>
+
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Facebook Page Link</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                </div>
+
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">NID Number</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
                                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
