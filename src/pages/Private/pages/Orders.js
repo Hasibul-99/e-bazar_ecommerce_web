@@ -5,7 +5,7 @@ export default class Orders extends Component {
     render() {
         return (
             <Fragment>
-<div className="order">
+                <div className="order">
                 <div className="row">
                     <div className="col-6">
                         <h3>Orders</h3>
@@ -13,14 +13,14 @@ export default class Orders extends Component {
                     <div className="col-6">
                         <div className="row">
                             <div className="col-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-default "
+                                <div className="form-group">
+                                    <input type="text" className="form-control input-default "
                                         placeholder="Quick Search by ID"/>
                                 </div>
                             </div>
                             <div className="col-6">
-                                <div class="form-group">
-                                    <select class="form-control form-control-lg">
+                                <div className="form-group">
+                                    <select className="form-control form-control-lg">
                                         <option>Status</option>
                                         <option>Option 2</option>
                                         <option>Option 3</option>
@@ -31,15 +31,15 @@ export default class Orders extends Component {
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            {/* <div class="card-header">
-                                <h4 class="card-title">Recent Payments Queue</h4>
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="card">
+                            {/* <div className="card-header">
+                                <h4 className="card-title">Recent Payments Queue</h4>
                             </div> */}
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-responsive-md">
+                            <div className="card-body">
+                                <div className="table-responsive">
+                                    <table className="table table-responsive-md">
                                         <thead>
                                             <tr>
                                                 <th><strong>Order</strong></th>
@@ -57,18 +57,18 @@ export default class Orders extends Component {
                                                 <td>Mr. Bobby</td>
                                                 <td>3 Items</td>
                                                 <td>01 August 2020</td>
-                                                <td><span class="badge light badge-success">Successful</span></td>
+                                                <td><span className="badge light badge-success">Successful</span></td>
                                                 <td>$21.56</td>
                                                 <td>
-													<div class="dropdown">
-														<button type="button" class="btn btn-success light sharp" data-toggle="dropdown">
+													<div className="dropdown">
+														<button type="button" className="btn btn-success light sharp" data-toggle="dropdown">
 															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
 														</button>
-														<div class="dropdown-menu">
-															<a class="dropdown-item">View</a>
-															<a class="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Successful</a>
-															<a class="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Canceled</a>
-															<a class="dropdown-item">Pending</a>
+														<div className="dropdown-menu">
+															<a className="dropdown-item">View</a>
+															<a className="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Successful</a>
+															<a className="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Canceled</a>
+															<a className="dropdown-item">Pending</a>
 														</div>
 													</div>
 												</td>
@@ -78,18 +78,18 @@ export default class Orders extends Component {
                                                 <td>Mr. Bobby</td>
                                                 <td>3 Items</td>
                                                 <td>01 August 2020</td>
-                                                <td><span class="badge light badge-danger">Canceled</span></td>
+                                                <td><span className="badge light badge-danger">Canceled</span></td>
                                                 <td>$21.56</td>
                                                 <td>
-													<div class="dropdown">
-														<button type="button" class="btn btn-danger light sharp" data-toggle="dropdown">
+													<div className="dropdown">
+														<button type="button" className="btn btn-danger light sharp" data-toggle="dropdown">
 															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
 														</button>
-														<div class="dropdown-menu">
-															<a class="dropdown-item">View</a>
-															<a class="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Successful</a>
-															<a class="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Canceled</a>
-															<a class="dropdown-item">Pending</a>
+														<div className="dropdown-menu">
+															<a className="dropdown-item">View</a>
+															<a className="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Successful</a>
+															<a className="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Canceled</a>
+															<a className="dropdown-item">Pending</a>
 														</div>
 													</div>
 												</td>
@@ -99,20 +99,20 @@ export default class Orders extends Component {
                                                 <td>Mr. Bobby</td>
                                                 <td>3 Items</td>
                                                 <td>01 August 2020</td>
-                                                <td><span class="badge light badge-warning">Pending</span></td>
+                                                <td><span className="badge light badge-warning">Pending</span></td>
                                                 <td>$21.56</td>
                                                 <td>
-													<div class="dropdown">
-														<button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
+													<div className="dropdown">
+														<button type="button" className="btn btn-warning light sharp" data-toggle="dropdown">
 															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
                                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g>
                                                             </svg>
 														</button>
-														<div class="dropdown-menu">
-															<a class="dropdown-item">View</a>
-															<a class="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Successful</a>
-															<a class="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Canceled</a>
-															<a class="dropdown-item">Pending</a>
+														<div className="dropdown-menu">
+															<a className="dropdown-item">View</a>
+															<a className="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Successful</a>
+															<a className="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Canceled</a>
+															<a className="dropdown-item">Pending</a>
 														</div>
 													</div>
 												</td>

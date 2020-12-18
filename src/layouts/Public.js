@@ -32,12 +32,12 @@ class Public extends Component {
 
     render() {
         return (
-            <div class="show" id="main-wrapper">
+            <div className="show" id="main-wrapper">
               <TopNavBar></TopNavBar>
               <SideBar/>
               <BundlesPackagesOffer/>
-              <div class="content-body">
-                <div class="container-fluid">
+              <div className="content-body">
+                <div className="container-fluid">
                   <Switch>
                     {this.getRoutes(routes)}
                   </Switch>

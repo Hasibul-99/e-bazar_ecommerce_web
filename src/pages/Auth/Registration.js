@@ -21,19 +21,19 @@ export default function Registration() {
         <Fragment>
             <div className="sign-part">
                 <div className="sign-content">
-                    <div class="back-arrow">
-                        <Link to="/"><i class="fas fa-arrow-left"></i></Link>
+                    <div className="back-arrow">
+                        <Link to="/"><i className="fas fa-arrow-left"></i></Link>
                     </div>
-                    <div class="content-cover">
+                    <div className="content-cover">
                         <Link to="/"><img src={logo} alt="logo"/></Link>
                         <h1>Biggest online vegan food ecommerce store in worldwide.</h1>
                     </div>
                 </div>
                 <div className="sign-form">
                     <div className="sign-card">
-                        <ul class="nav nav-tabs">
-                            <li onClick={() => setIsShowSignIn(true)}><span class={`nav-link ${isShowSignIn ? ' active': ''}`} data-toggle="tab">sign in</span></li>
-                            <li onClick={() => setIsShowSignIn(false)}><span class={`nav-link ${isShowSignIn ? '': ' active'}`} data-toggle="tab">sign up</span></li>
+                        <ul className="nav nav-tabs">
+                            <li onClick={() => setIsShowSignIn(true)}><span className={`nav-link ${isShowSignIn ? ' active': ''}`} data-toggle="tab">sign in</span></li>
+                            <li onClick={() => setIsShowSignIn(false)}><span className={`nav-link ${isShowSignIn ? '': ' active'}`} data-toggle="tab">sign up</span></li>
                         </ul>
                     </div>
 

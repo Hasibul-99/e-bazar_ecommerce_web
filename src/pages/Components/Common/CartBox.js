@@ -14,20 +14,20 @@ export default function CartBox() {
                 </span>
             </button>
 
-            <div class="modal fade bd-example-modal-lg card-item-view-modal" id="cart-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Card Items List</h5>
-                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+            <div className="modal fade bd-example-modal-lg card-item-view-modal" id="cart-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                <div className="modal-dialog modal-lg">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Card Items List</h5>
+                            <button type="button" className="close" data-dismiss="modal"><span>&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body px-4">
-                            <div class="list-group">
+                        <div className="modal-body px-4">
+                            <div className="list-group">
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="product-tumb">
-                                            <img src="https://i.imgur.com/xdbHo4E.png" width="85" height="85" class="card-img-top" alt="..."  />
+                                            <img src="https://i.imgur.com/xdbHo4E.png" width="85" height="85" className="card-img-top" alt="..."  />
                                         </div>
                                         <div className="product-detais mt-3">
                                             <span className="product-catagory">Women Bag</span>
@@ -46,11 +46,11 @@ export default function CartBox() {
                                 </div>
                             </div>
 
-                            <div class="list-group">
+                            <div className="list-group">
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="product-tumb">
-                                            <img src="https://i.imgur.com/xdbHo4E.png" width="85" height="85" class="card-img-top" alt="..."  />
+                                            <img src="https://i.imgur.com/xdbHo4E.png" width="85" height="85" className="card-img-top" alt="..."  />
                                         </div>
                                         <div className="product-detais mt-3">
                                             <span className="product-catagory">Women Bag</span>
@@ -69,11 +69,11 @@ export default function CartBox() {
                                 </div>
                             </div>
 
-                            <div class="list-group">
+                            <div className="list-group">
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="product-tumb">
-                                            <img src="https://i.imgur.com/xdbHo4E.png" width="85" height="85" class="card-img-top" alt="..."  />
+                                            <img src="https://i.imgur.com/xdbHo4E.png" width="85" height="85" className="card-img-top" alt="..."  />
                                         </div>
                                         <div className="product-detais mt-3">
                                             <span className="product-catagory">Women Bag</span>
@@ -92,9 +92,9 @@ export default function CartBox() {
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-danger light" data-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>

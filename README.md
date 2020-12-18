@@ -83,3 +83,8 @@ https://shopkeeper.wp-theme.design/home/home-classic-1/
 
 
 https://dashlite.themenio.com/demo2/ecommerce/products.html
+
+
+
+### Pages
+user registration 

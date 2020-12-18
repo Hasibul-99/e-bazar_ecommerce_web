@@ -15,14 +15,14 @@ export default class Users extends Component {
                     <div className="col-6">
                         <div className="row">
                             <div className="col-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control input-default "
+                                <div className="form-group">
+                                    <input type="text" className="form-control input-default "
                                         placeholder="Quick Search by ID"/>
                                 </div>
                             </div>
                             <div className="col-6">
-                                <div class="form-group">
-                                    <select class="form-control form-control-lg">
+                                <div className="form-group">
+                                    <select className="form-control form-control-lg">
                                         <option>Status</option>
                                         <option>Option 2</option>
                                         <option>Option 3</option>
@@ -33,12 +33,12 @@ export default class Users extends Component {
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-responsive-md">
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="card">
+                            <div className="card-body">
+                                <div className="table-responsive">
+                                    <table className="table table-responsive-md">
                                         <thead>
                                             <tr>
                                                 <th><strong>NAME</strong></th>
@@ -51,96 +51,96 @@ export default class Users extends Component {
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src={user} class="rounded-lg mr-2" width="24" alt=""/> 
-                                                        <span class="w-space-no">Dr. Jackson</span>
+                                                    <div className="d-flex align-items-center">
+                                                        <img src={user} className="rounded-lg mr-2" width="24" alt=""/> 
+                                                        <span className="w-space-no">Dr. Jackson</span>
                                                     </div>
                                                     <p>example@example.com</p>
                                                 </td>
                                                 <td>7897978987</td>
                                                 <td>01 August 2020</td>
                                                 <td>8000TK</td>
-                                                <td><div class="d-flex align-items-center">
-                                                    <i class="fa fa-circle text-success mr-1"></i> 
+                                                <td><div className="d-flex align-items-center">
+                                                    <i className="fa fa-circle text-success mr-1"></i> 
                                                     Active</div>
                                                 </td>
                                                 <td>
-													<div class="dropdown">
-														<button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
+													<div className="dropdown">
+														<button type="button" className="btn btn-warning light sharp" data-toggle="dropdown">
 															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
                                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g>
                                                             </svg>
 														</button>
-														<div class="dropdown-menu">
-                                                        <a class="dropdown-item">View</a>
-															<a class="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Active</a>
-															<a class="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Pending</a>
-															<a class="dropdown-item">Suspend</a>
-															<a class="dropdown-item">Inactive</a>
+														<div className="dropdown-menu">
+                                                        <a className="dropdown-item">View</a>
+															<a className="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Active</a>
+															<a className="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Pending</a>
+															<a className="dropdown-item">Suspend</a>
+															<a className="dropdown-item">Inactive</a>
 														</div>
 													</div>
 												</td>
                                             </tr>
 											<tr>
                                                 <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src={user} class="rounded-lg mr-2" width="24" alt=""/> 
-                                                        <span class="w-space-no">Dr. Jackson</span>
+                                                    <div className="d-flex align-items-center">
+                                                        <img src={user} className="rounded-lg mr-2" width="24" alt=""/> 
+                                                        <span className="w-space-no">Dr. Jackson</span>
                                                     </div>
                                                     <p>example@example.com</p>
                                                 </td>
                                                 <td>7897978987</td>
                                                 <td>01 August 2020</td>
                                                 <td>8000TK</td>
-                                                <td><div class="d-flex align-items-center">
-                                                    <i class="fa fa-circle text-success mr-1"></i> 
+                                                <td><div className="d-flex align-items-center">
+                                                    <i className="fa fa-circle text-success mr-1"></i> 
                                                     Active</div>
                                                 </td>
                                                 <td>
-													<div class="dropdown">
-														<button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
+													<div className="dropdown">
+														<button type="button" className="btn btn-warning light sharp" data-toggle="dropdown">
 															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
                                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g>
                                                             </svg>
 														</button>
-														<div class="dropdown-menu">
-															<a class="dropdown-item">View</a>
-															<a class="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Active</a>
-															<a class="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Pending</a>
-															<a class="dropdown-item">Suspend</a>
-															<a class="dropdown-item">Inactive</a>
+														<div className="dropdown-menu">
+															<a className="dropdown-item">View</a>
+															<a className="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Active</a>
+															<a className="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Pending</a>
+															<a className="dropdown-item">Suspend</a>
+															<a className="dropdown-item">Inactive</a>
 														</div>
 													</div>
 												</td>
                                             </tr>
 											<tr>
                                                 <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <img src={user} class="rounded-lg mr-2" width="24" alt=""/> 
-                                                        <span class="w-space-no">Dr. Jackson</span>
+                                                    <div className="d-flex align-items-center">
+                                                        <img src={user} className="rounded-lg mr-2" width="24" alt=""/> 
+                                                        <span className="w-space-no">Dr. Jackson</span>
                                                     </div>
                                                     <p>example@example.com</p>
                                                 </td>
                                                 <td>7897978987</td>
                                                 <td>01 August 2020</td>
                                                 <td>8000TK</td>
-                                                <td><div class="d-flex align-items-center">
-                                                    <i class="fa fa-circle text-success mr-1"></i> 
+                                                <td><div className="d-flex align-items-center">
+                                                    <i className="fa fa-circle text-success mr-1"></i> 
                                                     Active</div>
                                                 </td>
                                                 <td>
-													<div class="dropdown">
-														<button type="button" class="btn btn-warning light sharp" data-toggle="dropdown">
+													<div className="dropdown">
+														<button type="button" className="btn btn-warning light sharp" data-toggle="dropdown">
 															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
                                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g>
                                                             </svg>
 														</button>
-														<div class="dropdown-menu">
-                                                        <a class="dropdown-item">View</a>
-															<a class="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Active</a>
-															<a class="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Pending</a>
-															<a class="dropdown-item">Suspend</a>
-															<a class="dropdown-item">Inactive</a>
+														<div className="dropdown-menu">
+                                                        <a className="dropdown-item">View</a>
+															<a className="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Active</a>
+															<a className="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Pending</a>
+															<a className="dropdown-item">Suspend</a>
+															<a className="dropdown-item">Inactive</a>
 														</div>
 													</div>
 												</td>

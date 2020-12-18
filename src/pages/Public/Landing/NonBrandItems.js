@@ -18,17 +18,17 @@ function Items() {
     return (
         <div className="xs-organic-product-thumb woocommerce">
             <div id="full-stars-example">
-                <div class="rating-group">
-                    <label aria-label="1 star" class="rating__label" for="rating-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                    <input class="rating__input" name="rating" id="rating-1" value="1" type="radio"/>
-                    <label aria-label="2 stars" class="rating__label" for="rating-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                    <input class="rating__input" name="rating" id="rating-2" value="2" type="radio"/>
-                    <label aria-label="3 stars" class="rating__label" for="rating-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                    <input class="rating__input" name="rating" id="rating-3" value="3" type="radio" checked/>
-                    <label aria-label="4 stars" class="rating__label" for="rating-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                    <input class="rating__input" name="rating" id="rating-4" value="4" type="radio"/>
-                    <label aria-label="5 stars" class="rating__label" for="rating-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                    <input class="rating__input" name="rating" id="rating-5" value="5" type="radio"/>
+                <div className="rating-group">
+                    <label aria-label="1 star" className="rating__label" for="rating-1"><i className="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input className="rating__input" name="rating" id="rating-1" value="1" type="radio"/>
+                    <label aria-label="2 stars" className="rating__label" for="rating-2"><i className="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input className="rating__input" name="rating" id="rating-2" value="2" type="radio"/>
+                    <label aria-label="3 stars" className="rating__label" for="rating-3"><i className="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input className="rating__input" name="rating" id="rating-3" value="3" type="radio" checked/>
+                    <label aria-label="4 stars" className="rating__label" for="rating-4"><i className="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input className="rating__input" name="rating" id="rating-4" value="4" type="radio"/>
+                    <label aria-label="5 stars" className="rating__label" for="rating-5"><i className="rating__icon rating__icon--star fa fa-star"></i></label>
+                    <input className="rating__input" name="rating" id="rating-5" value="5" type="radio"/>
                 </div>
             </div>
 
@@ -42,17 +42,17 @@ function Items() {
                 </a>
             </div>
 
-            <h4 class="product-title medium">
+            <h4 className="product-title medium">
                 <a href="">OLT Strawberry</a>
             </h4>
 
-            <div class="content-box"> <span class="price">
-                <span class="woocommerce-Price-amount amount">
-                    <span class="woocommerce-Price-currencySymbol">$</span>22.00</span>
+            <div className="content-box"> <span className="price">
+                <span className="woocommerce-Price-amount amount">
+                    <span className="woocommerce-Price-currencySymbol">$</span>22.00</span>
                 </span>
             </div>
 
-            <div class="hover-box xs-addcart woocommerce"> 
+            <div className="hover-box xs-addcart woocommerce"> 
                 <button className="btn btn-success">Add to cart</button>
             </div>
         </div>

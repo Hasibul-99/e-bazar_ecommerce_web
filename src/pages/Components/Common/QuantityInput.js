@@ -14,12 +14,12 @@ export default function QuantityInput() {
     }
 
     return (
-        <div class="qty-input">
-            <button class="qty-count qty-count--minus" data-action="minus" type="button" onClick={decriesValue}
+        <div className="qty-input">
+            <button className="qty-count qty-count--minus" data-action="minus" type="button" onClick={decriesValue}
                 disabled={minValue >= value ? 1 : 0 }>-</button>
-            <input class="product-qty" type="number" name="product-qty" 
+            <input className="product-qty" type="number" name="product-qty" 
                 min={minValue} max={maxValue} value={value}/>
-            <button class="qty-count qty-count--add" data-action="add" onClick={incriseValue} type="button"
+            <button className="qty-count qty-count--add" data-action="add" onClick={incriseValue} type="button"
                 disabled={maxValue <= value ? 1 : 0 }>+</button>
         </div>
     )

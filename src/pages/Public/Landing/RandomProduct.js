@@ -37,22 +37,22 @@ function ProductCard(props){
 
     return (
         <Fragment>
-            <div class="product-card">
-                <div class="badge">Hot</div>
-                <div class="product-tumb">
+            <div className="product-card">
+                <div className="badge">Hot</div>
+                <div className="product-tumb">
                     <img src="https://i.imgur.com/xdbHo4E.png" alt=""/>
                 </div>
-                <div class="product-details">
-                    <span class="product-catagory">Women,bag</span>
+                <div className="product-details">
+                    <span className="product-catagory">Women,bag</span>
                     <h5><a href="">Women leather bag</a></h5>
                     {/* <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, possimus nostrum!</p> */}
-                    <div class="product-bottom-details">
-                        <div class="product-price"><small>$96.00</small>$230.99</div>
-                        <div class="product-links">
+                    <div className="product-bottom-details">
+                        <div className="product-price"><small>$96.00</small>$230.99</div>
+                        <div className="product-links">
                         {/* data-toggle="modal"  data-target={`#product-view-modal-${productId}`} */}
-                            <span className="cursor-pointer" onClick={()=> openModal(productId)}><i class="fa fa-eye"></i>
+                            <span className="cursor-pointer" onClick={()=> openModal(productId)}><i className="fa fa-eye"></i>
                             </span>
-                            <a href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a href=""><i className="fa fa-shopping-cart"></i></a>
                         </div>
                     </div>
                 </div>
