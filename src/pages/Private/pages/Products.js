@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {Link} from "react-router-dom";
 
 export default class Products extends Component {
     render() {
@@ -27,10 +28,10 @@ export default class Products extends Component {
                             </div>
                             <div className="col-4 text-right">
                                 <div className="form-group">
-                                    <button type="button" className="btn light btn-success">
+                                    <Link to="/admin/add-products" className="btn light btn-success">
                                         <i className="fa fa-plus mr-2"></i>
                                         Add Product
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

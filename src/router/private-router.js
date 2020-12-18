@@ -3,6 +3,8 @@ import Products from "../pages/Private/pages/Products";
 import Users from "../pages/Private/pages/Users";
 import ProductAdd from "../pages/Private/pages/ProductAdd";
 import Category from "../pages/Private/pages/Category";
+import Brand from "../pages/Private/pages/Brand";
+import SubCategory from "../pages/Private/pages/SubCategory";
 
 const PrivateRoutes = [
     {
@@ -37,6 +39,20 @@ const PrivateRoutes = [
         path: "/category",
         name: "Category",
         component: Category,
+        layout: "/admin",
+        exact: true
+    },
+    {
+        path: "/brand/:categoryId",
+        name: "Brand",
+        component: Brand,
+        layout: "/admin",
+        exact: true
+    },
+    {
+        path: "/sub-category/:categoryId/:brand",
+        name: "Sub Category",
+        component: SubCategory,
         layout: "/admin",
         exact: true
     }
