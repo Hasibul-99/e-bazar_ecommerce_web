@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import logo from "../../../assets/images/logo.png";
 import user from "../../../assets/images/profile/17.jpg";
 import logo1 from "../../../assets/images/Easyexpress24-final.png";
+import {Link} from "react-router-dom";
 
 export default function TopNavBar() {
     return (
@@ -34,7 +35,7 @@ export default function TopNavBar() {
                             </div>
                             <ul className="navbar-nav header-right">
                                 <li className="nav-item">
-                                    <button type="button" className="btn btn-primary btn-brand">Login</button>
+                                    <Link to="/auth/registration" className="btn btn-primary btn-brand">Login</Link>
                                 </li>
 
                                 <li className="nav-item dropdown header-profile">
