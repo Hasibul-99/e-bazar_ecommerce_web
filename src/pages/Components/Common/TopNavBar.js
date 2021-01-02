@@ -5,15 +5,32 @@ import logo1 from "../../../assets/images/Easyexpress24-final.png";
 import {Link} from "react-router-dom";
 
 export default function TopNavBar() {
+    const hideShowLeftMenu = () => {
+        let sidebar = document.getElementById("js-public-left-sidebar");
+
+        if (sidebar.classList.contains('d-none')) {
+            sidebar.classList.remove("d-none");
+        } else {
+            sidebar.classList.add("d-none");
+        }
+
+        let bundles = document.getElementById("js-left-bundles");
+
+        if (bundles.classList.contains('d-none')) {
+            bundles.classList.remove("d-none");
+        } else {
+            bundles.classList.add("d-none");
+        }
+    };
+
     return (
         <Fragment>
             <div className="nav-header custom-nav-header">
-                <a href="index.html" className="brand-logo">
+                <a href="/" className="brand-logo">
                     <img className="logo-abbr" src={logo1} alt=""/>
                 </a>
-
                 <div className="nav-control">
-                    <div className="hamburger">
+                    <div className="hamburger" onClick={hideShowLeftMenu}>
                         <span className="line"></span><span className="line"></span><span className="line"></span>
                     </div>
                 </div>

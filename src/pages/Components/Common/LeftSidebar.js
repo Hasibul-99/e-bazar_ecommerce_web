@@ -76,7 +76,7 @@ export default function LeftSidebar() {
     ];
 
     return (
-        <div className="deznav left-sidebar">
+        <div className="deznav left-sidebar" id="js-public-left-sidebar">
             <div className="deznav-scroll mm-active ps ps--active-y">
 				<ul className="metismenu mm-show" id="menu">
                     {

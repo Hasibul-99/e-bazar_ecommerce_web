@@ -116,3 +116,37 @@
     text-align: center;
     padding: 2rem;
 }
+
+@media only screen and (max-width: 767px){
+    .custom-nav-header {
+        width: 16rem;
+    }
+
+    .custom-header {
+        padding-left: 0;
+    }
+
+    .nav-control {
+        right: auto;
+        left: 5px;
+
+        .hamburger {
+            .line {
+                background: #4b9f7f;
+            }
+        }
+    }
+
+    .left-sidebar {
+        margin-top: 3em;
+        z-index: 1000;
+
+        .menu-list {
+            padding: 1em 0;
+        } 
+    }
+
+    .content-body {
+        margin-left: 0px;
+    }
+}
