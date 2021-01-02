@@ -12,7 +12,7 @@ export default function RandomProduct() {
                     <div className="row">
                         {
                             [1,2,3,4,5,6,7,8,9, 10, 11, 12, 13].map(e => {
-                                return <div className="col-md-3 col-sm-1 col-6"><ProductCard productId={e}></ProductCard></div>
+                                return <div className="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3"><ProductCard productId={e}></ProductCard></div>
                             })
                         }
                     </div>

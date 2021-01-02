@@ -13,7 +13,7 @@ export default function ProductModalView(props) {
         if (isOpen) {
             setTimeout(() => {
                 $(`#js-modal-dialog-${productId}`).addClass('modal-lg');
-                $(`#js-image-content-${productId}`).addClass('col-6');
+                $(`#js-image-content-${productId}`).addClass('col-sm-12 col-md-6');
                 $(`#card-content-${productId}`).show();
             }, 1000)
         };
@@ -25,6 +25,8 @@ export default function ProductModalView(props) {
             <div id={`js-modal-dialog-${productId}`} className="modal-dialog"> {/* modal-lg*/}
                 <div className="modal-content">
                     <div className="modal-body">
+                        <button type="button" className="close" data-dismiss="modal"><span>&times;</span>
+                            </button>
                         <div className="row">
                             <div id={`js-image-content-${productId}`} className="">
                                 <Carousel>
@@ -39,9 +41,7 @@ export default function ProductModalView(props) {
                                     </div>
                                 </Carousel>
                             </div>
-                            <div id={`card-content-${productId}`} className="col-6 pt-5" style={{display: 'none'}}>
-                                <button type="button" className="close" data-dismiss="modal"><span>&times;</span>
-                                    </button>
+                            <div id={`card-content-${productId}`} className="col-sm-12 col-md-6 pt-5" style={{display: 'none'}}>
 
                                 <h2>Folk Striped Slub Cotton-Jersey T-Shirt</h2>
                                 <h5 className="gold-text my-4">$75</h5>
