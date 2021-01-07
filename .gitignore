@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/vscode,react
-# Edit at https://www.toptal.com/developers/gitignore?templates=vscode,react
+# Created by https://www.toptal.com/developers/gitignore/api/react,visualstudiocode,vscode
+# Edit at https://www.toptal.com/developers/gitignore?templates=react,visualstudiocode,vscode
 
 ### react ###
 .DS_*
@@ -18,12 +18,19 @@ psd
 thumb
 sketch
 
-### vscode ###
+### VisualStudioCode ###
 .vscode/*
-!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
-!.vscode/extensions.json
 *.code-workspace
 
-# End of https://www.toptal.com/developers/gitignore/api/vscode,react
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+### vscode ###
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# End of https://www.toptal.com/developers/gitignore/api/react,visualstudiocode,vscode
