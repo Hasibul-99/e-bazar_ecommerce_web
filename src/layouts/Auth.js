@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import Cookies from "js-cookie";
+
 import routes from "../router/auth-route";
 
 
@@ -7,6 +9,12 @@ class Auth extends Component {
     constructor(props) {
         super(props);
         this.state = {}
+    }
+
+    componentWillMount() {
+      if (Cookies.get("expressToken")) {
+        window.location = "/";
+      }
     }
 
     getRoutes = routes => {

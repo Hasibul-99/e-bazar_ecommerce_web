@@ -9,7 +9,6 @@ export default function Registration() {
     const [isShowSignIn, setIsShowSignIn] = useState(true);
 
     const changePage = (type) => {
-        console.log(type);
         if (type === "signup") {
             setIsShowSignIn(false);
         } else if (type === 'signin') {

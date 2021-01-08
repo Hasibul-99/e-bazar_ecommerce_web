@@ -1,18 +1,10 @@
 import axios from "axios";
-// import CryptoJS from "crypto-js";
 import Cookies from "js-cookie";
 
-import { checkRes } from "./error";
-import { ME } from "./api";
-
 const base_url = process.env.REACT_APP_BASE;
-// const error_status = "error";
-// const msg_undefined = "Something went wrong";
-const token = Cookies.get("token") || "";
+const token = Cookies.get("expressToken") || "";
 
-//   CryptoJS.AES.decrypt(Cookies.get("token"), secret.RANDOM_STR).toString(
-//     CryptoJS.enc.Utf8
-//   )
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 /* query ---> api url to query with
    no_token ---> acts as a flag for no need to use token */
@@ -69,32 +61,33 @@ export const postData = async (query, data, no_token) => {
     //     toast.error(msg_undefined);
     // }
   } catch (error) {
+    console.log("error", error);
     // checkRes(error.response.status);
-    error.response && error.response.data && error.response.data.messages
-      ? error.response.data.messages.map((err) => {
-          // alertPop(error_status, err);
-          console.log("err", err);
-        })
-      : console.log("error", error); //errorHandle(error);
+    // error.response && error.response.data && error.response.data.messages
+    //   ? error.response.data.messages.map((err) => {
+    //       // alertPop(error_status, err);
+    //       console.log("err", err);
+    //     })
+    //   : console.log("error", error); //errorHandle(error);
     return false;
   }
 };
 
-const setUserProfile = async () => {
-  try {
-    let res = await axios({
-      method: "post",
-      url: `${base_url}${ME}`,
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-      data: {},
-    });
+// const setUserProfile = async () => {
+//   try {
+//     let res = await axios({
+//       method: "post",
+//       url: `${base_url}${ME}`,
+//       headers: {
+//         Authorization: `bearer ${token}`,
+//       },
+//       data: {},
+//     });
 
-    if (res?.data?.status_code && checkRes(res.data.status_code)) {
-      window.localStorage.setItem("profile", JSON.stringify(res.data));
-    }
-  } catch (error) {
-    console.log("error", error);
-  }
-};
+//     if (res?.data?.status_code && checkRes(res.data.status_code)) {
+//       window.localStorage.setItem("profile", JSON.stringify(res.data));
+//     }
+//   } catch (error) {
+//     console.log("error", error);
+//   }
+// };

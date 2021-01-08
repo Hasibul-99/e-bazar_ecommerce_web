@@ -10,9 +10,11 @@ import PublicLayout from "../layouts/Public";
 import PrivateLayout from "../layouts/Private";
 import AuthLayout from "../layouts/Auth";
 
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Redux
 import {Provider} from 'react-redux';
-
 
 class App extends Component {
     constructor(props) {
@@ -28,14 +30,17 @@ class App extends Component {
 
     render() {
         return (
-            // <Provider store={store}>
+            <>
+            {/* // <Provider store={store}> */}
                 <Switch>
                     <Route path="/admin" render={props => <PrivateLayout {...props} />} ></Route>
                     <Route path="/auth" render={props => <AuthLayout {...props} />}></Route> 
                     <Route path="/" render={props => <PublicLayout {...props} />}></Route>
                     <Redirect from="/" to="/" /> 
                 </Switch>
-            // </Provider>
+                <ToastContainer position="top-right"/>
+            {/* // </Provider> */}
+            </>
         )
     }
 }
