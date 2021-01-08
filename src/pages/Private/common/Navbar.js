@@ -1,9 +1,17 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
+import Cookies from "js-cookie";
 
 import user from "../../../assets/images/profile/17.jpg";
 import logo1 from "../../../assets/images/Easyexpress24-final.png";
 
 export default function Navbar() {
+    const [token, isSetToken] = useState();
+
+    useEffect(() => {
+        let token = Cookies.get("expressToken");
+        isSetToken(token);
+    }, []);
+
     return (
         <Fragment>
             <div className="nav-header custom-nav-header">
@@ -24,19 +32,15 @@ export default function Navbar() {
                         <div className="collapse navbar-collapse justify-content-between">
                             <div className="header-left">
                                 <div className="dashboard_bar">
-                                    <div className="input-group search-area d-lg-inline-flex d-none">
+                                    {/* <div className="input-group search-area d-lg-inline-flex d-none">
                                         <div className="input-group-append">
                                             <span className="input-group-text"><i className="flaticon-381-search-2"></i></span>
                                         </div>
                                         <input type="text" className="form-control" placeholder="Search here..."/>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             <ul className="navbar-nav header-right">
-                                <li className="nav-item">
-                                    <button type="button" className="btn btn-primary btn-brand">Login</button>
-                                </li>
-
                                 <li className="nav-item dropdown header-profile">
                                     <a className="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
                                         <div className="header-info">
