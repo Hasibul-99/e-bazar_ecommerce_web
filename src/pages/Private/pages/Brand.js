@@ -2,29 +2,37 @@ import React, {Fragment, useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import { toast } from 'react-toastify';
 import $ from "jquery";
+import { useParams } from 'react-router-dom';
 
 import { postData, getData } from "../../../scripts/api-service";
-import { CREATE_CATEGORY_BRAND, GET_CATEGORY_LIST } from "../../../scripts/api";
+import { CREATE_CATEGORY_BRAND, GET_CATEGORY_LIST, GET_CATEGORY_BRAND } from "../../../scripts/api";
 import { dateFormat } from "../../../scripts/helper";
 
 export default function Brand() {
-    const [categories, setCategories] = useState([]);
+    const [categorie, setCategories] = useState([]);
     const [brands, setBarnds] = useState([]);
     const [brandName, setBrandName] = useState();
-    const [selectedCategory, setSelectedCategory] = useState();
+    const { categoryId } = useParams();
 
-    const getCategories = async () => {
-        let res = await getData(GET_CATEGORY_LIST);
+    useEffect(() => {
+        if (categoryId) {
+            getCategorie();
+            getCategoryBrand();
+        }
+    }, []);
+
+    const getCategorie = async () => {
+        let res = await getData(GET_CATEGORY_LIST+ '?_id=' + categoryId);
 
         if (res?.data?.isSuccess) {
-            setCategories(res.data.data);
+            setCategories(res?.data?.data[0]);
         } else {
             toast("Something went wrong");
         }
     };
 
     const getCategoryBrand = async () => {
-        let res = await getData(CREATE_CATEGORY_BRAND);
+        let res = await getData(GET_CATEGORY_BRAND + '?category=' + categoryId);
 
         if (res?.data?.isSuccess) {
             setBarnds(res.data.data);
@@ -34,44 +42,34 @@ export default function Brand() {
     }
 
     const changeHandeler = (e) => {
-        let value = e.target.value,
-            name = e.target.name;
-
-        if (name === "category") {
-            setSelectedCategory(value);
-        } else {
-            setBrandName(value);
-        }
+        let value = e.target.value;
+        setBrandName(value);
     }
 
     const addBrand = async (e) => {
-        if (brandName && selectedCategory) {
+        if (brandName && categoryId) {
             let body = {
                 name: brandName,
-                category: selectedCategory
+                category: categoryId
             };
 
 
             let res = await postData(CREATE_CATEGORY_BRAND, body);
 
             if (res?.data?.isSuccess) {
-                toast("Brand Add successfully");
+                toast.success("Brand Add successfully");
                 $("#create-featured-modal").modal('hide');
-                setSelectedCategory("");
                 setBrandName("");
+                getCategoryBrand();
             } else {
-                toast("Something went wrong");
+                toast.error("Something went wrong");
             }
         } else {
             toast("Something went wrong");
         }
     }
 
-    useEffect(() => {
-        getCategories();
-        getCategoryBrand();
 
-    }, []);
 
     return (
         <Fragment>
@@ -80,7 +78,7 @@ export default function Brand() {
             <div className="col-12">
                     <div className="card">
                         <div className="card-header">
-                            <h4 className="card-title">Brand</h4>
+                            <h4 className="card-title">Category <span className="text-info">{categorie.name}</span> Brands</h4>
                             <button type="button" className="btn light btn-success" data-toggle="modal" data-target="#create-featured-modal">
                                 <i className="fa fa-plus mr-2"></i> Add Brand
                             </button>
@@ -91,7 +89,6 @@ export default function Brand() {
                                     <thead>
                                         <tr>
                                             <th><strong>NAME</strong></th>
-                                            <th><strong>Category</strong></th>
                                             <th><strong>Date</strong></th>
                                             <th><strong>Status</strong></th>
                                         </tr>
@@ -102,7 +99,6 @@ export default function Brand() {
                                                 return (
                                                 <tr key={brand._id}>
                                                     <td>{brand.name}</td>
-                                                    <td>{brand.category}</td>
                                                     <td>{dateFormat(brand.creatingDate)}</td>
                                                     <td>{brand.status ? 'Active' : "Inactive"}</td>
                                                     <td>
@@ -128,27 +124,15 @@ export default function Brand() {
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Brand Add</h5>
+                        <h5 className="modal-title">Add Brand from {categorie.name}</h5>
                         <button type="button" className="close" data-dismiss="modal"><span>&times;</span>
                         </button>
                     </div>
                     <div className="modal-body">
                         <div className="form-group">
-                            <label>Category Name</label>
-                            <select className="form-control form-control-lg" name="category" onChange={changeHandeler}>
-                                <option>Select category</option>
-                                {
-                                    categories.length ? (
-                                        categories.map((cat, i) => {
-                                        return <option key={i} value={cat._id}>{cat.name}</option>
-                                        }) 
-                                    ) : ""
-                                }
-                            </select>
-                        </div>
-                        <div className="form-group">
                             <label>Brand Name</label>
-                            <input type="text" onChange={changeHandeler} name="brandName" className="form-control"/>
+                            <input type="text" onChange={changeHandeler} value={brandName}
+                                name="brandName" className="form-control"/>
                         </div>
                     </div>
                     <div className="modal-footer">

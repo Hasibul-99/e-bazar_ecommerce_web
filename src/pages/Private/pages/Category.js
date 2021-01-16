@@ -54,7 +54,7 @@ export default function Category() {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-header">
-                            <h4 className="card-title">Categories</h4>
+                            <h4 className="card-title">All Categories</h4>
                             <button type="button" className="btn light btn-success" data-toggle="modal" data-target="#create-category-modal">
                                 <i className="fa fa-plus mr-2"></i> Add Category
                             </button>

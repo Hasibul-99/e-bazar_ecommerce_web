@@ -7,3 +7,6 @@ export const LOGIN_USER_INFO = "api/auth";
 export const CREATE_CATEGORY = "api/category";
 export const GET_CATEGORY_LIST = "api/category";
 export const CREATE_CATEGORY_BRAND = "api/category/categoryBrand";
+export const GET_CATEGORY_BRAND = "api/category/categoryBrand";
+export const GET_CATEGORY_BRAND_SUB_CATEGORY = "api/category/categoryBrandSubCategory";
+export const CREATE_SUB_CATEGORY = "api/category/categoryBrandSubCategory";

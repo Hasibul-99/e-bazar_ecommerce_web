@@ -50,7 +50,7 @@ const PrivateRoutes = [
         exact: true
     },
     {
-        path: "/sub-category/:categoryId/:brand",
+        path: "/sub-category/:categoryId/:brandId",
         name: "Sub Category",
         component: SubCategory,
         layout: "/admin",

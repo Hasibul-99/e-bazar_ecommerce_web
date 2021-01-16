@@ -1,6 +1,74 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useState, useEffect} from 'react'
+import { toast } from 'react-toastify';
+import $ from "jquery";
+import { useParams } from 'react-router-dom';
+
+import { postData, getData } from "../../../scripts/api-service";
+import { GET_CATEGORY_BRAND, GET_CATEGORY_BRAND_SUB_CATEGORY, CREATE_SUB_CATEGORY } from "../../../scripts/api";
+import { dateFormat } from "../../../scripts/helper";
 
 export default function SubCategory() {
+    const [brandInfo, setBrandInfo] = useState();
+    const [subName, getSubName] = useState("");
+    const [brandSubCategory, getBrandSubCategory] = useState();
+    const { categoryId, brandId } = useParams();
+
+    useEffect(() => {
+        if (brandId) {
+            getBrandInfo();
+            getSubBrandCategory()
+        }
+    }, []);
+
+    const getBrandInfo = async () => {
+        let res = await getData(GET_CATEGORY_BRAND+ '?_id=' + brandId);
+
+        if (res?.data?.isSuccess) {
+            setBrandInfo(res?.data?.data[0]);
+        } else {
+            toast("Something went wrong");
+        }
+    }
+
+    const getSubBrandCategory = async () => {
+        let res = await getData(GET_CATEGORY_BRAND_SUB_CATEGORY+ '?categoryBrand=' + brandId);
+
+        console.log("res", res?.data);
+        if (res?.data?.isSuccess) {
+            getBrandSubCategory(res?.data?.data);
+        } else {
+            toast("Something went wrong");
+        }
+    }
+
+    const saveSubCategory = async (e) => {
+        if (subName && categoryId && brandId) {
+            let body = {
+                name: subName,
+                category: categoryId,
+                categoryBrand: brandId
+            };
+
+            let res = await postData(CREATE_SUB_CATEGORY, body);
+
+            if (res?.data?.isSuccess) {
+                toast.success("Brand Add successfully");
+                $("#create-product-modal").modal('hide');
+                getSubName("");
+                getSubBrandCategory();
+            } else {
+                toast.error("Something went wrong");
+            }
+        } else {
+            toast.error("Something went wrong");
+        }
+    }   
+
+    const changeHandeler = (e) => {
+        let value = e.target.value;
+        getSubName(value);
+    }
+
     return (
         <Fragment>
             <div className="sub-category">
@@ -8,7 +76,7 @@ export default function SubCategory() {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-header">
-                            <h4 className="card-title">Sub-categories</h4>
+                            <h4 className="card-title">Brand <span className="text-info">{brandInfo?.name}</span> Sub-categories</h4>
                             <button type="button" className="btn light btn-success" data-toggle="modal" data-target="#create-product-modal">
                                 <i className="fa fa-plus mr-2"></i> Add Sub-category
                             </button>
@@ -19,52 +87,28 @@ export default function SubCategory() {
                                     <thead>
                                         <tr>
                                             <th><strong>NAME</strong></th>
-                                            <th><strong>Category</strong></th>
-                                            <th><strong>Brand</strong></th>
                                             <th><strong>Date</strong></th>
                                             <th><strong>Status</strong></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Dr. Jackson</td>
-                                            <td>XYZ</td>
-                                            <td>abc</td>
-                                            <td>01 August 2020</td>
-                                            <td>Active</td>
-                                            <td>
-                                                <div className="d-flex">
-                                                    <a href="#" className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
-                                                    <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dr. Jackson</td>
-                                            <td>XYZ</td>
-                                            <td>abc</td>
-                                            <td>01 August 2020</td>
-                                            <td>Active</td>
-                                            <td>
-                                                <div className="d-flex">
-                                                    <a href="#" className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
-                                                    <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dr. Jackson</td>
-                                            <td>XYZ</td>
-                                            <td>abc</td>
-                                            <td>01 August 2020</td>
-                                            <td>Active</td>
-                                            <td>
-                                                <div className="d-flex">
-                                                    <a href="#" className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
-                                                    <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        {
+                                            brandSubCategory && brandSubCategory.length ? (
+                                                brandSubCategory.map((data, i) => {
+                                                    return <tr key={i}>
+                                                        <td>{data.name}</td>
+                                                        <td>{dateFormat(data.creatingDate)}</td>
+                                                        <td>{data.status ? 'Active' : "Inactive"}</td>
+                                                        <td>
+                                                            <div className="d-flex">
+                                                                <a href="#" className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
+                                                                <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                })
+                                            ) : ""
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -78,37 +122,19 @@ export default function SubCategory() {
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Sub-category Add</h5>
+                        <h5 className="modal-title">Add Sub-category from {brandInfo?.name}</h5>
                         <button type="button" className="close" data-dismiss="modal"><span>&times;</span>
                         </button>
                     </div>
                     <div className="modal-body">
                         <div className="form-group">
-                            <label>Category Name</label>
-                            <select className="form-control form-control-lg">
-                                <option>Select category</option>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label>Brand Name</label>
-                            <select className="form-control form-control-lg">
-                                <option>Select Brand</option>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                            </select>
-                        </div>
-                        <div className="form-group">
                             <label>Sub-category Name</label>
-                            <input type="text" className="form-control"/>
+                            <input type="text" name="subName" onChange={changeHandeler} value={subName} className="form-control"/>
                         </div>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-danger light" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary">Save changes</button>
+                        <button type="button" className="btn btn-primary" onClick={saveSubCategory}>Save</button>
                     </div>
                 </div>
             </div>
