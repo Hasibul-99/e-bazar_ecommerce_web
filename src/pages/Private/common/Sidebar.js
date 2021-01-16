@@ -1,33 +1,43 @@
+import { localeData } from 'moment';
 import React, {Fragment} from 'react';
 import {Link} from "react-router-dom";
 
 export default function Sidebar() {
+    const className = (location, path) => {
+        let className = "menu-list";
+
+        console.log("loca", location);
+
+        if (location === path) className = "menu-list mm-active";
+        return className;
+    };
+
     return (
         <div className="deznav left-sidebar">
             <div className="deznav-scroll mm-active ps ps--active-y">
                 <ul className="metismenu mm-show" id="menu">
-                    <li className="menu-list mm-active">
+                    <li className={className(window.location.pathname, "/admin/orders")}>
                         <Link className="ai-icon menu-list-header"
                             to="/admin/orders" aria-expanded="false">
                             <i className="fa fa-first-order"></i>
                             <span className="nav-text">Orders</span>
                         </Link>
                     </li>
-                    <li className="menu-list">
+                    <li className={className(window.location.pathname, "/admin/products")}>
                         <Link className="ai-icon menu-list-header" 
                             to='/admin/products' aria-expanded="false">
                             <i className="fa fa-archive"></i>
                             <span className="nav-text">Products</span>
                         </Link>
                     </li>
-                    <li className="menu-list">
+                    <li className={className(window.location.pathname, "/admin/users")}>
                         <Link className="ai-icon menu-list-header" 
                             to="/admin/users" aria-expanded="false">
                             <i className="fa fa-users"></i>
                             <span className="nav-text">Users</span>
                         </Link>
                     </li>
-                    <li className="menu-list">
+                    <li className={className(window.location.pathname, "/admin/category")}>
                         <Link className="ai-icon menu-list-header" 
                             to="/admin/category" aria-expanded="false">
                             <i className="flaticon-381-television"></i>
