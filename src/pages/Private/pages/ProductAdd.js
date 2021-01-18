@@ -1,12 +1,110 @@
 import React, { Component, Fragment } from 'react';
-import Dropzone from 'react-dropzone'
+import { toast } from 'react-toastify';
+
+import { postData, getData } from "../../../scripts/api-service";
+import { GET_CATEGORY_LIST, GET_CATEGORY_BRAND, GET_CATEGORY_BRAND_SUB_CATEGORY, ADD_PRODUCT } from "../../../scripts/api";
 
 export default class ProductAdd extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowFirstPart: true
+            isShowFirstPart: false,
+            categoryList: [],
+            selectedCategory: null,
+            brandList: [],
+            selectedBrand: null,
+            subCategoryList: [],
+            selectedSubCategory: null,
+            name: "",
+            regularPrice: 0,
+            sellPrice: 0,
+            stock: 0,
+            sku: "",
+            discountPrice:0,
+            isFlushSell: false,
+            isSlideProduct: false,
+            isBundleProduct: false,
+            productDetails: "",
+
+            productId: "600520815b5a5d702bba10a5"
         };
+    }
+
+    componentDidMount() {
+        this.getCategoryList();
+    }
+
+    getCategoryList = async () => {
+        let res = await getData(GET_CATEGORY_LIST);
+
+        if (res?.data?.isSuccess) {
+            this.setState({categoryList: res?.data?.data});
+        }
+    }
+
+    selectCategory = (e) => {
+        this.setState({selectedCategory: e.target.value});
+        this.getBrandList(e.target.value);
+    };
+
+    getBrandList = async (categoryId) => {
+        let res = await getData(GET_CATEGORY_BRAND + '?category=' + categoryId);
+
+        if (res?.data?.isSuccess) {
+            this.setState({brandList: res.data.data});
+        }
+    }
+
+    selectBrand = (e) => {
+        this.setState({selectedBrand: e.target.value});
+        this.getSubCategoryList(e.target.value);
+    }
+
+    getSubCategoryList = async (brandId) => {
+        let res = await getData(GET_CATEGORY_BRAND_SUB_CATEGORY + '?categoryBrand=' + brandId);
+
+        if (res?.data?.isSuccess) {
+            this.setState({subCategoryList: res?.data?.data})
+        }
+    }
+
+    selectSubCategory = (e) => {
+        this.setState({selectedSubCategory: e.target.value});
+    }
+
+    changeHandeler = (e) => {
+        let name = e.target.name,
+            val = e.target.value;
+
+        this.setState({[name]: val});
+    }
+
+    saveProduct = async () => {
+        let data = {
+            "name": this.state.name,
+            "regularPrice": this.state.regularPrice,
+            "sellPrice": this.state.sellPrice,
+            "stock": this.state.stock,
+            "sku": this.state.sku,
+            "discountPrice": this.state.discountPrice,
+            "isFlushSell": this.state.isFlushSell,
+            "isSlideProduct": this.state.isSlideProduct,
+            "isBundleProduct": this.state.isBundleProduct,
+            "productDetails": this.state.productDetails,
+            "category": this.state.selectedCategory,
+            "categoryBrand": this.state.selectedBrand,
+            "categoryBrandSubCategory": this.state.selectedSubCategory
+        };
+
+        if (!data.categoryBrandSubCategory) data.categoryBrand = ""; // for non brand product
+
+        let res = await postData(ADD_PRODUCT, data);
+
+        console.log("res", res);
+
+        if (res?.data?.isSuccess) {
+            this.setState({isShowFirstPart: false, productId: res.data?.data?._id});
+        }
     }
 
     render() {
@@ -21,37 +119,81 @@ export default class ProductAdd extends Component {
                                 this.state.isShowFirstPart ? <Fragment>
                                     <div className="form-group col-12">
                                         <label>Product Name</label>
-                                        <input type="text" className="form-control" />
+                                        <input type="text" className="form-control" name="name" onChange={this.changeHandeler}/>
                                     </div>
                                     <div className="form-group col-6">
                                         <label>Regular Price</label>
-                                        <input type="text" className="form-control" />
+                                        <input type="text" className="form-control" name="regularPrice" onChange={this.changeHandeler} />
                                     </div>
                                     <div className="form-group col-6">
-                                        <label>Sale Price</label>
-                                        <input type="text" className="form-control" />
+                                        <label>Sell Price</label>
+                                        <input type="text" className="form-control" name="sellPrice" onChange={this.changeHandeler}/>
                                     </div>
                                     <div className="form-group col-6">
                                         <label>Stock</label>
-                                        <input type="text" className="form-control" />
+                                        <input type="text" className="form-control" name="stock" onChange={this.changeHandeler} />
                                     </div>
                                     
                                     <div className="form-group col-6">
                                         <label>SKU (Stock keeping unit)</label>
-                                        <input type="text" className="form-control" />
+                                        <input type="text" className="form-control" name="sku" onChange={this.changeHandeler}/>
                                     </div>
+                                    
+                                    <div className="form-group col-6">
+                                        <label>Discount Price</label>
+                                        <input type="text" className="form-control" name="discountPrice" onChange={this.changeHandeler}/>
+                                    </div>
+
                                     <div className="form-group col-6">
                                         <label>Category</label>
-                                        <input type="text" className="form-control" />
+                                        <select class="custom-select" onChange={this.selectCategory}>
+                                            <option value="">Select Category</option>
+                                            {
+                                                this.state.categoryList?.length ? (
+                                                    this.state.categoryList.map(item => {
+                                                        return <Fragment key={item._id}>
+                                                                <option value={item._id}>{item.name}</option>
+                                                            </Fragment>
+                                                    })
+                                                ) : "No Data Found"
+                                            }
+                                            
+                                        </select>
                                     </div>
                                     <div className="form-group col-6">
-                                        <label>Tags</label>
-                                        <input type="text" className="form-control" />
+                                        <label>Brand</label>
+                                        <select class="custom-select" onChange={this.selectBrand}>
+                                            <option value="">Select Brand</option>
+                                            {
+                                                this.state.brandList?.length ? (
+                                                    this.state.brandList.map(item => {
+                                                        return <Fragment key={item._id}>
+                                                                <option value={item._id}>{item.name}</option>
+                                                            </Fragment>
+                                                    })
+                                                ) : "No Data Found"
+                                            }
+                                        </select>
+                                    </div>
+                                    <div className="form-group col-6">
+                                        <label>Sub-Category</label>
+                                        <select class="custom-select" onChange={this.selectSubCategory}>
+                                            <option value="">Select Sub-Category</option>
+                                            {
+                                                this.state.subCategoryList?.length ? (
+                                                    this.state.subCategoryList.map(item => {
+                                                        return <Fragment key={item._id}>
+                                                                <option value={item._id}>{item.name}</option>
+                                                            </Fragment>
+                                                    })
+                                                ) : "No Data Found"
+                                            }
+                                        </select>
                                     </div>
                                     
                                     <div className="form-group col-6">
                                         <label>Slider</label>
-                                        <select class="custom-select">
+                                        <select class="custom-select" name="isSlideProduct" onChange={this.changeHandeler}>
                                             <option value="false">NO</option>
                                             <option value="true">Yes</option>
                                         </select>
@@ -59,7 +201,7 @@ export default class ProductAdd extends Component {
 
                                     <div className="form-group col-6">
                                         <label>Flash Sall</label>
-                                        <select class="custom-select">
+                                        <select class="custom-select" name="isFlushSell" onChange={this.changeHandeler}>
                                             <option value="false">NO</option>
                                             <option value="true">Yes</option>
                                         </select>
@@ -67,15 +209,20 @@ export default class ProductAdd extends Component {
 
                                     <div className="form-group col-6">
                                         <label>Bundle Offer</label>
-                                        <select class="custom-select">
+                                        <select class="custom-select" name="isBundleProduct" onChange={this.changeHandeler}>
                                             <option value="false">NO</option>
                                             <option value="true">Yes</option>
                                         </select>
                                     </div>
 
+                                    <div className="form-group col-6">
+                                        <label>Product Details</label>
+                                        <input type="text" className="form-control" name="productDetails" onChange={this.changeHandeler}/>
+                                    </div>
+
                                     <div className="form-group col-12 text-right">
                                         <button type="button" className="btn btn-square btn-outline-primary"  
-                                            onClick={() => {this.setState({isShowFirstPart: false})}}>Save and Next</button>
+                                            onClick={this.saveProduct}>Save and Next</button>
                                     </div>
                                 </Fragment> : <Fragment>
                                     {/* img 1 */}
