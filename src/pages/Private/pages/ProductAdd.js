@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { postData, getData } from "../../../scripts/api-service";
 import { GET_CATEGORY_LIST, GET_CATEGORY_BRAND, GET_CATEGORY_BRAND_SUB_CATEGORY, ADD_PRODUCT } from "../../../scripts/api";
 
+import demoProduct from "../../../assets/images/demo-product.png";
 export default class ProductAdd extends Component {
     constructor(props) {
         super(props);
@@ -105,6 +106,25 @@ export default class ProductAdd extends Component {
         if (res?.data?.isSuccess) {
             this.setState({isShowFirstPart: false, productId: res.data?.data?._id});
         }
+    }
+
+    selectImage = (e) => {
+        let element = e.target;
+        var dataID = element.getAttribute('data-content');
+
+        var file = element.files[0];
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            let result = reader.result;
+
+            let ele = document.getElementById(`js-product-img-view-${dataID}`);
+            ele.src = result;
+        }
+        reader.readAsDataURL(file);
+    }
+
+    saveImages = () => {
+        
     }
 
     render() {
@@ -228,55 +248,58 @@ export default class ProductAdd extends Component {
                                     {/* img 1 */}
                                     <div className="form-group col-6">
                                         <label>Image</label>
-                                        <input type="file" id="js-product-img-1" className="form-control" />
+                                        <input type="file" id="js-product-img-1" data-content="1"  className="form-control" 
+                                            onChange={this.selectImage} accept="image/x-png,image/gif,image/jpeg" />
                                     </div>
                                     <div className="col-6">
-                                        <img className="img-thumbnail" id="js-product-img-view-1"  src="" alt="" />
+                                        <img className="img-thumbnail" id="js-product-img-view-1" height="200" width="200" src={demoProduct} alt="" />
                                     </div>
 
                                     {/* img 2 */}
                                     <div className="form-group col-6">
                                         <label>Image</label>
-                                        <input type="file" id="js-product-img-1" className="form-control" />
+                                        <input type="file" id="js-product-img-2" data-content="2" className="form-control" 
+                                            onChange={this.selectImage} accept="image/x-png,image/gif,image/jpeg" />
                                     </div>
                                     <div className="col-6">
-                                        <img className="img-thumbnail" id="js-product-img-view-1"  src="" alt="" />
+                                        <img className="img-thumbnail" id="js-product-img-view-2"  height="200" width="200" src={demoProduct} alt="" />
                                     </div>
 
                                     {/* img 3 */}
                                     <div className="form-group col-6">
                                         <label>Image</label>
-                                        <input type="file" id="js-product-img-1" className="form-control" />
+                                        <input type="file" id="js-product-img-3" data-content="3" className="form-control" 
+                                            onChange={this.selectImage} accept="image/x-png,image/gif,image/jpeg" />
                                     </div>
                                     <div className="col-6">
-                                        <img className="img-thumbnail" id="js-product-img-view-1"  src="" alt="" />
+                                        <img className="img-thumbnail" id="js-product-img-view-3"  height="200" width="200" src={demoProduct} alt="" />
                                     </div>
 
                                     {/* img 4 */}
                                     <div className="form-group col-6">
                                         <label>Image</label>
-                                        <input type="file" id="js-product-img-1" className="form-control" />
+                                        <input type="file" id="js-product-img-4" data-content="4" className="form-control" 
+                                            onChange={this.selectImage} accept="image/x-png,image/gif,image/jpeg" />
                                     </div>
                                     <div className="col-6">
-                                        <img className="img-thumbnail" id="js-product-img-view-1"  src="" alt="" />
+                                        <img className="img-thumbnail" id="js-product-img-view-4"  height="200" width="200" src={demoProduct} alt="" />
                                     </div>
 
                                     {/* img 5  */}
                                     <div className="form-group col-6">
                                         <label>Image</label>
-                                        <input type="file" id="js-product-img-1" className="form-control" />
+                                        <input type="file" id="js-product-img-5" data-content="5" className="form-control" 
+                                            onChange={this.selectImage} accept="image/x-png,image/gif,image/jpeg" />
                                     </div>
                                     <div className="col-6">
-                                        <img className="img-thumbnail" id="js-product-img-view-1"  src="" alt="" />
+                                        <img className="img-thumbnail" id="js-product-img-view-5"  height="200" width="200" src={demoProduct} alt="" />
                                     </div>
 
                                     <div className="form-group col-12 text-right">
-                                        <button type="button" className="btn btn-square btn-outline-success">Submit</button>
+                                        <button type="button" onChange={this.saveImages} className="btn btn-square btn-outline-success">Submit</button>
                                     </div>
                                 </Fragment>
                             }
-                            
-                            
                         </div>
                     </div>
                 </div>
