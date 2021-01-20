@@ -13,3 +13,5 @@ export const CREATE_SUB_CATEGORY = "api/category/categoryBrandSubCategory";
 
 // product 
 export const ADD_PRODUCT = "api/product";
+export const UPLOAD_RPODUCT_IMAGE = "api/product/addProductPhoto";
+export const GET_RPODUCT = "api/product";

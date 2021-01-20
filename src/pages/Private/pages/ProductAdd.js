@@ -2,14 +2,14 @@ import React, { Component, Fragment } from 'react';
 import { toast } from 'react-toastify';
 
 import { postData, getData } from "../../../scripts/api-service";
-import { GET_CATEGORY_LIST, GET_CATEGORY_BRAND, GET_CATEGORY_BRAND_SUB_CATEGORY, ADD_PRODUCT } from "../../../scripts/api";
+import { GET_CATEGORY_LIST, GET_CATEGORY_BRAND, GET_CATEGORY_BRAND_SUB_CATEGORY, ADD_PRODUCT, UPLOAD_RPODUCT_IMAGE } from "../../../scripts/api";
 
 import demoProduct from "../../../assets/images/demo-product.png";
 export default class ProductAdd extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowFirstPart: false,
+            isShowFirstPart: true,
             categoryList: [],
             selectedCategory: null,
             brandList: [],
@@ -27,7 +27,8 @@ export default class ProductAdd extends Component {
             isBundleProduct: false,
             productDetails: "",
 
-            productId: "600520815b5a5d702bba10a5"
+            productId: "",
+            imageUploded: [],
         };
     }
 
@@ -101,14 +102,13 @@ export default class ProductAdd extends Component {
 
         let res = await postData(ADD_PRODUCT, data);
 
-        console.log("res", res);
-
         if (res?.data?.isSuccess) {
             this.setState({isShowFirstPart: false, productId: res.data?.data?._id});
         }
     }
 
     selectImage = (e) => {
+        let instance = this;
         let element = e.target;
         var dataID = element.getAttribute('data-content');
 
@@ -119,12 +119,37 @@ export default class ProductAdd extends Component {
 
             let ele = document.getElementById(`js-product-img-view-${dataID}`);
             ele.src = result;
+
+            instance.setState({imageUploded: [...instance.state.imageUploded, dataID]});
         }
         reader.readAsDataURL(file);
     }
 
-    saveImages = () => {
-        
+    saveImages = async () => {
+        let data = new FormData();
+        data.append("_id", this.state.productId);
+
+        if ( this.state?.imageUploded?.length ) {
+            let files = [];
+
+            this.state.imageUploded.forEach(i => {
+                let ele = document.getElementById(`js-product-img-${i}`);
+                let file = ele.files[0];
+
+                files.push(file);
+            });
+
+            data.append('photos', files);
+        }
+
+        let res = await postData(UPLOAD_RPODUCT_IMAGE, data);
+
+        if (res?.data?.isSuccess) {
+            toast.success("Product Image Upload Successfully");
+            window.location = '/admin/products';
+        }
+
+
     }
 
     render() {
@@ -296,7 +321,7 @@ export default class ProductAdd extends Component {
                                     </div>
 
                                     <div className="form-group col-12 text-right">
-                                        <button type="button" onChange={this.saveImages} className="btn btn-square btn-outline-success">Submit</button>
+                                        <button type="button" onClick={this.saveImages} className="btn btn-square btn-outline-success">Submit</button>
                                     </div>
                                 </Fragment>
                             }

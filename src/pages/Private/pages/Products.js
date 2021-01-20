@@ -1,7 +1,27 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
+import { toast } from 'react-toastify';
+
+import { postData, getData } from "../../../scripts/api-service";
+import { GET_RPODUCT } from "../../../scripts/api";
+
 
 export default class Products extends Component {
+
+    componentDidMount() {
+        this.getProductList();
+    }
+
+    getProductList = async () => {
+        let res = await getData(GET_RPODUCT);
+
+        console.log("res", res);
+        
+        if (res?.data?.isSuccess) {
+            this.setState({categoryList: res?.data?.data});
+        }
+    };
+
     render() {
         return (
             <div className="order">
