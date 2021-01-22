@@ -4,23 +4,40 @@ import { toast } from 'react-toastify';
 
 import { postData, getData } from "../../../scripts/api-service";
 import { GET_RPODUCT } from "../../../scripts/api";
+import Pagination from "../common/Pagination";
+
+import {loadPageVar} from "../../../scripts/helper"
 
 
 export default class Products extends Component {
-
-    componentDidMount() {
-        this.getProductList();
+    constructor(props) {
+        super(props);
+        this.state = {
+            pageValue: 1, 
+            products: []
+        };
     }
 
-    getProductList = async () => {
-        let res = await getData(GET_RPODUCT);
+    componentDidMount() {
+        this.setState({pageValue: loadPageVar('page') });
+        this.getProductList(this.state.pageValue);
+    }
+
+    getProductList = async (page) => {
+        let url = page ? GET_RPODUCT + '?page='+ page : GET_RPODUCT;
+        let res = await getData(url);
 
         console.log("res", res);
         
         if (res?.data?.isSuccess) {
-            this.setState({categoryList: res?.data?.data});
+            this.setState({products: res?.data?.data});
         }
     };
+
+    handelPagination = (page) => {
+        this.props.history.push(`${window.location.pathname}?page=${page}`);
+        this.getProductList(page);
+    }
 
     render() {
         return (
@@ -32,13 +49,13 @@ export default class Products extends Component {
                     <div className="col-8">
                         <div className="row">
                             <div className="col-4">
-                                <div className="form-group">
+                                <div className="form-group d-none">
                                     <input type="text" className="form-control input-default "
                                         placeholder="Quick Search by ID"/>
                                 </div>
                             </div>
                             <div className="col-4">
-                                <div className="form-group">
+                                <div className="form-group d-none">
                                     <select className="form-control form-control-lg">
                                         <option>Status</option>
                                         <option>Option 2</option>
@@ -59,7 +76,7 @@ export default class Products extends Component {
                 </div>
 
                 <div className="row">
-                <div className="col-lg-12">
+                    <div className="col-lg-12">
                         <div className="card">
                             {/* <div className="card-header">
                                 <h4 className="card-title">Responsive Table</h4>
@@ -69,62 +86,41 @@ export default class Products extends Component {
                                     <table className="table header-border table-responsive-sm">
                                         <thead>
                                             <tr>
-                                                <th>Invoice</th>
-                                                <th>User</th>
-                                                <th>Date</th>
-                                                <th>Amount</th>
+                                                <th>Name</th>
+                                                <th>Regular Price</th>
+                                                <th>Sell Price</th>
+                                                <th>Stock</th>
+                                                <th>Total Sell</th>
+                                                <th>Discount Price</th>
                                                 <th>Status</th>
-                                                <th>Country</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><a href="javascript:void(0)">Order #26589</a>
-                                                </td>
-                                                <td>Herman Beck</td>
-                                                <td><span className="text-muted">Oct 16, 2017</span>
-                                                </td>
-                                                <td>$45.00</td>
-                                                <td><span className="badge badge-success">Paid</span>
-                                                </td>
-                                                <td>EN</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="javascript:void(0)">Order #58746</a>
-                                                </td>
-                                                <td>Mary Adams</td>
-                                                <td><span className="text-muted">Oct 12, 2017</span>
-                                                </td>
-                                                <td>$245.30</td>
-                                                <td><span className="badge badge-info light">Shipped</span>
-                                                </td>
-                                                <td>CN</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="javascript:void(0)">Order #98458</a>
-                                                </td>
-                                                <td>Caleb Richards</td>
-                                                <td><span className="text-muted">May 18, 2017</span>
-                                                </td>
-                                                <td>$38.00</td>
-                                                <td><span className="badge badge-danger">Shipped</span>
-                                                </td>
-                                                <td>AU</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="javascript:void(0)">Order #32658</a>
-                                                </td>
-                                                <td>June Lane</td>
-                                                <td><span className="text-muted">Apr 28, 2017</span>
-                                                </td>
-                                                <td>$77.99</td>
-                                                <td><span className="badge badge-success">Paid</span>
-                                                </td>
-                                                <td>FR</td>
-                                            </tr>
+                                            {
+                                               this.state.products?.length ? (
+                                                    this.state.products.map((data) => {
+                                                    return <tr>
+                                                                <td>{data.name}</td>
+                                                                <td>{data.regularPrice}</td>
+                                                                <td>{data.sellPrice}</td>
+                                                                <td>{data.stock}</td>
+                                                                <td>{data.totalSell}</td>
+                                                                <td>{data.discountPrice}</td>
+                                                                <td>{data.status ? 
+                                                                    <span className="badge badge-success">Availabe</span> : 
+                                                                    <span className="badge badge-danger">Not Availabe</span>}</td>
+                                                            </tr>   
+                                                    })
+                                               ) : <h3>No Data found</h3>
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
+
+                                <Pagination
+                                    handelPagination={this.handelPagination}
+                                ></Pagination>
                             </div>
                         </div>
                     </div>    

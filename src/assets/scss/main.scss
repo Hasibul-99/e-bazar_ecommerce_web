@@ -5,9 +5,10 @@ body {
 }
 
 @import "common.scss";
+@import "button.scss";
 @import "./auth/registration";
 @import "./public/home";
 @import "./public/navbarSidebar";
 @import "./public/cardBox";
 @import "./public/quantityInput";
-@import "./public/productPreviewModal"
+@import "./public/productPreviewModal";
