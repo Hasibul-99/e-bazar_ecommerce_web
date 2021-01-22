@@ -6,7 +6,7 @@ import { postData, getData } from "../../../scripts/api-service";
 import { GET_RPODUCT } from "../../../scripts/api";
 import Pagination from "../common/Pagination";
 
-import {loadPageVar} from "../../../scripts/helper"
+import {loadPageVar} from "../../../scripts/helper";
 
 
 export default class Products extends Component {

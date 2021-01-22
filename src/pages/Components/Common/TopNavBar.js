@@ -11,6 +11,7 @@ import { getData } from "../../../scripts/api-service";
 
 export default function TopNavBar() {
     const [token, isSetToken] = useState();
+    const [userData, setUserData] = useState();
 
     const hideShowLeftMenu = () => {
         let sidebar = document.getElementById("js-public-left-sidebar");
@@ -32,6 +33,7 @@ export default function TopNavBar() {
 
     const logout = () => {
         Cookies.remove('expressToken');
+        localStorage.removeItem("userInfo");
         window.location.reload();
     }
 
@@ -44,21 +46,12 @@ export default function TopNavBar() {
     }, []);
 
     const getUserInfo = async () => {
-
-        console.log("hello");
-
         let res = await getData(LOGIN_USER_INFO);
 
-        console.log(res);
-        // if (res?.status && checkRes(res.status) && res.data.isSuccess) {
-            
-        //     Cookies.set("expressToken", res.data.data);
-        //     window.location = "/";
-
-        // } else if(!res.data.isSuccess) {
-        //     this.setState({ error: res.data.msg });
-        // }
-    
+        if (res?.status && checkRes(res.status)) {
+            localStorage.setItem("userInfo", JSON.stringify(res.data));
+            setUserData(res.data);
+        }
     }
 
     return (
@@ -94,8 +87,7 @@ export default function TopNavBar() {
                                         <li className="nav-item dropdown header-profile">
                                             <a className="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
                                                 <div className="header-info">
-                                                    <span className="text-black">Hello,<strong>Franklin</strong></span>
-                                                    <p className="fs-12 mb-0">Super Admin</p>
+                                                    <span className="text-black">Hello, <strong>{userData?.name}</strong></span>
                                                 </div>
                                                 <img src={user} width="20" alt=""/>
                                             </a>
