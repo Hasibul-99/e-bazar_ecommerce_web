@@ -20,15 +20,13 @@ export default class Products extends Component {
 
     componentDidMount() {
         this.setState({pageValue: loadPageVar('page') });
-        this.getProductList(this.state.pageValue);
+        this.getProductList(loadPageVar('page'));
     }
 
     getProductList = async (page) => {
         let url = page ? GET_RPODUCT + '?page='+ page : GET_RPODUCT;
         let res = await getData(url);
 
-        console.log("res", res);
-        
         if (res?.data?.isSuccess) {
             this.setState({products: res?.data?.data});
         }
