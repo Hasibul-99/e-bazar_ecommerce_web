@@ -46,13 +46,13 @@ export default function LeftSidebar() {
                 let list = {
                     parent: cat.name
                 },
-                brands = brand.filter(b => b.category === cat._id );
+                brands = brand?.length ? brand.filter(b => b.category === cat._id ) : [];
 
                 if (brands && brands.length) {
                     let clild = [];
                             
                     brands.forEach(bra => {
-                        let subCat = subCategory.filter(sc => sc.categoryBrand === bra._id);
+                        let subCat = subCategory?.length ? subCategory.filter(sc => sc.categoryBrand === bra._id) : [];
 
                         clild.push({
                             parent: bra.name,

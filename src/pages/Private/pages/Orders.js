@@ -11,7 +11,6 @@ import Pagination from "../common/Pagination";
 
 import {loadPageVar} from "../../../scripts/helper";
 export default class Orders extends Component {
-    
     constructor(props) {
         super(props);
         this.state = {

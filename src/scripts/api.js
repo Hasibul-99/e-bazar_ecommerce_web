@@ -2,6 +2,7 @@
 export const CREATE_USER = "api/user";
 export const LOGIN = "api/auth";
 export const LOGIN_USER_INFO = "api/auth";
+export const UPLOAD_PROFILE_IMAGE = "api/user/uploadProfilePhoto";
 
 // Category
 export const CREATE_CATEGORY = "api/category";
