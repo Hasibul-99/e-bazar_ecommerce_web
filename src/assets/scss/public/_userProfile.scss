@@ -51,6 +51,9 @@
     }
 
     .date-container {
+        .react-datepicker-wrapper {
+            width: 100%;
+        }
         input {
             box-shadow: none;
             background: #fff;

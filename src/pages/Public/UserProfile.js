@@ -5,12 +5,26 @@ import { getData, postData } from "../../scripts/api-service";
 import demoUser from "../../assets/images/profile/17.jpg"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Fragment } from 'react';
 
 export default class UserProfile extends Component {
+    formData = {
+        name: "",
+        mobile: "",
+        nid: "",
+        address: "",
+        dateOfBirth: "",
+        bussinessName: "",
+        marchentDesignation: "",
+        accountName: "",
+        accountNumber: "",
+        branch: "",
+    }
     constructor(props) {
         super(props);
         this.state = {
-            userInfo: null
+            userInfo: null,
+            formData: this.formData
         };
     }
 
@@ -24,7 +38,16 @@ export default class UserProfile extends Component {
         console.log("res", res.data);
 
         if (res?.data) {
-            this.setState({userInfo: res?.data});
+            let data = res.data;
+            this.setState({userInfo: data});
+
+            this.setState({
+                name: data.name,
+                mobile: data.mobile,
+                nid: data.nid,
+                address: data.address,
+                dateOfBirth: data.dateOfBirth,
+            })
         }
     }
 
@@ -113,47 +136,58 @@ export default class UserProfile extends Component {
                                 </div>
                             </div>
                         </div>
+                        
+                        {
+                            this.state?.userInfo?.userType === '' ? 
+                            <Fragment>
+                                <hr/>
+
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div class="form-group">
+                                            <label>Business Name</label>
+                                            <input type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-6">
+                                        <div class="form-group">
+                                            <label>Marchent Designation</label>
+                                            <input type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-6">
+                                        <div class="form-group">
+                                            <label>Bank Account Name </label>
+                                            <input type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-6">
+                                        <div class="form-group">
+                                            <label>Bank Account Number </label>
+                                            <input type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-md-6">
+                                        <div class="form-group">
+                                            <label>Bank Branch </label>
+                                            <input type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Fragment> : ""
+                        }
 
                         <hr/>
 
-                        <div className="row">
-                            <div className="col-md-6">
-                                <div class="form-group">
-                                    <label>Business Name</label>
-                                    <input type="text" class="form-control"/>
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <div class="form-group">
-                                    <label>Marchent Designation</label>
-                                    <input type="text" class="form-control"/>
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <div class="form-group">
-                                    <label>Bank Account Name </label>
-                                    <input type="text" class="form-control"/>
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <div class="form-group">
-                                    <label>Bank Account Number </label>
-                                    <input type="text" class="form-control"/>
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <div class="form-group">
-                                    <label>Bank Branch </label>
-                                    <input type="text" class="form-control"/>
-                                </div>
+                        <div className="row mb-5">
+                            <div className="col-12">
+                                <button className="btn btn-success float-right">Submit</button>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
