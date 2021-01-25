@@ -94,7 +94,7 @@ export default function TopNavBar() {
                                             </Link>
                                             <div className="dropdown-menu dropdown-menu-right">
                                                 {
-                                                    userData && userData.userType === "ADMIN" ? <Link to="/user-profile" className="dropdown-item ai-icon">
+                                                    userData && userData.userType === "ADMIN" ? <Link to="/admin/products" className="dropdown-item ai-icon">
                                                             <i class="fa fa-angellist" aria-hidden="true"></i>
                                                             <span className="ml-2">Admin</span>
                                                         </Link> : ""
