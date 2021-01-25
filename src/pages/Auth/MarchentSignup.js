@@ -1,19 +1,16 @@
 import React, {useState, Fragment} from 'react';
 import {Link} from "react-router-dom";
+import { useForm } from 'react-hook-form';
 
 import logo from "../../assets/images/Easyexpress24-final.png"
 
 export default function MarchentSignup() {
     const [isShowSignIn, setIsShowSignIn] = useState(true);
+    const { register, handleSubmit, errors } = useForm();
 
-    const changePage = (type) => {
-        console.log(type);
-        if (type === "signup") {
-            setIsShowSignIn(false);
-        } else if (type === 'signin') {
-            setIsShowSignIn(true);
-        }
-    }
+    const onSubmit = (data) => {
+        console.log(data);
+    };
 
     return (
         <Fragment>
@@ -41,17 +38,17 @@ export default function MarchentSignup() {
                                 <p>Setup a new account in a minute.</p>
                             </div>
 
-                            <form className="form">
+                            <form className="form" onSubmit={handleSubmit(onSubmit)}>
                                 <div className="form-group">
                                     <label for="exampleFormControlInput1">Name</label>
-                                    <input type="text" className="form-control" id="exampleFormControlInput1" 
-                                        placeholder="Enter Name"/>
+                                    <input type="text" className="form-control" name="name"
+                                        ref={register} placeholder="Enter Name"/>
                                 </div>
 
                                 <div className="form-group">
                                     <label for="exampleFormControlInput1">Email address</label>
-                                    <input type="email" className="form-control" id="exampleFormControlInput1" 
-                                        placeholder="Enter Email"/>
+                                    <input type="email" className="form-control" name="email"
+                                        ref={register}  placeholder="Enter Email"/>
                                 </div>
 
                                 <fieldset className="form-group">
@@ -59,13 +56,15 @@ export default function MarchentSignup() {
                                         <label className="col-form-label col-sm-3 pt-0">Gender</label>
                                         <div className="col-sm-9">
                                             <div className="form-check">
-                                                <input className="form-check-input" type="radio" name="gridRadios" value="option1" checked/>
+                                                <input className="form-check-input" type="radio" name="gender" 
+                                                    ref={register} value="male" checked/>
                                                 <label className="form-check-label">
                                                     Male
                                                 </label>
                                             </div>
                                             <div className="form-check">
-                                                <input className="form-check-input" type="radio" name="gridRadios" value="option2"/>
+                                                <input className="form-check-input" type="radio" name="gender" 
+                                                    ref={register}  value="female"/>
                                                 <label className="form-check-label">
                                                     Female
                                                 </label>
@@ -75,18 +74,20 @@ export default function MarchentSignup() {
                                 </fieldset>
 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Mobile Number</label>
-                                    <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                    <label>Mobile Number</label>
+                                    <input type="text" className="form-control"
+                                        name="mobile" ref={register}  placeholder="Enter Password"/>
                                 </div>
 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Date of Birth</label>
-                                    <input type="date" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                    <label  >Date of Birth</label>
+                                    <input type="date" className="form-control" 
+                                        name="dateOfBirth" ref={register} placeholder="Enter Password"/>
                                 </div>
 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Business Catelog</label>
-                                    <select className="form-control form-control-lg">
+                                    <label  >Business Catelog</label>
+                                    <select className="form-control form-control-lg" name="businessCatelog" ref={register}>
                                         <option>Option 1</option>
                                         <option>Option 2</option>
                                         <option>Option 3</option>
@@ -94,8 +95,8 @@ export default function MarchentSignup() {
                                 </div>
 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">You're Role</label>
-                                    <select className="form-control form-control-lg">
+                                    <label>You're Role</label>
+                                    <select className="form-control form-control-lg" name="marchantDesignation" ref={register}>
                                         <option>Owner</option>
                                         <option>Manager</option>
                                         <option>Employer</option>
@@ -104,74 +105,75 @@ export default function MarchentSignup() {
                                 </div>
 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Address</label>
-                                    <textarea className="form-control form-control-lg"></textarea>
+                                    <label >Address</label>
+                                    <textarea className="form-control form-control-lg" name="address" ref={register}></textarea>
                                 </div>
 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Name of A/C Holder</label>
-                                    <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                    <label>Name of A/C Holder</label>
+                                    <input type="text" className="form-control" 
+                                        name="accountName" ref={register} placeholder="Enter Password"/>
                                 </div>
 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Bank A/C</label>
-                                    <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
-                                </div>
-
-                                
-                                <div className="form-group">
-                                    <label for="exampleInputPassword1">Name of Branch</label>
-                                    <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                    <label>Bank A/C</label>
+                                    <input type="text" className="form-control" name="accountNumber" ref={register} placeholder="Enter Password"/>
                                 </div>
 
                                 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">District</label>
-                                    <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                    <label>Name of Branch</label>
+                                    <input type="text" className="form-control" name="branch" ref={register} placeholder="Enter Password"/>
                                 </div>
 
                                 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">City</label>
-                                    <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                    <label>District</label>
+                                    <input type="text" className="form-control" name="district" ref={register}  placeholder="Enter Password"/>
                                 </div>
 
                                 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Name of Shop</label>
-                                    <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
-                                </div>
-                                
-                                <div className="form-group">
-                                    <label for="exampleInputPassword1">Shop Address</label>
-                                    <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
-                                </div>
-                                
-                                <div className="form-group">
-                                    <label for="exampleInputPassword1">Product Discretion</label>
-                                    <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                    <label>City</label>
+                                    <input type="text" className="form-control" name="city" ref={register}  placeholder="Enter Password"/>
                                 </div>
 
                                 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Facebook Page Link</label>
-                                    <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                    <label  >Name of Shop</label>
+                                    <input type="text" className="form-control" name="nameOfShop" ref={register} placeholder="Enter Password"/>
+                                </div>
+                                
+                                <div className="form-group">
+                                    <label  >Shop Address</label>
+                                    <input type="text" className="form-control" name="shopAddress" ref={register} placeholder="Enter Password"/>
+                                </div>
+                                
+                                <div className="form-group">
+                                    <label  >Product Discretion</label>
+                                    <input type="text" className="form-control" name="productDiscription" ref={register} placeholder="Enter Password"/>
                                 </div>
 
                                 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">NID Number</label>
-                                    <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                    <label  >Facebook Page Link</label>
+                                    <input type="text" className="form-control" name="fbpage" ref={register}  placeholder="Enter Password"/>
+                                </div>
+
+                                
+                                <div className="form-group">
+                                    <label  >NID Number</label>
+                                    <input type="text" className="form-control" name="nid" ref={register}  placeholder="Enter Password"/>
                                 </div>
 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter Password"/>
+                                    <label  >Password</label>
+                                    <input type="password" className="form-control" name="password" ref={register}  placeholder="Enter Password"/>
                                 </div>
 
                                 <div className="form-group">
-                                    <label for="exampleInputPassword1">Repeat Password</label>
-                                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Enter Password Again"/>
+                                    <label  >Repeat Password</label>
+                                    <input type="password" className="form-control" name="repassword" ref={register}  placeholder="Enter Password Again"/>
                                 </div>
 
                                 <button type="submit" className="btn btn-outline-success">SIGN IN NOW</button>
