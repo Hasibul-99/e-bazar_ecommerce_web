@@ -1,31 +1,66 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import $ from "jquery";
+
+import { postData, getData } from "../../../scripts/api-service";
+import { GET_RPODUCT } from "../../../scripts/api";
+import Pagination from "../../Private/common/Pagination";
+import {loadPageVar} from "../../../scripts/helper";
 
 import ProductModalView from "../../Components/Common/ProductModalView";
 
 export default function RandomProduct() {
+    const [products, setProducts] = useState([]);
+    const [page, setpage] = useState(1)
+
+    useEffect(() => {
+        getProductList();
+    }, []);
+
+    const getProductList = async (page) => {
+        let url = page ? GET_RPODUCT + '?page='+ page : GET_RPODUCT;
+        let res = await getData(url);
+
+        if (res?.data?.isSuccess) {
+            setProducts(res?.data?.data);
+        }
+    };
+
+    const handelPagination = (page) => {
+        // this.props.history.push(`${window.location.pathname}?page=${page}`);
+        getProductList(page);
+    }
+
+
     return (
         <div className="random-products mt-4">
             <div className="card">
                 <div className="card-header d-none"></div>
                 <div className="card-header">
                     <div className="row">
-                        {
-                            [1,2,3,4,5,6,7,8,9, 10, 11, 12, 13].map(e => {
-                                return <div className="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3"><ProductCard productId={e}></ProductCard></div>
-                            })
+                        {   
+                            products.length ? 
+                            products.map(product => {
+                                return <div className="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3" key={product._id}>
+                                        <ProductCard product={product}></ProductCard>
+                                    </div>
+                            }) : <h3>No Product Found</h3>
                         }
                     </div>
+
+                    {/* <Pagination
+                        handelPagination={handelPagination}
+                    ></Pagination> */}
                 </div>
             </div>
         </div>
     )
 };
 
-function ProductCard(props){
+function ProductCard(props) {
     const [isOpen, setIsOpen] = useState(false);
-    const {productId} = props;
-
+    const {product} = props;
+    const {productId} = props.product._id;
+ 
     const openModal = (productId) => {
         $(`#product-view-modal-${productId}`).modal("show");
         setIsOpen(true);
