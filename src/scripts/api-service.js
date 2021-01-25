@@ -14,7 +14,7 @@ export const getData = async (query, no_token) => {
       headers: no_token
         ? {}
         : {
-            Authorization: `bearer ${token}`,
+          'x-auth-token': `${token}`,
           },
     });
     return data;
@@ -48,7 +48,7 @@ export const postData = async (query, data, no_token) => {
       headers: no_token
         ? {}
         : {
-            Authorization: `bearer ${token}`,
+            'x-auth-token': `${token}`,
           },
       data: data,
     });

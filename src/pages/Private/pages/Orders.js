@@ -1,7 +1,38 @@
 import React, { Component, Fragment } from 'react';
 import AlertModal from "../../Components/Common/AlertModal"; 
 import $ from "jquery";
+
+import {Link} from "react-router-dom";
+import { toast } from 'react-toastify';
+
+import { postData, getData } from "../../../scripts/api-service";
+import { GET_ORDER_LIST } from "../../../scripts/api";
+import Pagination from "../common/Pagination";
+
+import {loadPageVar} from "../../../scripts/helper";
 export default class Orders extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pageValue: 1, 
+            orderList: []
+        };
+    }
+
+    componentDidMount() {
+        this.setState({pageValue: loadPageVar('page') });
+        this.getOrderList(loadPageVar('page'));
+    }
+
+    getOrderList = async (page) => {
+        let url = page ? GET_ORDER_LIST + '?page='+ page : GET_ORDER_LIST;
+        let res = await getData(url);
+
+        if (res?.data?.isSuccess) {
+            this.setState({orderList: res?.data?.data});
+        }
+    }
+
     render() {
         return (
             <Fragment>
@@ -11,7 +42,7 @@ export default class Orders extends Component {
                         <h3>Orders</h3>
                     </div>
                     <div className="col-6">
-                        <div className="row">
+                        <div className="row d-none">
                             <div className="col-6">
                                 <div className="form-group">
                                     <input type="text" className="form-control input-default "

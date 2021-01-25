@@ -1,7 +1,73 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
+import {Link} from "react-router-dom";
+
+import { getData } from "../../../scripts/api-service";
+import { GET_CATEGORY_LIST, GET_CATEGORY_BRAND, GET_CATEGORY_BRAND_SUB_CATEGORY } from "../../../scripts/api";
 
 export default function LeftSidebar() {
-    
+    const [category, setCategory] = useState();
+    const [brand, setBrand] = useState();
+    const [subCategory, setSubCategory] = useState();
+    const [productsCategory, setProductsCategory] = useState([]);
+    useEffect(() => {
+        getCategory();
+        getCategoryBarnds();
+        getCategoryBrandsSubCategory()
+    }, []);
+
+    const getCategory = async () => {
+        let res = await getData(GET_CATEGORY_LIST);
+
+        if (res?.data?.isSuccess) {
+            setCategory(res.data.data)
+        }
+    }
+
+    const getCategoryBarnds = async () => {
+        let res = await getData(GET_CATEGORY_BRAND);
+        
+        if (res?.data?.isSuccess) {
+            setBrand(res.data.data)
+        }
+    }
+
+    const getCategoryBrandsSubCategory = async () => {
+        let res = await getData(GET_CATEGORY_BRAND_SUB_CATEGORY);
+
+        if (res?.data?.isSuccess) {
+            setSubCategory(res.data.data)
+        }
+    }
+
+    useEffect(() => {
+        if (category && category.length) {
+            let caTlist = [];
+            category.forEach(cat => {
+                let list = {
+                    parent: cat.name
+                },
+                brands = brand?.length ? brand.filter(b => b.category === cat._id ) : [];
+
+                if (brands && brands.length) {
+                    let clild = [];
+                            
+                    brands.forEach(bra => {
+                        let subCat = subCategory?.length ? subCategory.filter(sc => sc.categoryBrand === bra._id) : [];
+
+                        clild.push({
+                            parent: bra.name,
+                            child: subCat.map(e => e.name)
+                        })
+                    });
+                    list.child = clild;
+                }
+                caTlist.push(list);
+            });
+
+            setProductsCategory(caTlist)
+        }
+    }, [subCategory])
+
     const productCatagory = [
         {
             parent: "Fruits & Vagitables",
@@ -80,7 +146,7 @@ export default function LeftSidebar() {
             <div className="deznav-scroll mm-active ps ps--active-y">
 				<ul className="metismenu mm-show" id="menu">
                     {
-                        productCatagory.map((item, i) => {
+                        productsCategory.map((item, i) => {
                             return <Category item={item} key={i}></Category> 
                         } )
                     }

@@ -33,7 +33,6 @@ export default function SubCategory() {
     const getSubBrandCategory = async () => {
         let res = await getData(GET_CATEGORY_BRAND_SUB_CATEGORY+ '?categoryBrand=' + brandId);
 
-        console.log("res", res?.data);
         if (res?.data?.isSuccess) {
             getBrandSubCategory(res?.data?.data);
         } else {

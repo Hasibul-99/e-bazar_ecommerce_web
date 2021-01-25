@@ -5,9 +5,6 @@ import {Link} from "react-router-dom";
 export default function Sidebar() {
     const className = (location, path) => {
         let className = "menu-list";
-
-        console.log("loca", location);
-
         if (location === path) className = "menu-list mm-active";
         return className;
     };
