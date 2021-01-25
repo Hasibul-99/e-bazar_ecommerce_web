@@ -3,7 +3,12 @@ export const CREATE_USER = "api/user";
 export const LOGIN = "api/auth";
 export const LOGIN_USER_INFO = "api/auth";
 export const UPLOAD_PROFILE_IMAGE = "api/user/uploadProfilePhoto";
+<<<<<<< HEAD
 export const UPDATE_USER = "api/user";
+=======
+export const GET_USERS = "api/user";
+export const CREATE_MARCHANT_USER = "api/user/createMarchant";
+>>>>>>> 364632e3e0817c2d9a445e7ac058ea093828d880
 
 // Category
 export const CREATE_CATEGORY = "api/category";

@@ -1,19 +1,57 @@
 import React, { Component, Fragment } from 'react';
-import user from "../../../assets/images/profile/17.jpg";
+import demoUserImage from "../../../assets/images/profile/17.jpg";
 import AlertModal from "../../Components/Common/AlertModal"; 
 import $ from "jquery";
 
+import { toast } from 'react-toastify';
+
+import { postData, getData } from "../../../scripts/api-service";
+import { GET_USERS } from "../../../scripts/api";
+import Pagination from "../common/Pagination";
+
+import {loadPageVar, dateFormat} from "../../../scripts/helper";
+import { Link } from 'react-router-dom';
+
+
 export default class Users extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pageValue: 1, 
+            users: []
+        };
+    }
+
+    componentDidMount() {
+        this.setState({pageValue: loadPageVar('page') });
+        this.getUsersList(loadPageVar('page'));
+    }
+
+    getUsersList = async (page) => {
+        let url = page ? GET_USERS + '?page='+ page : GET_USERS;
+        let res = await getData(url);
+
+        console.log("res", res.data);
+        if (res?.data?.isSuccess) {
+            this.setState({users: res?.data?.data});
+        }
+    }
+
+    handelPagination = (page) => {
+        this.props.history.push(`${window.location.pathname}?page=${page}`);
+        this.getUsersList(page);
+    }
+
     render() {
         return (
             <Fragment>
-<div className="order">
+            <div className="order">
                 <div className="row">
                     <div className="col-6">
                         <h3>Users</h3>
                     </div>
                     <div className="col-6">
-                        <div className="row">
+                        {/* <div className="row">
                             <div className="col-6">
                                 <div className="form-group">
                                     <input type="text" className="form-control input-default "
@@ -29,7 +67,7 @@ export default class Users extends Component {
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
@@ -44,110 +82,60 @@ export default class Users extends Component {
                                                 <th><strong>NAME</strong></th>
                                                 <th><strong>Phone</strong></th>
                                                 <th><strong>Date</strong></th>
-                                                <th><strong>Ordered</strong></th>
+                                                {/* <th><strong>Ordered</strong></th> */}
+                                                <th>Type</th>
                                                 <th><strong>Status</strong></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div className="d-flex align-items-center">
-                                                        <img src={user} className="rounded-lg mr-2" width="24" alt=""/> 
-                                                        <span className="w-space-no">Dr. Jackson</span>
-                                                    </div>
-                                                    <p>example@example.com</p>
-                                                </td>
-                                                <td>7897978987</td>
-                                                <td>01 August 2020</td>
-                                                <td>8000TK</td>
-                                                <td><div className="d-flex align-items-center">
-                                                    <i className="fa fa-circle text-success mr-1"></i> 
-                                                    Active</div>
-                                                </td>
-                                                <td>
-													<div className="dropdown">
-														<button type="button" className="btn btn-warning light sharp" data-toggle="dropdown">
-															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g>
-                                                            </svg>
-														</button>
-														<div className="dropdown-menu">
-                                                        <a className="dropdown-item">View</a>
-															<a className="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Active</a>
-															<a className="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Pending</a>
-															<a className="dropdown-item">Suspend</a>
-															<a className="dropdown-item">Inactive</a>
-														</div>
-													</div>
-												</td>
-                                            </tr>
-											<tr>
-                                                <td>
-                                                    <div className="d-flex align-items-center">
-                                                        <img src={user} className="rounded-lg mr-2" width="24" alt=""/> 
-                                                        <span className="w-space-no">Dr. Jackson</span>
-                                                    </div>
-                                                    <p>example@example.com</p>
-                                                </td>
-                                                <td>7897978987</td>
-                                                <td>01 August 2020</td>
-                                                <td>8000TK</td>
-                                                <td><div className="d-flex align-items-center">
-                                                    <i className="fa fa-circle text-success mr-1"></i> 
-                                                    Active</div>
-                                                </td>
-                                                <td>
-													<div className="dropdown">
-														<button type="button" className="btn btn-warning light sharp" data-toggle="dropdown">
-															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g>
-                                                            </svg>
-														</button>
-														<div className="dropdown-menu">
-															<a className="dropdown-item">View</a>
-															<a className="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Active</a>
-															<a className="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Pending</a>
-															<a className="dropdown-item">Suspend</a>
-															<a className="dropdown-item">Inactive</a>
-														</div>
-													</div>
-												</td>
-                                            </tr>
-											<tr>
-                                                <td>
-                                                    <div className="d-flex align-items-center">
-                                                        <img src={user} className="rounded-lg mr-2" width="24" alt=""/> 
-                                                        <span className="w-space-no">Dr. Jackson</span>
-                                                    </div>
-                                                    <p>example@example.com</p>
-                                                </td>
-                                                <td>7897978987</td>
-                                                <td>01 August 2020</td>
-                                                <td>8000TK</td>
-                                                <td><div className="d-flex align-items-center">
-                                                    <i className="fa fa-circle text-success mr-1"></i> 
-                                                    Active</div>
-                                                </td>
-                                                <td>
-													<div className="dropdown">
-														<button type="button" className="btn btn-warning light sharp" data-toggle="dropdown">
-															<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g>
-                                                            </svg>
-														</button>
-														<div className="dropdown-menu">
-                                                        <a className="dropdown-item">View</a>
-															<a className="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Active</a>
-															<a className="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Pending</a>
-															<a className="dropdown-item">Suspend</a>
-															<a className="dropdown-item">Inactive</a>
-														</div>
-													</div>
-												</td>
-                                            </tr>
+                                            {
+                                                this.state?.users?.length ? (
+                                                    this.state.users.map(user => {
+                                                        return (
+                                                            <tr key={user._id}>
+                                                                <td>
+                                                                    <div className="d-flex align-items-center">
+                                                                        <img src={demoUserImage} className="rounded-lg mr-2" width="24" alt=""/> 
+                                                                        <span className="w-space-no">{user.name}</span>
+                                                                    </div>
+                                                                    <p>{user.email}</p>
+                                                                </td>
+                                                                <td>{user.mobile}</td>
+                                                                <td>{dateFormat(user.joiningDate)}</td>
+                                                                {/* <td>8000TK</td> */}
+                                                                <td>{user.userType}</td>
+                                                                <td><div className="d-flex align-items-center">
+                                                                    <i className="fa fa-circle text-success mr-1"></i> 
+                                                                    Active</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div className="dropdown">
+                                                                        <button type="button" className="btn btn-warning light sharp" data-toggle="dropdown">
+                                                                            <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
+                                                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g>
+                                                                            </svg>
+                                                                        </button>
+                                                                        <div className="dropdown-menu">
+                                                                        <a className="dropdown-item">View</a>
+                                                                            <Link className="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Active</Link>
+                                                                            <Link className="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Pending</Link>
+                                                                            <Link className="dropdown-item">Suspend</Link>
+                                                                            <Link className="dropdown-item">Inactive</Link>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                ) : <h3>NO User Found</h3>
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
+
+                                <Pagination
+                                    handelPagination={this.handelPagination}
+                                ></Pagination>
                             </div>
                         </div>
                     </div>    

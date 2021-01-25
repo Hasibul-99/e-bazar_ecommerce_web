@@ -41,8 +41,9 @@ export default function TopNavBar() {
         let token = Cookies.get("expressToken");
         isSetToken(token);
 
-        getUserInfo()
-        
+        if (token) {
+            getUserInfo()
+        }
     }, []);
 
     const getUserInfo = async () => {
@@ -92,6 +93,12 @@ export default function TopNavBar() {
                                                 <img src={user} width="20" alt=""/>
                                             </Link>
                                             <div className="dropdown-menu dropdown-menu-right">
+                                                {
+                                                    userData && userData.userType === "ADMIN" ? <Link to="/admin/products" className="dropdown-item ai-icon">
+                                                            <i class="fa fa-angellist" aria-hidden="true"></i>
+                                                            <span className="ml-2">Admin</span>
+                                                        </Link> : ""
+                                                }
                                                 <Link to="/user-profile" className="dropdown-item ai-icon">
                                                     <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" className="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                                     <span className="ml-2">Profile </span>
