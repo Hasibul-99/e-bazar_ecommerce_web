@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import { LOGIN_USER_INFO, UPLOAD_PROFILE_IMAGE } from "../../scripts/api";
-import { getData, postData } from "../../scripts/api-service";
+import { LOGIN_USER_INFO, UPLOAD_PROFILE_IMAGE, UPDATE_USER } from "../../scripts/api";
+import { getData, postData, putData } from "../../scripts/api-service";
 import demoUser from "../../assets/images/profile/17.jpg"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -41,13 +41,13 @@ export default class UserProfile extends Component {
             let data = res.data;
             this.setState({userInfo: data});
 
-            this.setState({
+            this.setState({formData: {
                 name: data.name,
                 mobile: data.mobile,
                 nid: data.nid,
                 address: data.address,
                 dateOfBirth: data.dateOfBirth,
-            })
+            }})
         }
     }
 
@@ -70,6 +70,48 @@ export default class UserProfile extends Component {
     }
 
     setStartDate = (date) => {
+        this.setState({ 
+            formData: {
+                ...this.state.formData,
+                ["dateOfBirth"]: date,
+            }
+        });
+    }
+
+    changeHandeler = (e) => {
+        let name = e.target.name,
+            value = e.target.value;
+
+        this.setState({ 
+            formData: {
+                ...this.state.formData,
+                [name]: value,
+            }
+        });
+    } 
+
+    formSubmit = async() => {
+        let data = {
+            "name": this.state.formData.name,
+            "mobile": this.state.formData.mobile,
+            "nid": this.state.formData.nid,
+            "address": this.state.formData.address,
+            "dateOfBirth": this.state.formData.dateOfBirth,
+            // "marchant":{
+            //     "bussinessName":"A Enter Prize",
+            //     "marchantDesignation":"OWNER",
+            //     "bankInfo":{
+            //         "accountName":"ARIF JAHAN",
+            //         "accountNumber":"123456789",
+            //         "branch":"Dhanmondi,dhaka"
+            //     }
+            // }
+        }
+
+        let res = await putData(UPDATE_USER, data);
+
+        console.log("res", res);
+
 
     }
 
@@ -96,7 +138,7 @@ export default class UserProfile extends Component {
                             <div className="col-md-6">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="form-control" value={this.state?.userInfo?.name}/>
+                                    <input type="text" class="form-control" name="name" onChange={this.changeHandeler} value={this.state?.formData?.name}/>
                                 </div>
 
                                 {/* <div class="form-group d-none">
@@ -108,14 +150,16 @@ export default class UserProfile extends Component {
                             <div className="col-md-6">
                                 <div class="form-group">
                                     <label>Mobile Number</label>
-                                    <input type="text" class="form-control" value={this.state?.userInfo?.mobile}/>
+                                    <input type="text" class="form-control" name="mobile" 
+                                        onChange={this.changeHandeler}  value={this.state?.formData?.mobile}/>
                                 </div>
                             </div>
 
                             <div className="col-md-6">
                                 <div class="form-group">
                                     <label>NID</label>
-                                    <input type="text" class="form-control" value={this.state?.userInfo?.nid}/>
+                                    <input type="text" class="form-control" name="nid" onChange={this.changeHandeler} 
+                                        value={this.state?.formData?.nid}/>
                                 </div>
                             </div>
 
@@ -124,7 +168,7 @@ export default class UserProfile extends Component {
                                     <label>Date of Birth</label>
                                     {/* <input type="date" class="form-control" value={this.state?.userInfo?.dateOfBirth}/> */}
                                     <div className="date-container">
-                                        <DatePicker selected={new Date()} onChange={date => this.setStartDate(date)} />
+                                        <DatePicker selected={this.state.formData?.dateOfBirth || new Date()} onChange={date => this.setStartDate(date)} />
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +176,8 @@ export default class UserProfile extends Component {
                             <div className="col-md-6">
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <textarea class="form-control" rows="3" value={this.state?.userInfo?.address}></textarea>
+                                    <textarea class="form-control" rows="3" name="address" onChange={this.changeHandeler} 
+                                        value={this.state?.formData?.address}></textarea>
                                 </div>
                             </div>
                         </div>
@@ -180,12 +225,11 @@ export default class UserProfile extends Component {
                                 </div>
                             </Fragment> : ""
                         }
-
                         <hr/>
 
                         <div className="row mb-5">
                             <div className="col-12">
-                                <button className="btn btn-success float-right">Submit</button>
+                                <button className="btn btn-success float-right" onClick={this.formSubmit}>Submit</button>
                             </div>
                         </div>
                     </div>

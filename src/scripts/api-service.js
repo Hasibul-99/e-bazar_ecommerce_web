@@ -73,6 +73,40 @@ export const postData = async (query, data, no_token) => {
   }
 };
 
+export const putData = async (query, data, no_token) => {
+  try {
+    console.log(`${base_url}${query}`);
+    let res = await axios({
+      method: "put",
+      url: `${base_url}${query}`,
+      headers: no_token
+        ? {}
+        : {
+            'x-auth-token': `${token}`,
+          },
+      data: data,
+    });
+
+    return res;
+    // if (checkRes(res?.data.status)) {
+    //     // setUserProfile();
+    //     return res;
+    // } else {
+    //     toast.error(msg_undefined);
+    // }
+  } catch (error) {
+    console.log("error", error);
+    // checkRes(error.response.status);
+    // error.response && error.response.data && error.response.data.messages
+    //   ? error.response.data.messages.map((err) => {
+    //       // alertPop(error_status, err);
+    //       console.log("err", err);
+    //     })
+    //   : console.log("error", error); //errorHandle(error);
+    return false;
+  }
+};
+
 // const setUserProfile = async () => {
 //   try {
 //     let res = await axios({

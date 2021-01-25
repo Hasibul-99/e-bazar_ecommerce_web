@@ -389,8 +389,7 @@
                                 },
                                 {
                                     "id": "workbench.action.toggleSidebarVisibility",
-                                    "label": "Show &&Side Bar",
-                                    "checked": true
+                                    "label": "Show &&Side Bar"
                                 },
                                 {
                                     "id": "workbench.action.toggleStatusbarVisibility",
@@ -1472,7 +1471,7 @@
             "backupPath": "/home/tushar/Documents/react/e-bazar/~/.vscode-root/Backups/c49b2227972bea50c57a07c560d55f34",
             "uiState": {
                 "mode": 0,
-                "x": 1512,
+                "x": 1490,
                 "y": 37,
                 "width": 1024,
                 "height": 636
