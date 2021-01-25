@@ -1,5 +1,6 @@
 import React, {useState, useEffect } from 'react';
 import Slider from "react-slick";
+import {Link} from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -31,22 +32,22 @@ export default function ItemType() {
             <div className="card-body p-0">
                 <Slider {...settings}>
                     <div className="cursor-pointer item-type-container">
-                        <h4>Top Discount</h4>
+                        <Link>Top Discount</Link>
                     </div>
                     <div className="cursor-pointer item-type-container">
-                        <h4>New Products</h4>
+                        <Link>New Products</Link>
                     </div>
                     <div className="cursor-pointer item-type-container">
-                        <h4>Flash Sale</h4>
+                        <Link>Flash Sale</Link>
                     </div>
                     <div className="cursor-pointer item-type-container">
-                        <h4>Marchant</h4>
+                        <Link to="/auth/marchent-signup">Marchant</Link>
                     </div>
                     <div className="cursor-pointer item-type-container">
-                        <h4>Most Sells</h4>
+                        <Link>Most Sells</Link>
                     </div>
                     <div className="cursor-pointer item-type-container">
-                        <h4>Tips</h4>
+                        <Link>Tips</Link>
                     </div>
                 </Slider>
             </div>
