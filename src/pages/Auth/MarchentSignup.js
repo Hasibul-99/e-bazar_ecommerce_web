@@ -1,15 +1,53 @@
 import React, {useState, Fragment} from 'react';
 import {Link} from "react-router-dom";
 import { useForm } from 'react-hook-form';
+import Cookies from "js-cookie";
+import { toast } from 'react-toastify';
 
-import logo from "../../assets/images/Easyexpress24-final.png"
+import logo from "../../assets/images/Easyexpress24-final.png";
+import { postData } from "../../scripts/api-service";
+import { CREATE_MARCHANT_USER } from "../../scripts/api";
+import { checkRes } from "../../scripts/checkRes";
 
 export default function MarchentSignup() {
-    const [isShowSignIn, setIsShowSignIn] = useState(true);
     const { register, handleSubmit, errors } = useForm();
+    const [error, setError] = useState('');
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data);
+        let userData = {
+            "email": data.email,
+            "password": data.password,
+            "name": data.name,
+            "mobile": data.mobile,
+            "nid": data.nid,
+            "address": data.address,
+            "dateOfBirth": data.dateOfBirth,
+            "marchant":{
+                "bussinessName": data.bussinessName,
+                "marchantDesignation": data.marchantDesignation,
+                "bankInfo":{
+                    "accountName": data.accountName,
+                    "accountNumber": data.accountNumber,
+                    "branch": data.branch
+                }
+            }
+        }
+
+        let res = await postData(CREATE_MARCHANT_USER, userData, "no_token");
+
+        if (res?.status && checkRes(res.status) && res.data.isSuccess) {
+            
+            Cookies.set("expressToken", res.data.data);
+            window.location = "/";
+
+        } else if(!res.data.isSuccess) {
+            setError(res.data.msg);
+        }
+
+        if (error) {
+            toast(error);
+        }
     };
 
     return (
@@ -82,16 +120,18 @@ export default function MarchentSignup() {
                                 <div className="form-group">
                                     <label  >Date of Birth</label>
                                     <input type="date" className="form-control" 
-                                        name="dateOfBirth" ref={register} placeholder="Enter Password"/>
+                                        name="dateOfBirth" ref={register} placeholder="Enter Birthdate"/>
                                 </div>
 
                                 <div className="form-group">
-                                    <label  >Business Catelog</label>
-                                    <select className="form-control form-control-lg" name="businessCatelog" ref={register}>
+                                    <label  >Business Name</label>
+                                    {/* <select className="form-control form-control-lg" name="businessCatelog" ref={register}>
                                         <option>Option 1</option>
                                         <option>Option 2</option>
                                         <option>Option 3</option>
-                                    </select>
+                                    </select> */}
+                                    <input type="text" className="form-control" 
+                                        name="bussinessName" ref={register} placeholder="Enter Business Name"/>
                                 </div>
 
                                 <div className="form-group">
