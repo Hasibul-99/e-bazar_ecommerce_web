@@ -5,6 +5,7 @@ import { postData, getData } from "../../../scripts/api-service";
 import { GET_RPODUCT } from "../../../scripts/api";
 import Pagination from "../../Private/common/Pagination";
 import {loadPageVar} from "../../../scripts/helper";
+import demoProduct from "../../../assets/images/demo-product.png";
 
 import ProductModalView from "../../Components/Common/ProductModalView";
 
@@ -73,29 +74,44 @@ function ProductCard(props) {
     return (
         <Fragment>
             <div className="product-card">
-                <div className="badge">Hot</div>
+                {
+                    !(product.stock - product.totalSell) ? 
+                    <div className="badge">Out of Stock</div> : ''
+                }
                 <div className="product-tumb">
-                    <img src="https://i.imgur.com/xdbHo4E.png" alt=""/>
+                    {
+                        product?.photos?.length ? <Fragment>
+                            <img src={`http://easyexpress24.com:5000/static/${product?.photos[0]}`} alt=""/>
+                        </Fragment> : <Fragment>
+                            <img src={demoProduct} alt=""/>
+                        </Fragment>
+                    }
                 </div>
                 <div className="product-details">
                     <span className="product-catagory">Women,bag</span>
-                    <h5><a href="">Women leather bag</a></h5>
-                    {/* <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, possimus nostrum!</p> */}
+                    <h5><a href="">{product.name}</a></h5>
                     <div className="product-bottom-details">
-                        <div className="product-price"><small>$96.00</small>$230.99</div>
+                        <div className="product-price">
+                            {
+                                product.discountPrice ? <Fragment>
+                                    <small>৳{product.sellPrice}</small>
+                                    ৳{ product.sellPrice - product.discountPrice }
+                                </Fragment> : <Fragment>৳{product.sellPrice}</Fragment> 
+                            }
+                        </div>
                         <div className="product-links">
-                        {/* data-toggle="modal"  data-target={`#product-view-modal-${productId}`} */}
-                            <span className="cursor-pointer" onClick={()=> openModal(productId)}><i className="fa fa-eye"></i>
+                            <span className="cursor-pointer" onClick={()=> openModal(product._id)}><i className="fa fa-eye"></i>
                             </span>
                             <a href=""><i className="fa fa-shopping-cart"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <ProductModalView 
-                productId={productId} 
+            
+            <ProductModalView
+                productId={product._id} 
                 isOpen={isOpen}
+                product={product} 
                 HandelModalClose={handelModalClose}>
             </ProductModalView>
         </Fragment>

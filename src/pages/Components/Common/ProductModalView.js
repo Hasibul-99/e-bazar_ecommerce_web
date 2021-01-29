@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Fragment } from 'react';
 import $ from "jquery";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -6,8 +7,10 @@ import { Carousel } from 'react-responsive-carousel';
 
 import QuantityInput from "../Common/QuantityInput";
 
+import demoProduct from "../../../assets/images/demo-product.png";
+
 export default function ProductModalView(props) {
-    const {productId, isOpen, HandelModalClose} = props;
+    const {productId, isOpen, product, HandelModalClose} = props;
 
     useEffect(() => {
         if (isOpen) {
@@ -29,24 +32,31 @@ export default function ProductModalView(props) {
                             </button>
                         <div className="row">
                             <div id={`js-image-content-${productId}`} className="">
-                                <Carousel>
-                                    <div>
-                                        <img src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_01-920x1140.jpg" />
-                                    </div>
-                                    <div>
-                                        <img src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_02-920x1139.jpg" />
-                                    </div>
-                                    <div>
-                                        <img src="https://shopkeeper.wp-theme.design/wp-content/uploads/4146401443863639_03-920x1139.jpg" />
-                                    </div>
-                                </Carousel>
+                                {
+                                    product?.photos?.length ? <Fragment>
+                                        <Carousel>
+                                            { 
+                                                product.photos.map(item => {
+                                                    return <div key={item}>
+                                                                <img src={`http://easyexpress24.com:5000/static/${item}`} />
+                                                            </div>
+                                                })
+                                            }
+                                        </Carousel>
+                                    </Fragment> : <Fragment>
+                                        <image src={demoProduct} alt=""/>
+                                    </Fragment>
+                                }
+                                
                             </div>
                             <div id={`card-content-${productId}`} className="col-sm-12 col-md-6 pt-5" style={{display: 'none'}}>
 
-                                <h2>Folk Striped Slub Cotton-Jersey T-Shirt</h2>
-                                <h5 className="gold-text my-4">$75</h5>
+                                <h2>{product.name}</h2>
+                                <h5 className="gold-text my-4">
+                                  ৳{ product.sellPrice - product.discountPrice } 
+                                </h5>
 
-                                <div className="form-group">
+                                <div className="form-group d-none">
                                     <label for="exampleFormControlSelect1">COLOR</label>
                                     <select className="form-control" id="exampleFormControlSelect1">
                                     <option>1</option>
@@ -57,7 +67,7 @@ export default function ProductModalView(props) {
                                     </select>
                                 </div>
 
-                                <div className="form-group">
+                                <div className="form-group d-none">
                                     <label for="exampleFormControlSelect1">SIZE</label>
                                     <select className="form-control" id="exampleFormControlSelect1">
                                     <option>1</option>
