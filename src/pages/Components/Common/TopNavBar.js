@@ -33,7 +33,7 @@ export default function TopNavBar() {
 
     const logout = () => {
         Cookies.remove('expressToken');
-        localStorage.removeItem("userInfo");
+        localStorage.removeItem("ExpressUserInfo");
         window.location.reload();
     }
 
@@ -50,7 +50,7 @@ export default function TopNavBar() {
         let res = await getData(LOGIN_USER_INFO);
 
         if (res?.status && checkRes(res.status)) {
-            localStorage.setItem("userInfo", JSON.stringify(res.data));
+            localStorage.setItem("ExpressUserInfo", JSON.stringify(res.data));
             setUserData(res.data);
         }
     }

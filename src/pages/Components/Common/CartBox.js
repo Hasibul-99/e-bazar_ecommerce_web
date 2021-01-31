@@ -1,8 +1,9 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import QuantityInput from "./QuantityInput";
 import {CREATE_ORDER} from "../../../scripts/api";
-import { postData, getData } from "../../../scripts/api-service";
+import { postData } from "../../../scripts/api-service";
 import { toast } from 'react-toastify';
+import demoProduct from "../../../assets/images/demo-product.png";
 
 import Localbase from 'localbase'
 let db = new Localbase('db');
@@ -53,13 +54,20 @@ export default function CartBox() {
 
     const orderProduct = async () => {
         let orderData = [],
-            userInfo = JSON.parse(localStorage.getItem("userInfo"));
+            userInfo = JSON.parse(localStorage.getItem("ExpressUserInfo"));
+
+        
+        if (!(userInfo && userInfo._id)) {
+            window.location = "/auth/registration";
+        };
 
         products.forEach(item => {
-            orderData.push({
-                product: item._id,
-                qty: item.total
-            });
+            if (item.total > 0) {
+                orderData.push({
+                    product: item._id,
+                    qty: item.total
+                });
+            }
         });
 
         let data = {
@@ -67,15 +75,20 @@ export default function CartBox() {
             "products": orderData
         }
 
+        console.log("data.userId",data.userId);
 
-        let res = await getData(CREATE_ORDER);
+        if (data.userId && data.products && data.products.length ) {
+            let res = await postData(CREATE_ORDER, data);
 
-        if (res?.data?.isSuccess) {
-            toast.success("Order Submit Successfully");
-            db.collection('users').delete();
-            setProducts([]);
+            if (res?.data?.isSuccess) {
+                toast.success("Order Submit Successfully");
+                db.collection('products').delete();
+                setProducts([]);
+            } else {
+                toast.error("Something Went Wrong")
+            }
         } else {
-            toast.error("Something Went Wrong")
+            toast.error("First Add Product")
         }
     }
 

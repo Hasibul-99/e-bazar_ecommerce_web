@@ -4,10 +4,12 @@ import $ from "jquery";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-
 import QuantityInput from "../Common/QuantityInput";
-
 import demoProduct from "../../../assets/images/demo-product.png";
+
+import Localbase from 'localbase'
+let db = new Localbase('db');
+db.config.debug = false;
 
 export default function ProductModalView(props) {
     const {productId, isOpen, product, HandelModalClose} = props;
@@ -21,6 +23,12 @@ export default function ProductModalView(props) {
             }, 1000)
         };
       }, [isOpen]);
+
+    const handelQuantuty = (qun, productId) => {
+        db.collection('products').doc({ _id: productId }).update({
+            total : qun
+        })
+    }
 
     return (
         <div className="modal fade product-preview-modal" id={`product-view-modal-${productId}`} tabindex="-1" 
@@ -78,7 +86,11 @@ export default function ProductModalView(props) {
                                     </select>
                                 </div>
 
-                                <QuantityInput></QuantityInput>
+                                <QuantityInput
+                                    total = {product.total || 1}
+                                    productId={productId}
+                                    handelQuantuty={handelQuantuty} 
+                                ></QuantityInput>
 
                                 <div>
                                     <button type="button" className="btn light btn-warning w-100 my-5">ADD To CART</button>
