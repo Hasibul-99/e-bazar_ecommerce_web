@@ -9,6 +9,9 @@ import demoProduct from "../../../assets/images/demo-product.png";
 
 import ProductModalView from "../../Components/Common/ProductModalView";
 
+import Localbase from 'localbase';
+let db = new Localbase('db')
+
 export default function RandomProduct() {
     const [products, setProducts] = useState([]);
     const [page, setpage] = useState(1)
@@ -57,10 +60,9 @@ export default function RandomProduct() {
     )
 };
 
-function ProductCard(props) {
+function ProductCard( {product}) {
     const [isOpen, setIsOpen] = useState(false);
-    const {product} = props;
-    const {productId} = props.product._id;
+    const [update, setUpdate] = useState(Math.random());
  
     const openModal = (productId) => {
         $(`#product-view-modal-${productId}`).modal("show");
@@ -69,6 +71,21 @@ function ProductCard(props) {
 
     const handelModalClose = () => {
         
+    }
+
+    const addProductIncard = (item) => {
+        db.collection('products').doc({ _id: item._id }).get().then(doc => {
+            if (doc) {
+                db.collection('products').doc({ _id: item._id  }).update({
+                    total: doc.total + 1 
+                });
+            } else {
+                item.total = 1;
+                db.collection('products').add(item);
+            }
+
+            setUpdate(Math.random());
+        });
     }
 
     return (
@@ -100,9 +117,12 @@ function ProductCard(props) {
                             }
                         </div>
                         <div className="product-links">
-                            <span className="cursor-pointer" onClick={()=> openModal(product._id)}><i className="fa fa-eye"></i>
+                            <span className="cursor-pointer" onClick={()=> openModal(product._id)}>
+                                <i className="fa fa-eye"></i>
                             </span>
-                            <a href=""><i className="fa fa-shopping-cart"></i></a>
+                            <span className="cursor-pointer" onClick={() => addProductIncard(product)}>
+                                <i className="fa fa-shopping-cart"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -111,7 +131,8 @@ function ProductCard(props) {
             <ProductModalView
                 productId={product._id} 
                 isOpen={isOpen}
-                product={product} 
+                product={product}
+                update={update}
                 HandelModalClose={handelModalClose}>
             </ProductModalView>
         </Fragment>

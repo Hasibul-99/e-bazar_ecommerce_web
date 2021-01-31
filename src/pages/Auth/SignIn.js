@@ -29,8 +29,6 @@ export default class SignIn extends Component {
 
         const {email, password} = this.state;
 
-        console.log("email, password", email, password);
-        
         if (email && password) {
 
             let signIn = {
@@ -41,9 +39,6 @@ export default class SignIn extends Component {
             let res = await postData(LOGIN, signIn, "no_token");
 
             if (res?.status && checkRes(res.status) && res.data.isSuccess) {
-                
-                console.log("res", res);
-
                 Cookies.set("expressToken", res.data.data);
                 window.location = "/";
 

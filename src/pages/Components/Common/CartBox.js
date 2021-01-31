@@ -1,16 +1,93 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import QuantityInput from "./QuantityInput";
+import {CREATE_ORDER} from "../../../scripts/api";
+import { postData, getData } from "../../../scripts/api-service";
+import { toast } from 'react-toastify';
+
+import Localbase from 'localbase'
+let db = new Localbase('db');
+db.config.debug = false;
 
 export default function CartBox() {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        db.collection('products').get().then(products => {
+            if (products && products.length) {
+                setProducts(products);
+            }
+        })
+    });
+
+    const productPrice = (product) => {
+        if (product.discountPrice) {
+            return product.sellPrice - product.discountPricel
+        } else {
+            return product.sellPrice;
+        }
+    }
+
+    const productTotalPrice = (product) => {
+        let price = productPrice(product);
+
+        return price * product.total;
+    }
+
+    const totalPrice = () => {
+        let total = 0;
+
+        products.forEach(item => {
+           let productPrice = productTotalPrice(item);
+
+           total = total + productPrice;
+        })
+
+        return total;
+    }
+
+    const handelQuantuty = ({qun, productId}) => {
+        db.collection('products').doc({ _id: productId }).update({
+            total : qun
+        })
+    };
+
+    const orderProduct = async () => {
+        let orderData = [],
+            userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+        products.forEach(item => {
+            orderData.push({
+                product: item._id,
+                qty: item.total
+            });
+        });
+
+        let data = {
+            "userId": userInfo._id,
+            "products": orderData
+        }
+
+
+        let res = await getData(CREATE_ORDER);
+
+        if (res?.data?.isSuccess) {
+            toast.success("Order Submit Successfully");
+            db.collection('users').delete();
+            setProducts([]);
+        } else {
+            toast.error("Something Went Wrong")
+        }
+    }
+
     return (
         <Fragment>
             <button className="cart-box" data-toggle="modal" data-target="#cart-modal-lg">
                 <span className="cart-box-item">
                     <span><svg xmlns="http://www.w3.org/2000/svg" width="12.686" height="16" viewBox="0 0 12.686 16"><g data-name="Group 2704" transform="translate(-27.023 -2)"><g data-name="Group 17" transform="translate(27.023 5.156)"><g data-name="Group 16"><path data-name="Path 3" d="M65.7,111.043l-.714-9A1.125,1.125,0,0,0,63.871,101H62.459V103.1a.469.469,0,1,1-.937,0V101H57.211V103.1a.469.469,0,1,1-.937,0V101H54.862a1.125,1.125,0,0,0-1.117,1.033l-.715,9.006a2.605,2.605,0,0,0,2.6,2.8H63.1a2.605,2.605,0,0,0,2.6-2.806Zm-4.224-4.585-2.424,2.424a.468.468,0,0,1-.663,0l-1.136-1.136a.469.469,0,0,1,.663-.663l.8.8,2.092-2.092a.469.469,0,1,1,.663.663Z" transform="translate(-53.023 -101.005)" fill="currentColor"></path></g></g><g data-name="Group 19" transform="translate(30.274 2)"><g data-name="Group 18"><path data-name="Path 4" d="M160.132,0a3.1,3.1,0,0,0-3.093,3.093v.063h.937V3.093a2.155,2.155,0,1,1,4.311,0v.063h.937V3.093A3.1,3.1,0,0,0,160.132,0Z" transform="translate(-157.039)" fill="currentColor"></path></g></g></g></svg></span>
-                    0 Item
+                    {products.length} Item
                 </span>
                 <span className="cart-box-price">
-                    $00.00
+                    ৳{totalPrice()}
                 </span>
             </button>
 
@@ -23,78 +100,48 @@ export default function CartBox() {
                             </button>
                         </div>
                         <div className="modal-body px-4">
-                            <div className="list-group">
-                                <div className="row">
-                                    <div className="col-md-4">
-                                        <div className="product-tumb">
-                                            <img src="https://i.imgur.com/xdbHo4E.png" width="85" height="85" className="card-img-top" alt="..."  />
+                            {
+                                products.map(product => {
+                                    return (
+                                        <div className="list-group">
+                                            <div className="row">
+                                                <div className="col-md-4">
+                                                    <div className="product-tumb">
+                                                        <img src="https://i.imgur.com/xdbHo4E.png" width="85" 
+                                                            height="85" className="card-img-top" alt="..."  />
+                                                    </div>
+                                                    <div className="product-detais mt-3">
+                                                        <span className="product-catagory">Women Bag</span>
+                                                        <h5><a href>{product.name}</a></h5>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-2 mt-5">
+                                                    Price: <span className="gold-text"> 
+                                                        ৳{productPrice(product)}
+                                                    </span>
+                                                </div>
+                                                <div className="col-md-3 mt-5">
+                                                    <QuantityInput
+                                                        total = {product.total}
+                                                        productId={product._id}
+                                                        handelQuantuty={handelQuantuty} 
+                                                    ></QuantityInput>
+                                                </div>
+                                                <div className="col-md-2 mt-5">
+                                                    Total Price: <span className="gold-text">
+                                                        ৳{productTotalPrice(product)}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <hr/>
                                         </div>
-                                        <div className="product-detais mt-3">
-                                            <span className="product-catagory">Women Bag</span>
-                                            <h5><a href>Women Leather bag</a></h5>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-2 mt-5">
-                                        Price: <span className="gold-text">$300.00</span>
-                                    </div>
-                                    <div className="col-md-3 mt-5">
-                                        <QuantityInput></QuantityInput>
-                                    </div>
-                                    <div className="col-md-2 mt-5">
-                                        Total Price: <span className="gold-text">$300.00</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="list-group">
-                                <div className="row">
-                                    <div className="col-md-4">
-                                        <div className="product-tumb">
-                                            <img src="https://i.imgur.com/xdbHo4E.png" width="85" height="85" className="card-img-top" alt="..."  />
-                                        </div>
-                                        <div className="product-detais mt-3">
-                                            <span className="product-catagory">Women Bag</span>
-                                            <h5><a href>Women Leather bag</a></h5>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-2 mt-5">
-                                        Price: <span className="gold-text">$300.00</span>
-                                    </div>
-                                    <div className="col-md-3 mt-5">
-                                        <QuantityInput></QuantityInput>
-                                    </div>
-                                    <div className="col-md-2 mt-5">
-                                        Total Price: <span className="gold-text">$300.00</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="list-group">
-                                <div className="row">
-                                    <div className="col-md-4">
-                                        <div className="product-tumb">
-                                            <img src="https://i.imgur.com/xdbHo4E.png" width="85" height="85" className="card-img-top" alt="..."  />
-                                        </div>
-                                        <div className="product-detais mt-3">
-                                            <span className="product-catagory">Women Bag</span>
-                                            <h5><a href>Women Leather bag</a></h5>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-2 mt-5">
-                                        Price: <span className="gold-text">$300.00</span>
-                                    </div>
-                                    <div className="col-md-3 mt-5">
-                                        <QuantityInput></QuantityInput>
-                                    </div>
-                                    <div className="col-md-2 mt-5">
-                                        Total Price: <span className="gold-text">$300.00</span>
-                                    </div>
-                                </div>
-                            </div>
+                                    )
+                                })
+                            }                            
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-danger light" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
+                            <button type="button" className="btn btn-primary" onClick={orderProduct}>Save Order</button>
                         </div>
                     </div>
                 </div>

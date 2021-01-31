@@ -1,16 +1,24 @@
 import React, {useState} from 'react'
 
-export default function QuantityInput() {
-    const [value, setValue] = useState(1)
+export default function QuantityInput(props) {
+    const {total, productId, handelQuantuty} = props;
+
+    const [value, setValue] = useState(total);
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(10);
 
     const decriesValue = () => {
-        if (value > minValue) setValue(value -1);
+        if (value > minValue) {
+            setValue(value -1);
+            handelQuantuty({qun: value - 1, productId: productId});
+        }
     }
 
     const incriseValue = () => {
-        if (value < maxValue) setValue(value + 1);
+        if (value < maxValue) {
+            setValue(value + 1);
+            handelQuantuty({qun: value + 1, productId: productId});
+        }
     }
 
     return (

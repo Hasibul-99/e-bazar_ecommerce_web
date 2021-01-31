@@ -23,3 +23,4 @@ export const GET_RPODUCT = "api/product";
 
 // Order
 export const GET_ORDER_LIST = "api/order";
+export const CREATE_ORDER = "api/order";

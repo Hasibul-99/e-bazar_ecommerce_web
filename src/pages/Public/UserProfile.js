@@ -166,9 +166,9 @@ export default class UserProfile extends Component {
                             <div className="col-md-6">
                                 <div class="form-group">
                                     <label>Date of Birth</label>
-                                    {/* <input type="date" class="form-control" value={this.state?.userInfo?.dateOfBirth}/> */}
+                                    {/* <input type="date" class="form-control" value={this.state?.userInfo?.dateOfBirth}/> this.state.formData?.dateOfBirth || */}
                                     <div className="date-container">
-                                        <DatePicker selected={this.state.formData?.dateOfBirth || new Date()} onChange={date => this.setStartDate(date)} />
+                                        <DatePicker selected={ new Date()} onChange={date => this.setStartDate(date)} />
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +183,7 @@ export default class UserProfile extends Component {
                         </div>
                         
                         {
-                            this.state?.userInfo?.userType === '' ? 
+                            this.state?.userInfo?.userType === 'MARCHANT' ? 
                             <Fragment>
                                 <hr/>
 

@@ -12,6 +12,9 @@ import './assets/scss/main.scss';
 
 import App from "./router/App";
 
+import Localbase from 'localbase';
+let db = new Localbase('db')
+
 ReactDOM.render(
   <BrowserRouter>
     <App />
