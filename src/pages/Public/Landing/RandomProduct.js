@@ -1,12 +1,8 @@
 import React, {Fragment, useState, useEffect} from 'react';
 import $ from "jquery";
-
-import { postData, getData } from "../../../scripts/api-service";
+import { getData } from "../../../scripts/api-service";
 import { GET_RPODUCT } from "../../../scripts/api";
-import Pagination from "../../Private/common/Pagination";
-import {loadPageVar} from "../../../scripts/helper";
 import demoProduct from "../../../assets/images/demo-product.png";
-
 import ProductModalView from "../../Components/Common/ProductModalView";
 
 import Localbase from 'localbase';
@@ -29,12 +25,6 @@ export default function RandomProduct() {
         }
     };
 
-    const handelPagination = (page) => {
-        // this.props.history.push(`${window.location.pathname}?page=${page}`);
-        getProductList(page);
-    }
-
-
     return (
         <div className="random-products mt-4">
             <div className="card">
@@ -49,11 +39,13 @@ export default function RandomProduct() {
                                     </div>
                             }) : <h3>No Product Found</h3>
                         }
-                    </div>
 
-                    {/* <Pagination
-                        handelPagination={handelPagination}
-                    ></Pagination> */}
+                        <div className="col-12 container">
+                            <div className="button-effect">
+                                <button class="effect effect-4 button-4 float-righ">View More</button>
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </div>
