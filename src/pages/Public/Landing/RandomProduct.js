@@ -16,9 +16,8 @@ export default function RandomProduct() {
         getProductList();
     }, []);
 
-    const getProductList = async (page) => {
-        let url = page ? GET_RPODUCT + '?page='+ page : GET_RPODUCT;
-        let res = await getData(url);
+    const getProductList = async () => {
+        let res = await getData(GET_RPODUCT);
 
         if (res?.data?.isSuccess) {
             setProducts(res?.data?.data);
