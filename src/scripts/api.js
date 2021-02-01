@@ -14,6 +14,7 @@ export const CREATE_CATEGORY_BRAND = "api/category/categoryBrand";
 export const GET_CATEGORY_BRAND = "api/category/categoryBrand";
 export const GET_CATEGORY_BRAND_SUB_CATEGORY = "api/category/categoryBrandSubCategory";
 export const CREATE_SUB_CATEGORY = "api/category/categoryBrandSubCategory";
+export const GET_CATEGORY_MENU_LIST = "api/category/menuList";
 
 // product 
 export const ADD_PRODUCT = "api/product";

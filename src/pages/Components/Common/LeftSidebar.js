@@ -2,42 +2,30 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 
 import { getData } from "../../../scripts/api-service";
-import { GET_CATEGORY_LIST, GET_CATEGORY_BRAND, GET_CATEGORY_BRAND_SUB_CATEGORY } from "../../../scripts/api";
+import { GET_CATEGORY_MENU_LIST } from "../../../scripts/api";
 
 export default function LeftSidebar() {
     const [category, setCategory] = useState();
     const [brand, setBrand] = useState();
     const [subCategory, setSubCategory] = useState();
     const [productsCategory, setProductsCategory] = useState([]);
+    
     useEffect(() => {
-        getCategory();
-        getCategoryBarnds();
-        getCategoryBrandsSubCategory()
+        getcategoryMenu()
     }, []);
 
-    const getCategory = async () => {
-        let res = await getData(GET_CATEGORY_LIST);
+    const getcategoryMenu = async () => {
+        let res = await getData(GET_CATEGORY_MENU_LIST);
 
+        console.log("res", res);
         if (res?.data?.isSuccess) {
-            setCategory(res.data.data)
-        }
-    }
+            let {categories, categoriesBrand, categoriesBrandSubCategories} = res?.data?.data;
 
-    const getCategoryBarnds = async () => {
-        let res = await getData(GET_CATEGORY_BRAND);
-        
-        if (res?.data?.isSuccess) {
-            setBrand(res.data.data)
+            setCategory(categories);
+            setBrand(categoriesBrand);
+            setSubCategory(categoriesBrandSubCategories);
         }
-    }
-
-    const getCategoryBrandsSubCategory = async () => {
-        let res = await getData(GET_CATEGORY_BRAND_SUB_CATEGORY);
-
-        if (res?.data?.isSuccess) {
-            setSubCategory(res.data.data)
-        }
-    }
+    };
 
     useEffect(() => {
         if (category && category.length) {
