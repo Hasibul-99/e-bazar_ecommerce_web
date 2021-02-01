@@ -4,13 +4,16 @@ import { toast } from 'react-toastify';
 import $ from "jquery";
 
 // import { checkRes } from "../../../scripts/checkRes";
-import { postData, getData } from "../../../scripts/api-service";
-import { CREATE_CATEGORY, GET_CATEGORY_LIST } from "../../../scripts/api";
+import { postData, getData, putData } from "../../../scripts/api-service";
+import { CREATE_CATEGORY, GET_CATEGORY_LIST, UPDATE_CATEGORY } from "../../../scripts/api";
 import { dateFormat } from "../../../scripts/helper";
+import swal from 'sweetalert2';
 
 export default function Category() {
     const [categoryName, setCategoryName] = useState();
     const [categoryList, setCategoryList] = useState([]);
+    const [updateCategory, setUpdateCategory] = useState();
+    const [updateCategoryName, setUpdateCategoryName] = useState();
 
     const changeHandeler = (e) => {
         let value = e.target.value;
@@ -40,6 +43,57 @@ export default function Category() {
             setCategoryList(res.data.data);
         } else {
             toast("Something went wrong");
+        }
+    }
+
+    const deleteCategory = (data) => {
+        swal.fire({
+            title: 'Are you sure?',
+            text:'You want to delete this Category!',
+            icon: 'warning',
+            showCancelButton: "true",
+            confirmButtonText:'Yes, Approve it!',
+            cancelButtonText: 'Cancel',
+          }).then( async result => {
+            if (result.value) {
+                let res = await getData(GET_CATEGORY_LIST);
+
+                if (res?.data?.isSuccess) {
+                    setCategoryList(res.data.data);
+                } else {
+                    toast("Something went wrong");
+                }
+            }
+        })
+    }
+
+    const updateCategoryContent = (data) => {
+        setUpdateCategory(data);
+        setUpdateCategoryName(data.name);
+        $('#update-category-modal').modal('show');
+    }
+
+    const changeUpdateHandeler = (e) => {
+        let value = e.target.value;
+        setUpdateCategoryName(value);
+    }
+
+    const editCategory = async () => {
+        if (updateCategoryName) {
+            let res = await putData(UPDATE_CATEGORY, {name: updateCategoryName, _id: updateCategory._id});
+
+            if (res?.data?.isSuccess) {
+                toast("Category Update Successfully");
+                $("#update-category-modal").modal('hide');
+                setUpdateCategory();
+                setUpdateCategoryName();
+
+                getCategoryList();
+            } else {
+                toast("Something went wrong");
+            }
+        } else {
+            toast("Category name is required");
         }
     }
 
@@ -80,8 +134,12 @@ export default function Category() {
                                                         <td>
                                                             <div className="d-flex">
                                                                 <Link to={`/admin/brand/${category._id}`} className="btn btn-dark shadow btn-xs sharp mr-1"><i className="fa fa-eye"></i></Link>
-                                                                <a href="#" className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
-                                                                <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a>
+                                                                <a onClick={() => updateCategoryContent(category)} className="btn btn-primary shadow btn-xs sharp mr-1">
+                                                                    <i className="fa fa-pencil"></i>
+                                                                </a>
+                                                                {/* <a onClick={() => deleteCategory(category)} className="btn btn-danger shadow btn-xs sharp">
+                                                                    <i className="fa fa-trash"></i>
+                                                                </a> */}
                                                             </div>
                                                         </td>
                                                     </tr>)
@@ -116,6 +174,30 @@ export default function Category() {
                     <div className="modal-footer">
                         <button type="button" className="btn btn-danger light" data-dismiss="modal">Close</button>
                         <button type="button" className="btn btn-primary" onClick={() => addCategory()}>Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="modal fade" id="update-category-modal">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Category Update</h5>
+                        <button type="button" className="close" data-dismiss="modal"><span>&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        <div className="form-row">
+                            <div className="form-group col-md-12">
+                                <label>Category Name</label>
+                                <input type="text" name="update_category_name" value={updateCategoryName} onChange={changeUpdateHandeler} className="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-danger light" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-primary" onClick={() => editCategory()}>Update</button>
                     </div>
                 </div>
             </div>

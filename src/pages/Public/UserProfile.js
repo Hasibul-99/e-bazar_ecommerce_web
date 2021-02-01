@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { toast } from 'react-toastify';
 
 import { LOGIN_USER_INFO, UPLOAD_PROFILE_IMAGE, UPDATE_USER } from "../../scripts/api";
 import { getData, postData, putData } from "../../scripts/api-service";
@@ -52,7 +53,6 @@ export default class UserProfile extends Component {
     }
 
     uploadImage = async (e) => {
-        console.log("e", e.target);
         let ele = e.target;
         
         let data = new FormData();
@@ -60,12 +60,13 @@ export default class UserProfile extends Component {
         data.append('avatar', file);
         
         let res = await postData(UPLOAD_PROFILE_IMAGE, data);
-
-        console.log("res", res);
-        // if (res?.data?.isSuccess) {
-        //     toast.success("Product Image Upload Successfully");
-        //     window.location = '/admin/products';
-        // }
+        if (res?.data?.isSuccess) {
+            toast.success("Image Upload Successfully");
+            let ele = document.getElementById('js-img-thumb');
+            if (ele) ele.src = `http://easyexpress24.com:5000/static/${res.data.data}`
+        } else {
+            toast.error("Something went wrong!");
+        }
 
     }
 
@@ -129,7 +130,7 @@ export default class UserProfile extends Component {
                                         <label for="imageUpload"></label>
                                     </div>
                                     <div className="user-acater">
-                                        <img class="img-thumbnail"
+                                        <img id="js-img-thumb" class="img-thumbnail"
                                              src={ this.state?.userInfo?.avatar ? `http://easyexpress24.com:5000/static/${this.state.userInfo.avatar}` : demoUser} />
                                     </div>
                                 </div>

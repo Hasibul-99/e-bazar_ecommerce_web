@@ -3,8 +3,8 @@ import { toast } from 'react-toastify';
 import $ from "jquery";
 import { useParams } from 'react-router-dom';
 
-import { postData, getData } from "../../../scripts/api-service";
-import { GET_CATEGORY_BRAND, GET_CATEGORY_BRAND_SUB_CATEGORY, CREATE_SUB_CATEGORY } from "../../../scripts/api";
+import { postData, getData, putData } from "../../../scripts/api-service";
+import { GET_CATEGORY_BRAND, GET_CATEGORY_BRAND_SUB_CATEGORY, CREATE_SUB_CATEGORY, UPDATE_SUBCATEGORY } from "../../../scripts/api";
 import { dateFormat } from "../../../scripts/helper";
 
 export default function SubCategory() {
@@ -12,6 +12,8 @@ export default function SubCategory() {
     const [subName, getSubName] = useState("");
     const [brandSubCategory, getBrandSubCategory] = useState();
     const { categoryId, brandId } = useParams();
+    const [subCategoryUpadet, setsubCategoryUpadet] = useState();
+    const [subCategoryUpadetName, setsubCategoryUpadetName] = useState();
 
     useEffect(() => {
         if (brandId) {
@@ -61,11 +63,42 @@ export default function SubCategory() {
         } else {
             toast.error("Something went wrong");
         }
-    }   
+    } 
 
     const changeHandeler = (e) => {
         let value = e.target.value;
         getSubName(value);
+    }
+
+    const updateSubcategory = (data) => {
+        setsubCategoryUpadet(data);
+        setsubCategoryUpadetName(data.name);
+        $("#update-product-modal").modal('show');
+    }
+
+    const editSubCategory = async () => {
+        if (subCategoryUpadetName) {
+            let res = await putData(UPDATE_SUBCATEGORY, 
+                {
+                    "_id": subCategoryUpadet._id,
+                    "name": subCategoryUpadetName,
+                    "category": subCategoryUpadet.category,
+                    "categoryBrand": subCategoryUpadet.categoryBrand
+            });
+
+            if (res?.data?.isSuccess) {
+                toast("Sub-category Update Successfully");
+                $("#update-product-modal").modal('hide');
+                setsubCategoryUpadet();
+                setsubCategoryUpadetName();
+
+                getSubBrandCategory();
+            } else {
+                toast("Something went wrong");
+            }
+        } else {
+            toast("Name is required");
+        }
     }
 
     return (
@@ -100,8 +133,8 @@ export default function SubCategory() {
                                                         <td>{data.status ? 'Active' : "Inactive"}</td>
                                                         <td>
                                                             <div className="d-flex">
-                                                                <a href="#" className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
-                                                                <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a>
+                                                                <a onClick={() => updateSubcategory(data)} className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
+                                                                {/* <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a> */}
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -134,6 +167,28 @@ export default function SubCategory() {
                     <div className="modal-footer">
                         <button type="button" className="btn btn-danger light" data-dismiss="modal">Close</button>
                         <button type="button" className="btn btn-primary" onClick={saveSubCategory}>Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="modal fade" id="update-product-modal">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Add Sub-category from {brandInfo?.name}</h5>
+                        <button type="button" className="close" data-dismiss="modal"><span>&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        <div className="form-group">
+                            <label>Sub-category Name</label>
+                            <input type="text" name="subName" onChange={e => setsubCategoryUpadetName(e.target.value)} value={subCategoryUpadetName} className="form-control"/>
+                        </div>
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-danger light" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-primary" onClick={editSubCategory}>Save</button>
                     </div>
                 </div>
             </div>

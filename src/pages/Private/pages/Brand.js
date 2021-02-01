@@ -4,8 +4,8 @@ import { toast } from 'react-toastify';
 import $ from "jquery";
 import { useParams } from 'react-router-dom';
 
-import { postData, getData } from "../../../scripts/api-service";
-import { CREATE_CATEGORY_BRAND, GET_CATEGORY_LIST, GET_CATEGORY_BRAND } from "../../../scripts/api";
+import { postData, getData, putData } from "../../../scripts/api-service";
+import { CREATE_CATEGORY_BRAND, GET_CATEGORY_LIST, GET_CATEGORY_BRAND, UPDATE_BRAND } from "../../../scripts/api";
 import { dateFormat } from "../../../scripts/helper";
 
 export default function Brand() {
@@ -13,6 +13,8 @@ export default function Brand() {
     const [brands, setBarnds] = useState([]);
     const [brandName, setBrandName] = useState();
     const { categoryId } = useParams();
+    const [updateBrand, setUpdateBrand] = useState();
+    const [updateBrandName, setUpdateBrandName] = useState()
 
     useEffect(() => {
         if (categoryId) {
@@ -69,6 +71,39 @@ export default function Brand() {
         }
     }
 
+    const updateBrandContent = (data) => {
+        setUpdateBrand(data);
+        setUpdateBrandName(data.name);
+        $("#update-featured-modal").modal('show');
+    }
+
+    const changeHandelerUpdate = (e) => {
+        setUpdateBrandName(e.target.value);
+    }
+
+    const editBrand = async () => {
+        if (updateBrandName) {
+            let res = await putData(UPDATE_BRAND, 
+                {name: updateBrandName,
+                _id: updateBrand._id,
+                category: updateBrand.category
+            });
+
+            if (res?.data?.isSuccess) {
+                toast("Brand Update Successfully");
+                $("#update-featured-modal").modal('hide');
+                setUpdateBrand();
+                setUpdateBrandName();
+
+                getCategoryBrand();
+            } else {
+                toast("Something went wrong");
+            }
+        } else {
+            toast("Category name is required");
+        }
+    }
+
 
 
     return (
@@ -104,8 +139,8 @@ export default function Brand() {
                                                     <td>
                                                         <div className="d-flex">
                                                             <Link to={`/admin/sub-category/${brand.category}/${brand._id}`} className="btn btn-dark shadow btn-xs sharp mr-1"><i className="fa fa-eye"></i></Link>
-                                                            <a href="#" className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
-                                                            <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a>
+                                                            <a onClick={() => updateBrandContent(brand)} className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
+                                                            {/* <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a> */}
                                                         </div>
                                                     </td>
                                                 </tr>)
@@ -138,6 +173,29 @@ export default function Brand() {
                     <div className="modal-footer">
                         <button type="button" className="btn btn-danger light" data-dismiss="modal">Close</button>
                         <button type="button" className="btn btn-primary" onClick={() => addBrand()}>Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="modal fade" id="update-featured-modal">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Update Brand from {categorie.name}</h5>
+                        <button type="button" className="close" data-dismiss="modal"><span>&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        <div className="form-group">
+                            <label>Brand Name</label>
+                            <input type="text" onChange={changeHandelerUpdate} value={updateBrandName}
+                                name="brandName" className="form-control"/>
+                        </div>
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-danger light" data-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-primary" onClick={() => editBrand()}>Update</button>
                     </div>
                 </div>
             </div>
