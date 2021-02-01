@@ -8,7 +8,6 @@ import Pagination from "../common/Pagination";
 
 import {loadPageVar} from "../../../scripts/helper";
 
-
 export default class Products extends Component {
     constructor(props) {
         super(props);

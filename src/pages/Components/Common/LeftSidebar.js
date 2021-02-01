@@ -1,6 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
-
+import {Link,useHistory} from "react-router-dom";
 import { getData } from "../../../scripts/api-service";
 import { GET_CATEGORY_MENU_LIST } from "../../../scripts/api";
 
@@ -32,6 +31,7 @@ export default function LeftSidebar() {
             let caTlist = [];
             category.forEach(cat => {
                 let list = {
+                    _id: cat._id,
                     parent: cat.name
                 },
                 brands = brand?.length ? brand.filter(b => b.category === cat._id ) : [];
@@ -43,8 +43,9 @@ export default function LeftSidebar() {
                         let subCat = subCategory?.length ? subCategory.filter(sc => sc.categoryBrand === bra._id) : [];
 
                         clild.push({
+                            _id: bra._id,
                             parent: bra.name,
-                            child: subCat.map(e => e.name)
+                            child: subCat.map(e => { return {name: e.name, _id: e._id} })
                         })
                     });
                     list.child = clild;
@@ -147,10 +148,16 @@ export default function LeftSidebar() {
 function Category (props) {
     const {item} = props;
     const [isActive, setIsActive] = useState(false);
+    const history = useHistory();
     
     const slectCategory = () => {
         setIsActive(!isActive);
+        changePage();
     };
+
+    const changePage = () => {
+        history.push(`/products?category=${item._id}`);
+    }
 
     return (
         // className="mm-active"
@@ -175,10 +182,43 @@ function Category (props) {
 function ChildCategory(props) {
     const {sChild} = props;
     const [isActive, setIsActive] = useState(false);
+    const history = useHistory();
 
     const selectChildCategory = () => {
-        setIsActive(!isActive)
+        setIsActive(!isActive);
+        changePage();
     };
+
+    const updateQueryStringParameter = (uri, key, value) => {
+        var re = new RegExp("([?&])" + key + "=.*?(&|#|$)", "i");
+        if (uri.match(re)) {
+          return uri.replace(re, '$1' + key + "=" + value + '$2');
+        } else {
+          var hash =  '';
+          if( uri.indexOf('#') !== -1 ){
+              hash = uri.replace(/.*#/, '#');
+              uri = uri.replace(/#.*/, '');
+          }
+          var separator = uri.indexOf('?') !== -1 ? "&" : "?";    
+          return uri + separator + key + "=" + value + hash;
+        }
+    }
+
+    const changePage = () => {
+        let {location} = history,
+            {search} = location;
+        
+        let query = search ? updateQueryStringParameter(search, 'categoryBrand', sChild._id) : "?categoryBrand=" + sChild._id;
+        history.push(`/products${query}`);
+    }
+
+    const contentUpdate = (item) => {
+        let {location} = history,
+            {search} = location;
+        
+        let query = search ? updateQueryStringParameter(search, 'categoryBrandSubCategory', item._id) : "categoryBrandSubCategory=" + item._id;
+        history.push(`/products${query}`);
+    }
 
     return (
         <li className={`${isActive ? 'has-child-selected' : ''}`}>
@@ -192,7 +232,9 @@ function ChildCategory(props) {
                             sChild?.child?.length ? sChild.child.map((tChild, k) => {
                                 return (
                                     <Fragment>
-                                        <li><a>{tChild}</a></li>
+                                        <li className="cursore-pointer">
+                                            <a onClick={() => contentUpdate(tChild)}>{tChild.name}</a>
+                                        </li>
                                     </Fragment>
                                 )
                             }) : "" 

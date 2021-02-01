@@ -1,5 +1,6 @@
 import React, {useEffect, useState, Fragment} from 'react';
 import $ from "jquery";
+import { useHistory } from "react-router-dom";
 import { getData } from "../../../scripts/api-service";
 import { GET_RPODUCT } from "../../../scripts/api";
 import demoProduct from "../../../assets/images/demo-product.png";
@@ -7,8 +8,9 @@ import ProductModalView from "../../Components/Common/ProductModalView";
 import Localbase from 'localbase';
 let db = new Localbase('db');
 
-export default function NonBrandItems() {
+export default function NonBrandItems(props) {
     const [products, setProducts] = useState([]);
+    const history = useHistory();
     
     useEffect(() => {
         getNonBundleProduct()
@@ -16,12 +18,14 @@ export default function NonBrandItems() {
 
     const getNonBundleProduct = async () => {
         let res = await getData(GET_RPODUCT+ '?isBundleProduct=false');
-
-        console.log("res", res);
         if (res?.data?.isSuccess) {
             setProducts(res?.data?.data);
         }
     };
+
+    const viewMore = () => {
+        history.push('/products?isBundleProduct=false');
+    }
     
     return (
         <div className="non-Brand-items card">
@@ -41,7 +45,7 @@ export default function NonBrandItems() {
 
                     <div className="col-12 container">
                         <div className="button-effect">
-                            <button class="effect effect-4 button-4 float-righ">View More</button>
+                            <button class="effect effect-3 button-3" onClick={viewMore}>View More</button>
                         </div>
                     </div>
                 </div>
