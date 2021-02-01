@@ -45,7 +45,8 @@ const content = [
 export default function TopSlider() {
     return (
         <div className="top-slider"> {/* autoplay= "2000" touchDisabled = "true" */}
-            <Slider className="slider-wrapper">
+            <Slider className="slider-wrapper"
+                autoplay= "2000" touchDisabled = "true">
                 {content.map((item, index) => (
                     <div className="item slider-content" key={index}>
                         <img src={item.image} alt={'image' + index}/>

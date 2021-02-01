@@ -35,10 +35,10 @@ export default function ItemType() {
                         <Link>Top Discount</Link>
                     </div>
                     <div className="cursor-pointer item-type-container">
-                        <Link>New Products</Link>
+                        <Link to="/products?sort=-creatingDate">New Products</Link>
                     </div>
                     <div className="cursor-pointer item-type-container">
-                        <Link>Flash Sale</Link>
+                        <Link to="/products?isFlushSell=true">Flash Sale</Link>
                     </div>
                     <div className="cursor-pointer item-type-container">
                         <Link to="/auth/marchent-signup">Marchant</Link>

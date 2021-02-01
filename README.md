@@ -93,3 +93,8 @@ user registration
 
 ### button design
 https://codepen.io/foxeisen/pen/bqZxLa
+
+
+##
+bug
+left sidebar bug
