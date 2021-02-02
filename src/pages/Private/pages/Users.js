@@ -1,16 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import demoUserImage from "../../../assets/images/profile/17.jpg";
-import AlertModal from "../../Components/Common/AlertModal"; 
 import $ from "jquery";
 
 import { toast } from 'react-toastify';
 
 import { postData, getData } from "../../../scripts/api-service";
-import { GET_USERS } from "../../../scripts/api";
+import { GET_USERS, VERIFY_USER } from "../../../scripts/api";
 import Pagination from "../common/Pagination";
 
 import {loadPageVar, dateFormat} from "../../../scripts/helper";
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert2';
 
 
 export default class Users extends Component {
@@ -31,7 +31,6 @@ export default class Users extends Component {
         let url = page ? GET_USERS + '?page='+ page : GET_USERS;
         let res = await getData(url);
 
-        console.log("res", res.data);
         if (res?.data?.isSuccess) {
             this.setState({users: res?.data?.data});
         }
@@ -40,6 +39,28 @@ export default class Users extends Component {
     handelPagination = (page) => {
         this.props.history.push(`${window.location.pathname}?page=${page}`);
         this.getUsersList(page);
+    }
+
+    verifiedUser = async (user) => {
+        swal.fire({
+            title: 'Are you sure?',
+            text:'You want to Change this user status!',
+            icon: 'warning',
+            showCancelButton: "true",
+            confirmButtonText:'Yes',
+            cancelButtonText: 'Cancel',
+          }).then( async result => {
+            if (result.value) {
+                let res = await postData(VERIFY_USER, {userId: user._id});
+
+                if (res?.data?.isSuccess) {
+                    toast.success("User status update successfully!");
+                    this.getUsersList(this.state.pageValue);
+                } else {
+                    toast("Something went wrong");
+                }
+            }
+        })
     }
 
     render() {
@@ -104,9 +125,11 @@ export default class Users extends Component {
                                                                 <td>{dateFormat(user.joiningDate)}</td>
                                                                 {/* <td>8000TK</td> */}
                                                                 <td>{user.userType}</td>
-                                                                <td><div className="d-flex align-items-center">
-                                                                    <i className="fa fa-circle text-success mr-1"></i> 
-                                                                    Active</div>
+                                                                <td>
+                                                                    <div className="d-flex align-items-center">
+                                                                        <i className="fa fa-circle text-success mr-1"></i> 
+                                                                        {user.userActiveStatus === 'NOT_VERIFIED' ? 'Not Verified' : "Active"}
+                                                                    </div>
                                                                 </td>
                                                                 <td>
                                                                     <div className="dropdown">
@@ -116,11 +139,8 @@ export default class Users extends Component {
                                                                             </svg>
                                                                         </button>
                                                                         <div className="dropdown-menu">
-                                                                        <a className="dropdown-item">View</a>
-                                                                            <Link className="dropdown-item" onClick={() => {$("#successModal").modal("show");}}>Active</Link>
-                                                                            <Link className="dropdown-item" onClick={() => {$("#errorModal").modal("show");}}>Pending</Link>
-                                                                            <Link className="dropdown-item">Suspend</Link>
-                                                                            <Link className="dropdown-item">Inactive</Link>
+                                                                            {/* <a className="dropdown-item">View</a> */}
+                                                                            <Link className="dropdown-item" onClick={() => this.verifiedUser(user)}>Active</Link>
                                                                         </div>
                                                                     </div>
                                                                 </td>
@@ -141,20 +161,6 @@ export default class Users extends Component {
                     </div>    
                 </div>
             </div>
-
-            <AlertModal
-            heading={"Success!"}
-            type={"success"}
-            message={"Password Change successfully"}
-            modalId={"successModal"}
-            />
-
-            <AlertModal
-            heading={"Alert!"}
-            type={"danger"}
-            message={"Are you Sure"}
-            modalId={"errorModal"}
-            />
             </Fragment>
         )
     }

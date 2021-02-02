@@ -35,9 +35,7 @@ export default class UserProfile extends Component {
 
     getUserInfo = async () => {
         let res = await getData(LOGIN_USER_INFO);
-
-        console.log("res", res.data);
-
+        
         if (res?.data) {
             let data = res.data;
             this.setState({userInfo: data});
@@ -47,7 +45,12 @@ export default class UserProfile extends Component {
                 mobile: data.mobile,
                 nid: data.nid,
                 address: data.address,
-                dateOfBirth: data.dateOfBirth,
+                dateOfBirth: new Date(data.dateOfBirth) || null,
+                bussinessName: data?.marchant?.bussinessName,
+                marchentDesignation: data?.marchant?.marchantDesignation,
+                accountName: data?.marchant?.bankInfo?.accountName,
+                accountNumber: data?.marchant?.bankInfo?.accountNumber,
+                branch: data?.marchant?.bankInfo?.branch
             }})
         }
     }
@@ -98,21 +101,29 @@ export default class UserProfile extends Component {
             "nid": this.state.formData.nid,
             "address": this.state.formData.address,
             "dateOfBirth": this.state.formData.dateOfBirth,
-            // "marchant":{
-            //     "bussinessName":"A Enter Prize",
-            //     "marchantDesignation":"OWNER",
-            //     "bankInfo":{
-            //         "accountName":"ARIF JAHAN",
-            //         "accountNumber":"123456789",
-            //         "branch":"Dhanmondi,dhaka"
-            //     }
-            // }
+        }
+
+        if (this.state.userInfo.userType === 'MARCHANT') {
+            let marchent = {
+                "bussinessName": this.state.formData.bussinessName,
+                "marchantDesignation": this.state.formData.marchentDesignation,
+                "bankInfo":{
+                    "accountName": this.state.formData.accountName,
+                    "accountNumber": this.state.formData.accountNumber,
+                    "branch": this.state.formData.branch
+                }
+            }
+
+            data.marchant = marchent;
         }
 
         let res = await putData(UPDATE_USER, data);
 
-        console.log("res", res);
-
+        if (res?.data?.isSuccess) {
+            toast.success("User info update successfully!");
+        } else {
+            toast.error(res?.data?.msg);
+        }
 
     }
 
@@ -167,9 +178,10 @@ export default class UserProfile extends Component {
                             <div className="col-md-6">
                                 <div class="form-group">
                                     <label>Date of Birth</label>
-                                    {/* <input type="date" class="form-control" value={this.state?.userInfo?.dateOfBirth}/> this.state.formData?.dateOfBirth || */}
                                     <div className="date-container">
-                                        <DatePicker selected={ new Date()} onChange={date => this.setStartDate(date)} />
+                                        <DatePicker selected={ this.state?.formData?.dateOfBirth ?
+                                             this.state?.formData?.dateOfBirth : new Date()} 
+                                        onChange={date => this.setStartDate(date)} />
                                     </div>
                                 </div>
                             </div>
@@ -182,7 +194,7 @@ export default class UserProfile extends Component {
                                 </div>
                             </div>
                         </div>
-                        
+                        {/* MARCHANT */}
                         {
                             this.state?.userInfo?.userType === 'MARCHANT' ? 
                             <Fragment>
@@ -192,35 +204,40 @@ export default class UserProfile extends Component {
                                     <div className="col-md-6">
                                         <div class="form-group">
                                             <label>Business Name</label>
-                                            <input type="text" class="form-control"/>
+                                            <input type="text" value={this.state?.formData?.bussinessName}
+                                             onChange={this.changeHandeler} name="bussinessName" class="form-control"/>
                                         </div>
                                     </div>
 
                                     <div className="col-md-6">
                                         <div class="form-group">
                                             <label>Marchent Designation</label>
-                                            <input type="text" class="form-control"/>
+                                            <input type="text" value={this.state?.formData?.marchentDesignation} 
+                                                onChange={this.changeHandeler}  name="marchentDesignation"  class="form-control"/>
                                         </div>
                                     </div>
 
                                     <div className="col-md-6">
                                         <div class="form-group">
                                             <label>Bank Account Name </label>
-                                            <input type="text" class="form-control"/>
+                                            <input type="text" value={this.state?.formData?.accountName} 
+                                                onChange={this.changeHandeler} name="accountName"  class="form-control"/>
                                         </div>
                                     </div>
 
                                     <div className="col-md-6">
                                         <div class="form-group">
                                             <label>Bank Account Number </label>
-                                            <input type="text" class="form-control"/>
+                                            <input type="text" value={this.state?.formData?.accountNumber} 
+                                                onChange={this.changeHandeler}  name="accountNumber"  class="form-control"/>
                                         </div>
                                     </div>
 
                                     <div className="col-md-6">
                                         <div class="form-group">
                                             <label>Bank Branch </label>
-                                            <input type="text" class="form-control"/>
+                                            <input type="text" value={this.state?.formData?.branch} 
+                                                onChange={this.changeHandeler}  name="branch" class="form-control"/>
                                         </div>
                                     </div>
                                 </div>

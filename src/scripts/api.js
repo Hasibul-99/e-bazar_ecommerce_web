@@ -6,6 +6,7 @@ export const UPLOAD_PROFILE_IMAGE = "api/user/uploadProfilePhoto";
 export const UPDATE_USER = "api/user";
 export const GET_USERS = "api/user";
 export const CREATE_MARCHANT_USER = "api/user/createMarchant";
+export const VERIFY_USER = "api/user/verifyUser";
 
 // Category
 export const CREATE_CATEGORY = "api/category";
@@ -28,3 +29,4 @@ export const GET_RPODUCT = "api/product";
 // Order
 export const GET_ORDER_LIST = "api/order";
 export const CREATE_ORDER = "api/order";
+export const UPDATE_ORDER = "api/order";
