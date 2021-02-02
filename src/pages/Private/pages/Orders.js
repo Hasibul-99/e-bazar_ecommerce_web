@@ -116,9 +116,9 @@ export default class Orders extends Component {
                                                                     </button>
                                                                     <div className="dropdown-menu">
                                                                         {/* <a className="dropdown-item">View</a> */}
-                                                                        <a className="dropdown-item" onClick={() => {this.updateStatus(list._id, 'DELEVERED')}}>DELEVERED</a>
-                                                                        <a className="dropdown-item" onClick={() => {this.updateStatus(list._id, 'CANCELED')}}>CANCELED</a>
-                                                                        <a className="dropdown-item" onClick={() => {this.updateStatus(list._id, 'CANCELED')}}>PENDING</a>
+                                                                        <a className="dropdown-item" onClick={() => {this.updateStatus(list._id, 'DELIVERD')}}>DELIVERD</a>
+                                                                        <a className="dropdown-item" onClick={() => {this.updateStatus(list._id, 'CANCEL')}}>CANCEL</a>
+                                                                        <a className="dropdown-item" onClick={() => {this.updateStatus(list._id, 'PENDING')}}>PENDING</a>
                                                                     </div>
                                                                 </div>
                                                             </td>
