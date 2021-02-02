@@ -1,9 +1,11 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import $ from "jquery";
+import {Link,useHistory} from "react-router-dom";
 import { getData } from "../../scripts/api-service";
 import { GET_RPODUCT } from "../../scripts/api";
 import demoProduct from "../../assets/images/demo-product.png";
 import ProductModalView from "../Components/Common/ProductModalView";
+import Pagination from "../Private/common/Pagination";
 import Localbase from 'localbase';
 let db = new Localbase('db');
 
@@ -11,6 +13,8 @@ export default function ProductList(props) {
     const {location} = props;
     const {search} = location;
     const [products, setProducts] = useState([]);
+    const history = useHistory();
+    
     
     useEffect(() => {
         getProducts(search)
@@ -20,11 +24,17 @@ export default function ProductList(props) {
         let url = query ? GET_RPODUCT + query : GET_RPODUCT;
         let res = await getData(url);
 
-        console.log(res.data.data);
-
         if (res?.data?.isSuccess) {
             setProducts(res?.data?.data);
         }
+    }
+
+    const handelPagination = (page) => {
+        let {location} = history,
+            {search} = location;
+
+        let query = search ? search + `&page=${page}` : `?page=${page}`;
+        getProducts(query);
     }
 
     return (
@@ -41,6 +51,9 @@ export default function ProductList(props) {
                             }) : <h3>No Product Found</h3>
                         }
                     </div>
+                    <Pagination
+                        handelPagination={handelPagination}
+                    ></Pagination>
                 </div>
             </div>
         </div>

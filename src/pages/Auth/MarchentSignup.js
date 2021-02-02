@@ -37,10 +37,11 @@ export default function MarchentSignup() {
         let res = await postData(CREATE_MARCHANT_USER, userData, "no_token");
 
         if (res?.status && checkRes(res.status) && res.data.isSuccess) {
-            
-            Cookies.set("expressToken", res.data.data);
-            window.location = "/";
-
+            // Cookies.set("expressToken", res.data.data);
+            toast.success('Admin will varify you!');
+            setTimeout(() => {
+                window.location = "/";
+            }, 1500);
         } else if(!res.data.isSuccess) {
             setError(res.data.msg);
         }
@@ -114,7 +115,7 @@ export default function MarchentSignup() {
                                 <div className="form-group">
                                     <label>Mobile Number</label>
                                     <input type="text" className="form-control"
-                                        name="mobile" ref={register}  placeholder="Enter Password"/>
+                                        name="mobile" ref={register}  placeholder="Enter Mobile Number"/>
                                 </div>
 
                                 <div className="form-group">
@@ -152,58 +153,58 @@ export default function MarchentSignup() {
                                 <div className="form-group">
                                     <label>Name of A/C Holder</label>
                                     <input type="text" className="form-control" 
-                                        name="accountName" ref={register} placeholder="Enter Password"/>
+                                        name="accountName" ref={register} placeholder="Enter Name of A/C Holder"/>
                                 </div>
 
                                 <div className="form-group">
                                     <label>Bank A/C</label>
-                                    <input type="text" className="form-control" name="accountNumber" ref={register} placeholder="Enter Password"/>
+                                    <input type="text" className="form-control" name="accountNumber" ref={register} placeholder="Enter Bank A/C"/>
                                 </div>
 
                                 
                                 <div className="form-group">
                                     <label>Name of Branch</label>
-                                    <input type="text" className="form-control" name="branch" ref={register} placeholder="Enter Password"/>
+                                    <input type="text" className="form-control" name="branch" ref={register} placeholder="Enter Name of Branch"/>
                                 </div>
 
                                 
-                                <div className="form-group">
+                                <div className="form-group d-none">
                                     <label>District</label>
-                                    <input type="text" className="form-control" name="district" ref={register}  placeholder="Enter Password"/>
+                                    <input type="text" className="form-control" name="district" ref={register}  placeholder="Enter District"/>
                                 </div>
 
                                 
-                                <div className="form-group">
+                                <div className="form-group d-none">
                                     <label>City</label>
-                                    <input type="text" className="form-control" name="city" ref={register}  placeholder="Enter Password"/>
+                                    <input type="text" className="form-control" name="city" ref={register}  placeholder="Enter City"/>
                                 </div>
 
                                 
-                                <div className="form-group">
-                                    <label  >Name of Shop</label>
-                                    <input type="text" className="form-control" name="nameOfShop" ref={register} placeholder="Enter Password"/>
+                                <div className="form-group d-none">
+                                    <label>Name of Shop</label>
+                                    <input type="text" className="form-control" name="nameOfShop" ref={register} placeholder="Enter Name of Shop"/>
                                 </div>
                                 
-                                <div className="form-group">
+                                <div className="form-group d-none">
                                     <label  >Shop Address</label>
-                                    <input type="text" className="form-control" name="shopAddress" ref={register} placeholder="Enter Password"/>
+                                    <input type="text" className="form-control" name="shopAddress" ref={register} placeholder="Enter Shop Address"/>
                                 </div>
                                 
-                                <div className="form-group">
+                                <div className="form-group  d-none">
                                     <label  >Product Discretion</label>
-                                    <input type="text" className="form-control" name="productDiscription" ref={register} placeholder="Enter Password"/>
+                                    <input type="text" className="form-control" name="productDiscription" ref={register} placeholder="Enter Product Discretion"/>
                                 </div>
 
                                 
-                                <div className="form-group">
+                                <div className="form-group d-none">
                                     <label  >Facebook Page Link</label>
-                                    <input type="text" className="form-control" name="fbpage" ref={register}  placeholder="Enter Password"/>
+                                    <input type="text" className="form-control" name="fbpage" ref={register}  placeholder="Enter Facebook Page Link"/>
                                 </div>
 
                                 
                                 <div className="form-group">
                                     <label  >NID Number</label>
-                                    <input type="text" className="form-control" name="nid" ref={register}  placeholder="Enter Password"/>
+                                    <input type="text" className="form-control" name="nid" ref={register}  placeholder="Enter NID Number"/>
                                 </div>
 
                                 <div className="form-group">
@@ -220,7 +221,7 @@ export default function MarchentSignup() {
                             </form>
 
                             <div className="form-bottom">
-                                <p>Already have an account? click on the <span onClick={() => this.props.handelSetShowPage("signin")}>( sign in )</span> button above.</p>
+                                <p>Already have an account? click on the <span onClick={() => window.location="/auth/registration"}>( sign in )</span> button above.</p>
                             </div>
                         </div>
                     </div>

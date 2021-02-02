@@ -209,7 +209,7 @@ function ChildCategory(props) {
             {search} = location;
         
         let query = search ? updateQueryStringParameter(search, 'categoryBrand', sChild._id) : "?categoryBrand=" + sChild._id;
-        history.push(`/products${query}`);
+        history.push(`/products?categoryBrand=` + sChild._id);
     }
 
     const contentUpdate = (item) => {
@@ -217,7 +217,7 @@ function ChildCategory(props) {
             {search} = location;
         
         let query = search ? updateQueryStringParameter(search, 'categoryBrandSubCategory', item._id) : "categoryBrandSubCategory=" + item._id;
-        history.push(`/products${query}`);
+        history.push(`/products?categoryBrandSubCategory=` + item._id);
     }
 
     return (
@@ -231,7 +231,7 @@ function ChildCategory(props) {
                         {
                             sChild?.child?.length ? sChild.child.map((tChild, k) => {
                                 return (
-                                    <Fragment>
+                                    <Fragment key={k}>
                                         <li className="cursore-pointer">
                                             <a onClick={() => contentUpdate(tChild)}>{tChild.name}</a>
                                         </li>
