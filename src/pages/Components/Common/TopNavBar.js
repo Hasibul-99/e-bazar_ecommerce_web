@@ -44,6 +44,12 @@ export default function TopNavBar() {
         if (token) {
             getUserInfo()
         }
+
+        let width = window.innerWidth;
+
+        if (width < 500) {
+            hideShowLeftMenu();
+        }
     }, []);
 
     const getUserInfo = async () => {

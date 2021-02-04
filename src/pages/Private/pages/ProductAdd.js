@@ -9,7 +9,7 @@ export default class ProductAdd extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowFirstPart: true,
+            isShowFirstPart: false,
             categoryList: [],
             selectedCategory: null,
             brandList: [],
@@ -27,7 +27,7 @@ export default class ProductAdd extends Component {
             isBundleProduct: false,
             productDetails: "",
 
-            productId: "",
+            productId: "5ff7f37ac16d7938c2f28c46",
             imageUploded: [],
         };
     }
@@ -130,23 +130,21 @@ export default class ProductAdd extends Component {
         data.append("_id", this.state.productId);
 
         if ( this.state?.imageUploded?.length ) {
-            let files = [];
-
             this.state.imageUploded.forEach(i => {
                 let ele = document.getElementById(`js-product-img-${i}`);
                 let file = ele.files[0];
-
-                files.push(file);
+                data.append('photos', file);
             });
-
-            data.append('photos', files);
         }
 
         let res = await postData(UPLOAD_RPODUCT_IMAGE, data);
 
         if (res?.data?.isSuccess) {
             toast.success("Product Image Upload Successfully");
-            window.location = '/admin/products';
+            
+            setTimeout(() => {
+                window.location = '/admin/products';
+            }, 1500);
         }
 
 
