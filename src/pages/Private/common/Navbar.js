@@ -16,7 +16,10 @@ export default function Navbar() {
     useEffect(() => {
         let token = Cookies.get("expressToken");
         isSetToken(token);
-        getUserInfo()
+        
+        if (token) {
+            getUserInfo()
+        }
     }, []);
 
     const getUserInfo = async () => {
@@ -37,9 +40,9 @@ export default function Navbar() {
     return (
         <Fragment>
             <div className="nav-header custom-nav-header">
-                <a href="index.html" className="brand-logo">
+                <Link to="/" className="brand-logo">
                     <img className="logo-abbr" src={logo1} alt=""/>
-                </a>
+                </Link>
 
                 <div className="nav-control">
                     <div className="hamburger">
@@ -69,7 +72,8 @@ export default function Navbar() {
                                             <span className="text-black">Hello,<strong> {userData?.name}</strong></span>
                                             <p className="fs-12 mb-0">{userData?.userType}</p>
                                         </div>
-                                        <img src={user} width="20" alt=""/>
+                                        <img src={ userData?.avatar ? `http://easyexpress24.com:5000/static/${userData.avatar}` : user} 
+                                            width="20" alt=""/>
                                     </a>
                                     <div className="dropdown-menu dropdown-menu-right">
                                         {
