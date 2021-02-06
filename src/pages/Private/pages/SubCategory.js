@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { postData, getData, putData } from "../../../scripts/api-service";
 import { GET_CATEGORY_BRAND, GET_CATEGORY_BRAND_SUB_CATEGORY, CREATE_SUB_CATEGORY, UPDATE_SUBCATEGORY } from "../../../scripts/api";
 import { dateFormat } from "../../../scripts/helper";
+import Pagination from "../common/Pagination";
 
 export default function SubCategory() {
     const [brandInfo, setBrandInfo] = useState();
@@ -32,8 +33,10 @@ export default function SubCategory() {
         }
     }
 
-    const getSubBrandCategory = async () => {
-        let res = await getData(GET_CATEGORY_BRAND_SUB_CATEGORY+ '?categoryBrand=' + brandId);
+    const getSubBrandCategory = async (page) => {
+        // let res = await getData(GET_CATEGORY_BRAND_SUB_CATEGORY+ '?categoryBrand=' + brandId);
+        let query = page ? GET_CATEGORY_BRAND_SUB_CATEGORY+ '?categoryBrand=' + brandId + '&page='+ page : GET_CATEGORY_BRAND_SUB_CATEGORY+ '?categoryBrand=' + brandId;
+        let res = await getData(query);
 
         if (res?.data?.isSuccess) {
             getBrandSubCategory(res?.data?.data);
@@ -99,6 +102,10 @@ export default function SubCategory() {
         } else {
             toast("Name is required");
         }
+    };
+
+    const handelPagination = (page) => {
+        getSubBrandCategory(page);
     }
 
     return (
@@ -139,11 +146,16 @@ export default function SubCategory() {
                                                         </td>
                                                     </tr>
                                                 })
-                                            ) : ""
+                                            ) : <h3>No Data found</h3>
                                         }
                                     </tbody>
                                 </table>
                             </div>
+
+                            
+                            <Pagination
+                                    handelPagination={handelPagination}
+                            ></Pagination>
                         </div>
                     </div>
                 </div>

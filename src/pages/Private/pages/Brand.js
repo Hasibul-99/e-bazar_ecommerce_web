@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { postData, getData, putData } from "../../../scripts/api-service";
 import { CREATE_CATEGORY_BRAND, GET_CATEGORY_LIST, GET_CATEGORY_BRAND, UPDATE_BRAND } from "../../../scripts/api";
 import { dateFormat } from "../../../scripts/helper";
+import Pagination from "../common/Pagination";
 
 export default function Brand() {
     const [categorie, setCategories] = useState([]);
@@ -33,8 +34,12 @@ export default function Brand() {
         }
     };
 
-    const getCategoryBrand = async () => {
-        let res = await getData(GET_CATEGORY_BRAND + '?category=' + categoryId);
+    const getCategoryBrand = async (page) => {
+        // let res = await getData(GET_CATEGORY_BRAND + '?category=' + categoryId);
+
+        let query = page ? GET_CATEGORY_BRAND + '?category=' + categoryId + '&page='+ page : GET_CATEGORY_BRAND + '?category=' + categoryId;
+        let res = await getData(query);
+
 
         if (res?.data?.isSuccess) {
             setBarnds(res.data.data);
@@ -104,6 +109,10 @@ export default function Brand() {
         }
     }
 
+    const handelPagination = (page) => {
+        getCategoryBrand(page);
+    }
+
 
 
     return (
@@ -120,35 +129,42 @@ export default function Brand() {
                         </div>
                         <div className="card-body">
                             <div className="table-responsive">
-                                <table className="table table-responsive-md">
-                                    <thead>
-                                        <tr>
-                                            <th><strong>NAME</strong></th>
-                                            <th><strong>Date</strong></th>
-                                            <th><strong>Status</strong></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            brands.map((brand) => {
-                                                return (
-                                                <tr key={brand._id}>
-                                                    <td>{brand.name}</td>
-                                                    <td>{dateFormat(brand.creatingDate)}</td>
-                                                    <td>{brand.status ? 'Active' : "Inactive"}</td>
-                                                    <td>
-                                                        <div className="d-flex">
-                                                            <Link to={`/admin/sub-category/${brand.category}/${brand._id}`} className="btn btn-dark shadow btn-xs sharp mr-1"><i className="fa fa-eye"></i></Link>
-                                                            <a onClick={() => updateBrandContent(brand)} className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
-                                                            {/* <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a> */}
-                                                        </div>
-                                                    </td>
-                                                </tr>)
-                                            })
-                                        }
-                                    </tbody>
-                                </table>
+                                {
+                                    brands?.length ? <table className="table table-responsive-md">
+                                        <thead>
+                                            <tr>
+                                                <th><strong>NAME</strong></th>
+                                                <th><strong>Date</strong></th>
+                                                <th><strong>Status</strong></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                brands.map((brand) => {
+                                                    return (
+                                                    <tr key={brand._id}>
+                                                        <td>{brand.name}</td>
+                                                        <td>{dateFormat(brand.creatingDate)}</td>
+                                                        <td>{brand.status ? 'Active' : "Inactive"}</td>
+                                                        <td>
+                                                            <div className="d-flex">
+                                                                <Link to={`/admin/sub-category/${brand.category}/${brand._id}`} className="btn btn-dark shadow btn-xs sharp mr-1"><i className="fa fa-eye"></i></Link>
+                                                                <a onClick={() => updateBrandContent(brand)} className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
+                                                                {/* <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a> */}
+                                                            </div>
+                                                        </td>
+                                                    </tr>)
+                                                })
+                                            }
+                                        </tbody>
+                                    </table> : <h3>No Data found</h3>
+                                }
+                                
                             </div>
+
+                            <Pagination
+                                    handelPagination={handelPagination}
+                            ></Pagination>
                         </div>
                     </div>
                 </div>

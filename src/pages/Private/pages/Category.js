@@ -2,6 +2,7 @@ import React, {Fragment, useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import { toast } from 'react-toastify';
 import $ from "jquery";
+import Pagination from "../common/Pagination";
 
 // import { checkRes } from "../../../scripts/checkRes";
 import { postData, getData, putData } from "../../../scripts/api-service";
@@ -11,6 +12,7 @@ import swal from 'sweetalert2';
 
 export default function Category() {
     const [categoryName, setCategoryName] = useState();
+    const [isUnbrandCategory, setIsUnbrandCategory] = useState(false);
     const [categoryList, setCategoryList] = useState([]);
     const [updateCategory, setUpdateCategory] = useState();
     const [updateCategoryName, setUpdateCategoryName] = useState();
@@ -22,22 +24,23 @@ export default function Category() {
 
     const addCategory = async () => {
         if (categoryName) {
-            let res = await postData(CREATE_CATEGORY, {name: categoryName});
+            let res = await postData(CREATE_CATEGORY, {name: categoryName, isUnbrandCategory: isUnbrandCategory});
 
             if (res?.data?.isSuccess) {
-                toast("Category Add successfully");
+                toast.success("Category Add successfully");
                 $("#create-category-modal").modal('hide');
                 setCategoryName("");
             } else {
-                toast("Something went wrong");
+                toast.error(res.msg);
             }
         } else {
             toast("Category name is required");
         }
     }
 
-    const getCategoryList = async () => {
-        let res = await getData(GET_CATEGORY_LIST);
+    const getCategoryList = async (page) => {
+        let query = page ? GET_CATEGORY_LIST + '?page='+ page : GET_CATEGORY_LIST;
+        let res = await getData(query);
 
         if (res?.data?.isSuccess) {
             setCategoryList(res.data.data);
@@ -97,6 +100,10 @@ export default function Category() {
         }
     }
 
+    const handelPagination = (page) => {
+        getCategoryList(page);
+    }
+
     useEffect(() => {
         getCategoryList()
     }, []);
@@ -133,7 +140,10 @@ export default function Category() {
                                                         <td>{category.status ? "Active" : "Inactive"}</td>
                                                         <td>
                                                             <div className="d-flex">
-                                                                <Link to={`/admin/brand/${category._id}`} className="btn btn-dark shadow btn-xs sharp mr-1"><i className="fa fa-eye"></i></Link>
+                                                                {
+                                                                    !category.isUnbrandCategory ? <Link to={`/admin/brand/${category._id}`} 
+                                                                    className="btn btn-dark shadow btn-xs sharp mr-1"><i className="fa fa-eye"></i></Link> : ""
+                                                                }
                                                                 <a onClick={() => updateCategoryContent(category)} className="btn btn-primary shadow btn-xs sharp mr-1">
                                                                     <i className="fa fa-pencil"></i>
                                                                 </a>
@@ -144,11 +154,15 @@ export default function Category() {
                                                         </td>
                                                     </tr>)
                                                 })
-                                            ) : ""
+                                            ) : <h3>No Data found</h3>
                                         }
                                     </tbody>
                                 </table>
                             </div>
+
+                            <Pagination
+                                    handelPagination={handelPagination}
+                            ></Pagination>
                         </div>
                     </div>
                 </div>
@@ -169,6 +183,10 @@ export default function Category() {
                                 <label>Category Name</label>
                                 <input type="text" name="category_name" onChange={changeHandeler} className="form-control"/>
                             </div>
+                        </div>
+                        <div className="form-check">
+                            <input type="checkbox" className="form-check-input" onChange={(e) => setIsUnbrandCategory(e.target.checked)} id="exampleCheck1"/>
+                            <label className="form-check-label" for="exampleCheck1">Check it for make it non brand category.</label>
                         </div>
                     </div>
                     <div className="modal-footer">
