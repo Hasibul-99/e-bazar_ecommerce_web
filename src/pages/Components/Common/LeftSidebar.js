@@ -10,17 +10,17 @@ export default function LeftSidebar() {
     const [productsCategory, setProductsCategory] = useState([]);
     
     useEffect(() => {
-        getcategoryMenu()
+        getcategoryMenu();
     }, []);
 
     const getcategoryMenu = async () => {
         let res = await getData(GET_CATEGORY_MENU_LIST);
 
-        console.log("res", res);
         if (res?.data?.isSuccess) {
             let {categories, categoriesBrand, categoriesBrandSubCategories} = res?.data?.data;
+            let brandCategory = categories.filter(e => !e.isUnbrandCategory);
 
-            setCategory(categories);
+            setCategory(brandCategory);
             setBrand(categoriesBrand);
             setSubCategory(categoriesBrandSubCategories);
         }
