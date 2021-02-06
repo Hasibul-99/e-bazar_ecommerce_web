@@ -9,7 +9,7 @@ export default class ProductAdd extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowFirstPart: false,
+            isShowFirstPart: true,
             categoryList: [],
             selectedCategory: null,
             brandList: [],
@@ -27,7 +27,7 @@ export default class ProductAdd extends Component {
             isBundleProduct: false,
             productDetails: "",
 
-            productId: "5ff7f37ac16d7938c2f28c46",
+            productId: "",
             imageUploded: [],
         };
     }
