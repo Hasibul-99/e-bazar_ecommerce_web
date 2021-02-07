@@ -106,7 +106,8 @@
                     },
                     {
                         "id": "workbench.action.files.saveAs",
-                        "label": "Save &&As..."
+                        "label": "Save &&As...",
+                        "enabled": false
                     },
                     {
                         "id": "workbench.action.files.saveAll",
@@ -389,7 +390,8 @@
                                 },
                                 {
                                     "id": "workbench.action.toggleSidebarVisibility",
-                                    "label": "Show &&Side Bar"
+                                    "label": "Show &&Side Bar",
+                                    "checked": true
                                 },
                                 {
                                     "id": "workbench.action.toggleStatusbarVisibility",
@@ -1471,7 +1473,7 @@
             "backupPath": "/home/tushar/Documents/react/e-bazar/~/.vscode-root/Backups/c49b2227972bea50c57a07c560d55f34",
             "uiState": {
                 "mode": 0,
-                "x": 1490,
+                "x": 1484,
                 "y": 37,
                 "width": 1024,
                 "height": 636
