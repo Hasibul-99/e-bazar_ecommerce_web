@@ -13,7 +13,7 @@ export default function NonBrandItems(props) {
     }, []);
 
     const getNonBrandCategory = async () => {
-        let res = await getData(GET_CATEGORY_LIST+ '?isUnbrandCategory=true');
+        let res = await getData(GET_CATEGORY_LIST+ '?isUnbrandCategory=true&limit=10000');
 
         if (res?.data?.isSuccess) {
             setCategory(res?.data?.data);
