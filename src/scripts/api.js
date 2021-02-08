@@ -24,7 +24,8 @@ export const UPDATE_SUBCATEGORY = "api/category/categoryBrandSubCategory";
 export const ADD_PRODUCT = "api/product";
 export const UPLOAD_RPODUCT_IMAGE = "api/product/addProductPhoto";
 export const GET_RPODUCT = "api/product";
-
+export const UPDATE_PRODUCT = "api/product";
+export const UPDATE_PRODUCT_PHOTO = "api/product/updateProductPhoto";
 
 // Order
 export const GET_ORDER_LIST = "api/order";

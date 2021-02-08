@@ -5,6 +5,7 @@ import ProductAdd from "../pages/Private/pages/ProductAdd";
 import Category from "../pages/Private/pages/Category";
 import Brand from "../pages/Private/pages/Brand";
 import SubCategory from "../pages/Private/pages/SubCategory";
+import ProductEdit from "../pages/Private/pages/ProductEdit";
 
 const PrivateRoutes = [
     {
@@ -18,6 +19,13 @@ const PrivateRoutes = [
         path: "/products",
         name: "Products",
         component: Products,
+        layout: "/admin",
+        exact: true
+    },
+    {
+        path: "/edit-products/:productId",
+        name: "edit prodyct",
+        component: ProductEdit,
         layout: "/admin",
         exact: true
     },

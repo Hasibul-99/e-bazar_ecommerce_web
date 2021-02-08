@@ -106,7 +106,13 @@ export default class Products extends Component {
                                                                 <td>{data.discountPrice}</td>
                                                                 <td>{data.status ? 
                                                                     <span className="badge badge-success">Availabe</span> : 
-                                                                    <span className="badge badge-danger">Not Availabe</span>}</td>
+                                                                    <span className="badge badge-danger">Not Availabe</span>}
+                                                                </td>
+                                                                <td>
+                                                                    <Link to={`/admin/edit-products/${data._id}`} className="btn btn-info">
+                                                                        Edit
+                                                                    </Link>
+                                                                </td>
                                                             </tr>   
                                                     })
                                                ) : <h3>No Data found</h3>
