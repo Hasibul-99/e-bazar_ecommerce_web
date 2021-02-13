@@ -1,13 +1,12 @@
-import React, {Fragment, useState, useEffect} from 'react';
+import React, {Fragment, useState, useEffect, useContext} from 'react';
 import $ from "jquery";
 import { useHistory } from "react-router-dom";
 import { getData } from "../../../scripts/api-service";
 import { GET_RPODUCT } from "../../../scripts/api";
 import demoProduct from "../../../assets/images/demo-product.png";
 import ProductModalView from "../../Components/Common/ProductModalView";
+import {orderListContext} from "../../../contexts/OrderListContext";
 
-import Localbase from 'localbase';
-let db = new Localbase('db')
 
 export default function RandomProduct() {
     const [products, setProducts] = useState([]);
@@ -58,6 +57,8 @@ export default function RandomProduct() {
 };
 
 function ProductCard( {product}) {
+    const {findCardProduct, updateQuamtity, addNewProduct} = useContext(orderListContext);
+
     const [isOpen, setIsOpen] = useState(false);
     const [update, setUpdate] = useState(Math.random());
  
@@ -71,17 +72,12 @@ function ProductCard( {product}) {
     }
 
     const addProductIncard = (item) => {
-        db.collection('products').doc({ _id: item._id }).get().then(doc => {
-            if (doc) {
-                db.collection('products').doc({ _id: item._id  }).update({
-                    total: doc.total + 1 
-                });
+        findCardProduct(item._id).then(res => {
+            if (res) {
+                updateQuamtity(item._id, res.total + 1);
             } else {
-                item.total = 1;
-                db.collection('products').add(item);
+                addNewProduct(item);
             }
-
-            setUpdate(Math.random());
         });
     }
 

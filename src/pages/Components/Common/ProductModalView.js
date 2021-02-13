@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import { Fragment } from 'react';
+import React, {Fragment, useState, useEffect, useContext} from 'react';
 import $ from "jquery";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import QuantityInput from "../Common/QuantityInput";
 import 'react-medium-image-zoom/dist/styles.css'
+import {orderListContext} from "../../../contexts/OrderListContext";
 
 import {
     Magnifier,
@@ -20,9 +20,11 @@ let db = new Localbase('db');
 db.config.debug = false;
 
 export default function ProductModalView(props) {
+    const {findCardProduct, updateQuamtity, addNewProduct} = useContext(orderListContext);
     const {productId, isOpen, product, HandelModalClose} = props;
     const [selected, setSelected] = useState(null);
-
+    const [quan, setQuan] = useState(1);
+ 
     useEffect(() => {
         setSelected(product.photos[0]);
 
@@ -35,13 +37,21 @@ export default function ProductModalView(props) {
         };
       }, [isOpen]);
 
-    const handelQuantuty = (qun, productId) => {
-        db.collection('products').doc({ _id: productId }).update({
-            total : qun
-        })
+    const handelQuantuty = ({qun, productId}) => {
+        setQuan(qun);
     }
     const changeProduct = (item) => {
         setSelected(item);
+    }
+
+    const addToCard = () => {
+        findCardProduct(productId).then(res => {
+            if (res) {
+                updateQuamtity(productId, quan);
+            } else {
+                addNewProduct(product, quan);
+            }
+        });
     }
 
     return (
@@ -73,7 +83,8 @@ export default function ProductModalView(props) {
                                     }
                                 </div>
                             </div>
-                            <div id={`card-content-${productId}`} className="col-sm-12 col-md-6 pt-5" style={{display: 'none'}}>
+                            <div id={`card-content-${productId}`} className="col-sm-12 col-md-6 pt-5" 
+                            style={{display: 'none'}}>
                             <h2>{product.name}</h2>
                                  <h5 className="gold-text my-4">
                                    ৳{ product.sellPrice - product.discountPrice } 
@@ -108,7 +119,8 @@ export default function ProductModalView(props) {
                                  ></QuantityInput>
 
                                  <div>
-                                     <button type="button" className="btn light btn-warning w-100 my-5">ADD To CART</button>
+                                     <button type="button" className="btn light btn-warning w-100 my-5"
+                                        onClick={() => addToCard()}>ADD To CART</button>
                                  </div>
                             </div>
                         </div>

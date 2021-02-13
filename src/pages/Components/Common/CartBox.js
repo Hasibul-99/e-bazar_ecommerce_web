@@ -1,36 +1,29 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState, useContext} from 'react';
 import QuantityInput from "./QuantityInput";
 import {CREATE_ORDER} from "../../../scripts/api";
 import { postData } from "../../../scripts/api-service";
 import { toast } from 'react-toastify';
 import demoProduct from "../../../assets/images/demo-product.png";
 
-import Localbase from 'localbase'
-let db = new Localbase('db');
-db.config.debug = false;
+import {orderListContext} from "../../../contexts/OrderListContext";
+
+// import Localbase from 'localbase'
+// let db = new Localbase('db');
+// db.config.debug = false;
 
 export default function CartBox() {
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        db.collection('products').get().then(products => {
-            if (products && products.length) {
-                setProducts(products);
-            }
-        })
-    });
+    const {products, updateQuamtity, deleteProductCollection} = useContext(orderListContext);
 
     const productPrice = (product) => {
         if (product.discountPrice) {
-            return product.sellPrice - product.discountPricel
+            return product.sellPrice - product.discountPrice
         } else {
             return product.sellPrice;
         }
     }
 
     const productTotalPrice = (product) => {
-        let price = productPrice(product);
-
+        let price = productPrice(product) ;
         return price * product.total;
     }
 
@@ -47,9 +40,7 @@ export default function CartBox() {
     }
 
     const handelQuantuty = ({qun, productId}) => {
-        db.collection('products').doc({ _id: productId }).update({
-            total : qun
-        })
+        updateQuamtity(productId, qun);
     };
 
     const orderProduct = async () => {
@@ -75,15 +66,14 @@ export default function CartBox() {
             "products": orderData
         }
 
-        console.log("data.userId",data.userId);
-
         if (data.userId && data.products && data.products.length ) {
             let res = await postData(CREATE_ORDER, data);
 
             if (res?.data?.isSuccess) {
                 toast.success("Order Submit Successfully");
-                db.collection('products').delete();
-                setProducts([]);
+                deleteProductCollection();
+            } else if (res.msg) {
+                toast.error(res.msg);
             } else {
                 toast.error("Something Went Wrong")
             }
@@ -97,7 +87,7 @@ export default function CartBox() {
             <button className="cart-box" data-toggle="modal" data-target="#cart-modal-lg">
                 <span className="cart-box-item">
                     <span><svg xmlns="http://www.w3.org/2000/svg" width="12.686" height="16" viewBox="0 0 12.686 16"><g data-name="Group 2704" transform="translate(-27.023 -2)"><g data-name="Group 17" transform="translate(27.023 5.156)"><g data-name="Group 16"><path data-name="Path 3" d="M65.7,111.043l-.714-9A1.125,1.125,0,0,0,63.871,101H62.459V103.1a.469.469,0,1,1-.937,0V101H57.211V103.1a.469.469,0,1,1-.937,0V101H54.862a1.125,1.125,0,0,0-1.117,1.033l-.715,9.006a2.605,2.605,0,0,0,2.6,2.8H63.1a2.605,2.605,0,0,0,2.6-2.806Zm-4.224-4.585-2.424,2.424a.468.468,0,0,1-.663,0l-1.136-1.136a.469.469,0,0,1,.663-.663l.8.8,2.092-2.092a.469.469,0,1,1,.663.663Z" transform="translate(-53.023 -101.005)" fill="currentColor"></path></g></g><g data-name="Group 19" transform="translate(30.274 2)"><g data-name="Group 18"><path data-name="Path 4" d="M160.132,0a3.1,3.1,0,0,0-3.093,3.093v.063h.937V3.093a2.155,2.155,0,1,1,4.311,0v.063h.937V3.093A3.1,3.1,0,0,0,160.132,0Z" transform="translate(-157.039)" fill="currentColor"></path></g></g></g></svg></span>
-                    {products.length} Item
+                    {products?.length} Item
                 </span>
                 <span className="cart-box-price">
                     ৳{totalPrice()}

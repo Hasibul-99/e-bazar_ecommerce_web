@@ -8,6 +8,8 @@ import CartBox from "../pages/Components/Common/CartBox";
 import Footer from "../pages/Components/Common/Footer";
 import BundlesPackagesOffer from "../pages/Components/Common/BundlesPackagesOffer";
 
+import OrderListContextProvider from "../contexts/OrderListContext";
+
 
 class Public extends Component {
     constructor(props) {
@@ -32,6 +34,7 @@ class Public extends Component {
 
     render() {
         return (
+          <OrderListContextProvider>
             <div className="show" id="main-wrapper">
               <TopNavBar></TopNavBar>
               <SideBar/>
@@ -41,12 +44,12 @@ class Public extends Component {
                   <Switch>
                     {this.getRoutes(routes)}
                   </Switch>
-
                   <CartBox></CartBox>
                 </div>
               </div>
               <Footer></Footer>
             </div>
+          </OrderListContextProvider>
         )
     }
 }
