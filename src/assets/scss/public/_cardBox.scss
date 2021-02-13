@@ -71,8 +71,10 @@
         padding: 1em;
         background: #f0f0f0;
         img {
-            width: 85px;
-            height: 85px;
+            // width: 85px;
+            // height: 85px;
+            max-width: 100%;
+            max-height: 100%;
         }
     }
     .product-detais {

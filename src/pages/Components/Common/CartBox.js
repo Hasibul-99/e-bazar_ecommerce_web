@@ -82,6 +82,12 @@ export default function CartBox() {
         }
     }
 
+    const showProductImage = (pro) => {
+        if (pro && pro.photos && pro.photos.length) {
+            return "http://easyexpress24.com:5000/static/" + pro.photos[0];
+        } else return demoProduct
+    }
+
     return (
         <Fragment>
             <button className="cart-box" data-toggle="modal" data-target="#cart-modal-lg">
@@ -110,8 +116,8 @@ export default function CartBox() {
                                             <div className="row">
                                                 <div className="col-md-4">
                                                     <div className="product-tumb">
-                                                        <img src="https://i.imgur.com/xdbHo4E.png" width="85" 
-                                                            height="85" className="card-img-top" alt="..."  />
+                                                        <img src={showProductImage(product)} 
+                                                            className="card-img-top" alt="..."  />
                                                     </div>
                                                     <div className="product-detais mt-3">
                                                         <span className="product-catagory">Women Bag</span>

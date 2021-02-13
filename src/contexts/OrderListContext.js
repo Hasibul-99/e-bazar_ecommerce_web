@@ -16,6 +16,8 @@ const OrderListContextProvider = props => {
         db.collection('products').get().then(products => {
             if (products && products.length) {
                 setProducts(products);
+            } else {
+                setProducts([]);
             }
         });
     }
@@ -37,6 +39,7 @@ const OrderListContextProvider = props => {
 
     const deleteProductCollection = () => {
         db.collection('products').delete().then(res => {
+            console.log("res", res);
             getCardProducts();
         })
     }
