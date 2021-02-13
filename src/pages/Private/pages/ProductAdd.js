@@ -104,6 +104,10 @@ export default class ProductAdd extends Component {
 
         if (res?.data?.isSuccess) {
             this.setState({isShowFirstPart: false, productId: res.data?.data?._id});
+        } else if (res.msg) {
+            toast.error(res.msg);
+        } else {
+            toast.error("Something went wrong!");
         }
     }
 

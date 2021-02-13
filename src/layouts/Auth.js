@@ -12,8 +12,16 @@ class Auth extends Component {
     }
 
     componentWillMount() {
-      if (Cookies.get("expressToken")) {
-        window.location = "/";
+      let user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
+
+      console.log("use", user, user.userType === 'MARCHANT');
+
+      if (user && Cookies.get("expressToken")) {
+        if (user.userType === 'MARCHANT') {
+          window.location = "/admin/products"
+        } else {
+          window.location = "/";
+        }
       }
     }
 

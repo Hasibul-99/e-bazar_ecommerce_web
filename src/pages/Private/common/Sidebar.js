@@ -1,13 +1,19 @@
 import { localeData } from 'moment';
-import React, {Fragment} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 
 export default function Sidebar() {
+    const [userData, setUserData] = useState();
     const className = (location, path) => {
         let className = "menu-list";
         if (location === path) className = "menu-list mm-active";
         return className;
     };
+
+    useEffect(() => {
+        let user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
+        setUserData(user);
+    }, []);
 
     return (
         <div className="deznav left-sidebar">
@@ -27,20 +33,25 @@ export default function Sidebar() {
                             <span className="nav-text">Products</span>
                         </Link>
                     </li>
-                    <li className={className(window.location.pathname, "/admin/users")}>
-                        <Link className="ai-icon menu-list-header" 
-                            to="/admin/users" aria-expanded="false">
-                            <i className="fa fa-users"></i>
-                            <span className="nav-text">Users</span>
-                        </Link>
-                    </li>
-                    <li className={className(window.location.pathname, "/admin/category")}>
-                        <Link className="ai-icon menu-list-header" 
-                            to="/admin/category" aria-expanded="false">
-                            <i className="flaticon-381-television"></i>
-                            <span className="nav-text">Category</span>
-                        </Link>
-                    </li>
+                    {
+                        userData && userData.userType === "ADMIN" ? <Fragment>
+                            <li className={className(window.location.pathname, "/admin/users")}>
+                                <Link className="ai-icon menu-list-header" 
+                                    to="/admin/users" aria-expanded="false">
+                                    <i className="fa fa-users"></i>
+                                    <span className="nav-text">Users</span>
+                                </Link>
+                            </li>
+                            <li className={className(window.location.pathname, "/admin/category")}>
+                                <Link className="ai-icon menu-list-header" 
+                                    to="/admin/category" aria-expanded="false">
+                                    <i className="flaticon-381-television"></i>
+                                    <span className="nav-text">Category</span>
+                                </Link>
+                            </li>
+                        </Fragment> : ''
+                    }
+                    
                 </ul>
             </div>
         </div>

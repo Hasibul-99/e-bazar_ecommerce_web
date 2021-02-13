@@ -14,7 +14,6 @@ export default function MarchentSignup() {
     const [error, setError] = useState('');
 
     const onSubmit = async (data) => {
-        console.log(data);
         let userData = {
             "email": data.email,
             "password": data.password,

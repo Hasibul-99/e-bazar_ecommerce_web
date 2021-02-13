@@ -13,17 +13,25 @@ export default class Products extends Component {
         super(props);
         this.state = {
             pageValue: 1, 
-            products: []
+            products: [],
+            userData: null
         };
     }
 
     componentDidMount() {
+        let user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
+        this.setState({ userData: user });
+
         this.setState({pageValue: loadPageVar('page') });
         this.getProductList(loadPageVar('page'));
     }
 
-    getProductList = async (page) => {
-        let url = page ? GET_RPODUCT + '?page='+ page : GET_RPODUCT;
+    getProductList = async (page = 1) => {
+        let user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
+
+        console.log("this", user);
+
+        let url = user.userType === "MARCHANT" ? GET_RPODUCT + '?page='+ page + '&productOwner=' + user._id  : GET_RPODUCT + '?page='+ page;
         let res = await getData(url);
 
         if (res?.data?.isSuccess) {
