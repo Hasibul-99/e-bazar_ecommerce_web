@@ -6,6 +6,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import QuantityInput from "../Common/QuantityInput";
 import demoProduct from "../../../assets/images/demo-product.png";
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 import Localbase from 'localbase'
 let db = new Localbase('db');
@@ -33,7 +35,6 @@ export default function ProductModalView(props) {
         })
     }
     const changeProduct = (item) => {
-        console.log("item", item);
         setSelected(item);
     }
 
@@ -48,7 +49,20 @@ export default function ProductModalView(props) {
                             <div id={`js-image-content-${productId}`} className="">
 
                                 <div className="selected-image">
-                                    <img src={`http://easyexpress24.com:5000/static/${selected}`} />
+                                    <Zoom>
+                                        {/* <img src={`http://easyexpress24.com:5000/static/${selected}`} width="500"  /> */}
+                                        <picture>
+                                            <source
+                                            media="(max-width: 800px)"
+                                            srcSet={`http://easyexpress24.com:5000/static/${selected}`}
+                                            />
+                                            <img
+                                            alt="that wanaka tree"
+                                            src={`http://easyexpress24.com:5000/static/${selected}`}
+                                            width="500"
+                                            />
+                                        </picture>
+                                    </Zoom>
                                 </div>
                                 
                                 <div className="d-flex">
