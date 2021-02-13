@@ -47,7 +47,7 @@ export default class ProductEdit extends Component {
     }
 
     getCategoryList = async () => {
-        let res = await getData(GET_CATEGORY_LIST);
+        let res = await getData(GET_CATEGORY_LIST + "?limit=1000");
 
         if (res?.data?.isSuccess) {
             this.setState({categoryList: res?.data?.data});
@@ -60,7 +60,7 @@ export default class ProductEdit extends Component {
     };
 
     getBrandList = async (categoryId) => {
-        let res = await getData(GET_CATEGORY_BRAND + '?category=' + categoryId);
+        let res = await getData(GET_CATEGORY_BRAND + '?category=' + categoryId + "&limit=1000");
 
         if (res?.data?.isSuccess) {
             this.setState({brandList: res.data.data});
@@ -73,7 +73,7 @@ export default class ProductEdit extends Component {
     }
 
     getSubCategoryList = async (brandId) => {
-        let res = await getData(GET_CATEGORY_BRAND_SUB_CATEGORY + '?categoryBrand=' + brandId);
+        let res = await getData(GET_CATEGORY_BRAND_SUB_CATEGORY + '?categoryBrand=' + brandId + "&limit=1000");
 
         if (res?.data?.isSuccess) {
             this.setState({subCategoryList: res?.data?.data})
