@@ -146,8 +146,6 @@ export default class ProductAdd extends Component {
                 window.location = '/admin/products';
             }, 1500);
         }
-
-
     }
 
     render() {
