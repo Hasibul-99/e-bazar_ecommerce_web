@@ -14,8 +14,6 @@ class Auth extends Component {
     componentWillMount() {
       let user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
 
-      console.log("use", user, user.userType === 'MARCHANT');
-
       if (user && Cookies.get("expressToken")) {
         if (user.userType === 'MARCHANT') {
           window.location = "/admin/products"
