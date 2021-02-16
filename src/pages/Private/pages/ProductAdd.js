@@ -94,11 +94,11 @@ export default class ProductAdd extends Component {
             "isBundleProduct": this.state.isBundleProduct,
             "productDetails": this.state.productDetails,
             "category": this.state.selectedCategory,
-            "categoryBrand": this.state.selectedBrand,
-            "categoryBrandSubCategory": this.state.selectedSubCategory
+            "categoryBrand": this.state.selectedBrand || null,
+            "categoryBrandSubCategory": this.state.selectedSubCategory || null
         };
 
-        if (!data.categoryBrandSubCategory) data.categoryBrand = ""; // for non brand product
+        if (!data.categoryBrandSubCategory) data.categoryBrand = null; // for non brand product
 
         let res = await postData(ADD_PRODUCT, data);
 
