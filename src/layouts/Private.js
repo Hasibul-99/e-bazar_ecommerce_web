@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import routes from "../router/private-router";
+import Cookies from "js-cookie";
 
 import Navbar from "../pages/Private/common/Navbar";
 import Sidebar from "../pages/Private/common/Sidebar";
@@ -10,6 +11,14 @@ class Private extends Component {
     constructor(props) {
         super(props);
         this.state = {}
+    }
+
+    componentWillMount() {
+      let user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
+
+      if (!(user && (user.userType === 'MARCHANT' || user.userType === "ADMIN") && Cookies.get("expressToken"))) {
+        window.location = "/";
+      }
     }
 
     getRoutes = routes => {

@@ -6,12 +6,20 @@ import Category from "../pages/Private/pages/Category";
 import Brand from "../pages/Private/pages/Brand";
 import SubCategory from "../pages/Private/pages/SubCategory";
 import ProductEdit from "../pages/Private/pages/ProductEdit";
+import OrderDetails from "../pages/Private/pages/OrderDetails";
 
 const PrivateRoutes = [
     {
         path: "/orders",
         name: "Orders",
         component: Orders,
+        layout: "/admin",
+        exact: true
+    },
+    {
+        path: "/order-details/:orderId",
+        name: "order details",
+        component: OrderDetails,
         layout: "/admin",
         exact: true
     },
