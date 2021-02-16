@@ -46,6 +46,11 @@ export default class Orders extends Component {
         }
     }
 
+    handelPagination = (page) => {
+        this.props.history.push(`${window.location.pathname}?page=${page}`);
+        this.getOrderList(page);
+    }
+
     render() {
         return (
             <Fragment>
@@ -91,7 +96,7 @@ export default class Orders extends Component {
                                                 <th><strong>Purchased</strong></th>
                                                 <th><strong>DATE</strong></th>
                                                 <th><strong>STATUS</strong></th>
-                                                <th><strong>PRICE</strong></th>
+                                                <th><strong>TOTAL PRICE</strong></th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -108,7 +113,7 @@ export default class Orders extends Component {
                                                             <td>
                                                                 <span className={`badge light ${list.orderStatus === 'PENDING' ? 'badge-warning' : list.orderStatus === 'CANCLED' ? 'badge-danger' : 'badge-success'}`}>{list.orderStatus}</span>
                                                             </td>
-                                                            <td>$21.56</td>
+                                                            <td>{list.totalPrice}</td>
                                                             <td>
                                                                 <div className="dropdown">
                                                                     <button type="button" className="btn btn-success light sharp" data-toggle="dropdown">
@@ -129,6 +134,9 @@ export default class Orders extends Component {
                                         </tbody>
                                     </table>
                                 </div>
+                                <Pagination
+                                    handelPagination={this.handelPagination}
+                                ></Pagination>
                             </div>
                         </div>
                     </div>
