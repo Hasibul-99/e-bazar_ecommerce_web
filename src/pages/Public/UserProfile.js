@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
+import {Link} from "react-router-dom";
 
-import { LOGIN_USER_INFO, UPLOAD_PROFILE_IMAGE, UPDATE_USER } from "../../scripts/api";
+import { LOGIN_USER_INFO, UPLOAD_PROFILE_IMAGE, UPDATE_USER, GET_ORDER_LIST } from "../../scripts/api";
 import { getData, postData, putData } from "../../scripts/api-service";
 import demoUser from "../../assets/images/profile/17.jpg"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Fragment } from 'react';
+import {dateFormat} from "../../scripts/helper";
 
 export default class UserProfile extends Component {
     formData = {
@@ -25,12 +27,14 @@ export default class UserProfile extends Component {
         super(props);
         this.state = {
             userInfo: null,
-            formData: this.formData
+            formData: this.formData,
+            orderList: []
         };
     }
 
     componentDidMount() {
-        this.getUserInfo()
+        this.getUserInfo();
+        this.getuserOrders();
     }
 
     getUserInfo = async () => {
@@ -52,6 +56,14 @@ export default class UserProfile extends Component {
                 accountNumber: data?.marchant?.bankInfo?.accountNumber,
                 branch: data?.marchant?.bankInfo?.branch
             }})
+        }
+    }
+
+    getuserOrders = async () => {
+        let res = await getData(GET_ORDER_LIST);
+
+        if (res?.data?.isSuccess) {
+            this.setState({orderList: res?.data?.data});
         }
     }
 
@@ -248,6 +260,63 @@ export default class UserProfile extends Component {
                         <div className="row mb-5">
                             <div className="col-12">
                                 <button className="btn btn-success float-right" onClick={this.formSubmit}>Submit</button>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div className="row">
+                            <h3>Orders</h3>
+
+                            <div className="col-lg-12">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <div className="table-responsive">
+                                            <table className="table table-responsive-md">
+                                                <thead>
+                                                    <tr>
+                                                        {/* <th><strong>Order</strong></th> */}
+                                                        <th><strong>#</strong></th>
+                                                        <th><strong>Purchased</strong></th>
+                                                        <th><strong>DATE</strong></th>
+                                                        <th><strong>STATUS</strong></th>
+                                                        <th><strong>TOTAL PRICE</strong></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        this.state?.orderList?.length ? 
+                                                        this.state.orderList.map((list, key) => {
+                                                            return <Fragment>
+                                                                <tr key={list._id}>
+                                                                    <td><strong>{key + 1}</strong></td>
+                                                                    <td>{list?.user?.name}</td>
+                                                                    <td>{list?.products?.length} Items</td>
+                                                                    <td>{dateFormat(list.creatingDate)}</td>
+                                                                    <td>
+                                                                        <span className={`badge light ${list.orderStatus === 'PENDING' ? 'badge-warning' : list.orderStatus === 'CANCLED' ? 'badge-danger' : 'badge-success'}`}>{list.orderStatus}</span>
+                                                                    </td>
+                                                                    <td>{list.totalPrice}</td>
+                                                                    <td>
+                                                                        <div className="dropdown">
+                                                                            <button type="button" className="btn btn-success light sharp" data-toggle="dropdown">
+                                                                                <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+                                                                            </button>
+                                                                            <div className="dropdown-menu">
+                                                                                <Link to={`/order-details/${list._id}`} className="dropdown-item">View</Link>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </Fragment>
+                                                        }) : "NO Order Found"
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

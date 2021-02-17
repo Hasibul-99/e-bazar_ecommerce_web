@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react';
-import { getData } from "../../../scripts/api-service";
-import { GET_ORDER_LIST } from "../../../scripts/api";
+import { getData } from "../../scripts/api-service";
+import { GET_ORDER_LIST } from "../../scripts/api";
 import {Redirect} from "react-router-dom";
-import demoProduct from "../../../assets/images/demo-product.png";
+import demoProduct from "../../assets/images/demo-product.png";
 
 export default class OrderDetails extends Component {
     constructor(props) {
