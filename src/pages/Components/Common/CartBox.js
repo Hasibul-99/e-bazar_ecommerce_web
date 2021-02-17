@@ -1,4 +1,5 @@
 import React, {Fragment, useEffect, useState, useContext} from 'react';
+import $ from 'jquery'
 import QuantityInput from "./QuantityInput";
 import {CREATE_ORDER} from "../../../scripts/api";
 import { postData } from "../../../scripts/api-service";
@@ -6,6 +7,7 @@ import { toast } from 'react-toastify';
 import demoProduct from "../../../assets/images/demo-product.png";
 
 import {orderListContext} from "../../../contexts/OrderListContext";
+import swal from 'sweetalert2';
 
 // import Localbase from 'localbase'
 // let db = new Localbase('db');
@@ -72,6 +74,9 @@ export default function CartBox() {
             if (res?.data?.isSuccess) {
                 toast.success("Order Submit Successfully");
                 deleteProductCollection();
+
+                $("#cart-modal-lg").modal('hide');
+                swal.fire('You can show your order status from your profile.');
             } else if (res.msg) {
                 toast.error(res.msg);
             } else {
