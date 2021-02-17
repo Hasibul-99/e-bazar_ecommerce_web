@@ -100,9 +100,9 @@ export default class OrderDetails extends Component {
                                                                             <strong>{pro?.product?.name}</strong>
                                                                         </td>
                                                                         <td class="text-1 border-top-none width-200">{pro?.product?.productDetails}</td>
-                                                                        <td class="text-center border-top-none width-100 ">{pro.price}</td>
+                                                                        <td class="text-center border-top-none width-100 ">{pro?.product?.sellPrice}</td>
                                                                         <td class="text-center border-top-none width-100 ">{pro.unit}</td>
-                                                                        <td class="text-right border-top-none width-100 ">{pro.price * pro.unit}</td>
+                                                                        <td class="text-right border-top-none width-100 ">{pro.price}</td>
                                                                     </tr>
                                                                 )
                                                             })
