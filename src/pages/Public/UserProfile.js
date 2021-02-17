@@ -67,7 +67,8 @@ export default class UserProfile extends Component {
     }
 
     getuserOrders = async () => {
-        let res = await getData(GET_ORDER_LIST);
+        const user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
+        let res = await getData(GET_ORDER_LIST + "?user=" + user._id + "&limit=1000");
 
         if (res?.data?.isSuccess) {
             this.setState({orderList: res?.data?.data});

@@ -41,7 +41,8 @@
                             "items": [
                                 {
                                     "id": "workbench.action.reopenClosedEditor",
-                                    "label": "&&Reopen Closed Editor"
+                                    "label": "&&Reopen Closed Editor",
+                                    "enabled": false
                                 },
                                 {
                                     "id": "vscode.menubar.separator"
@@ -1472,7 +1473,7 @@
             "backupPath": "/home/tushar/Documents/react/e-bazar/~/.vscode-root/Backups/c49b2227972bea50c57a07c560d55f34",
             "uiState": {
                 "mode": 0,
-                "x": 1456,
+                "x": 1388,
                 "y": 37,
                 "width": 1024,
                 "height": 467
