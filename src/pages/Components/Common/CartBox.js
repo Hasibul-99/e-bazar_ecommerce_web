@@ -125,7 +125,9 @@ export default function CartBox() {
                                                             className="card-img-top" alt="..."  />
                                                     </div>
                                                     <div className="product-detais mt-3">
-                                                        <span className="product-catagory">Women Bag</span>
+                                                        <span className="product-catagory">
+                                                            {/* Women Bag */}
+                                                        </span>
                                                         <h5><a href>{product.name}</a></h5>
                                                     </div>
                                                 </div>

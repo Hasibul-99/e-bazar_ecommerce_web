@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Fragment } from 'react';
 import {dateFormat} from "../../scripts/helper";
+import Cookies from "js-cookie";
 
 export default class UserProfile extends Component {
     formData = {
@@ -33,8 +34,14 @@ export default class UserProfile extends Component {
     }
 
     componentDidMount() {
-        this.getUserInfo();
-        this.getuserOrders();
+        let user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
+
+        if (!(user && Cookies.get("expressToken"))) {
+            window.location = "/";
+        } else {
+            this.getUserInfo();
+            this.getuserOrders();
+        }
     }
 
     getUserInfo = async () => {
