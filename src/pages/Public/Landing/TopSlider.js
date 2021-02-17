@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Slider from 'react-animated-slider';
 import 'react-animated-slider/build/horizontal.css';
 import "../../../assets/css/slider-animations.css";
 
+import { getData } from "../../../scripts/api-service";
+import { GET_RPODUCT } from "../../../scripts/api";
+
 import slider1 from '../../../assets/images/slider/01.jpg';
 import slider2 from '../../../assets/images/slider/02.jpg';
 import slider3 from '../../../assets/images/slider/03.jpg';
+import { Link } from 'react-router-dom';
 
 
 const content = [
@@ -43,29 +47,58 @@ const content = [
 
 
 export default function TopSlider() {
+    const [products, setProduct] = useState([]);
+
+    useEffect(() => {
+        getSliderProducts();
+    }, []);
+
+    const getSliderProducts = async () => {
+        let res = await getData(GET_RPODUCT+ '?isSlideProduct=true&limit=10000');
+
+        if (res?.data?.isSuccess) {
+            let data = res.data.data || [],
+                content = [];
+
+            if (data && data.length) {
+                data.forEach((item, i) => {                    
+                    if (item.photos && item.photos.length) {
+                        content.push({
+                            title: item.name,
+                            description: item.productDetails,
+                            button: 'VIEW OUR PRODUCT',
+                            image: `http://easyexpress24.com:5000/static/${item.photos[0]}`,
+                            classAdd: "right-allian-text"
+                        })
+                    }
+                });
+            }
+
+            setProduct(content);
+        }
+    }
+
     return (
-        <div className="top-slider"> {/* autoplay= "2000" touchDisabled = "true" */}
-            <Slider className="slider-wrapper"
-                autoplay= "2000" touchDisabled = "true">
-                {content.map((item, index) => (
-                    <div className="item slider-content" key={index}>
-                        <img src={item.image} alt={'image' + index}/>
-                        <div className={"inner " + item.classAdd}>
-                            <h2 className="text-capitalize">{item.title}</h2>
-                            <h1 className="text-uppercase">{item.description}</h1>
-                            <a href="/" className="btn-transparent link-decaration">{item.button}</a>
+        <>
+        { products.length ? (
+            <div className="top-slider"> {/* autoplay= "2000" touchDisabled = "true" */}
+                <Slider className="slider-wrapper"
+                    autoplay= "1500" touchDisabled = "true">
+                    {products.map((item, index) => (
+                        <div className="item slider-content" key={index}>
+                            <img src={item.image} alt={'image' + index}/>
+                            <div className={"inner " + item.classAdd}>
+                                <h2 className="text-capitalize">{item.title}</h2>
+                                <h1 className="text-uppercase">{item.description}</h1>
+                                <Link to="/products" className="btn-transparent link-decaration">{item.button}</Link>
+                            </div>
                         </div>
-
-
-                        {/* <section>
-                            <img src={item.userProfile} alt={item.user} />
-                            <span>
-                                Posted by <strong>{item.user}</strong>
-                            </span>
-                        </section> */}
-                    </div>
-                ))}
-            </Slider>
-        </div>
+                    ))}
+                </Slider>
+            </div>
+            ) : ''
+        }
+        
+        </>
     )
 }
