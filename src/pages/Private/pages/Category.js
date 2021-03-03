@@ -83,7 +83,11 @@ export default function Category() {
 
     const editCategory = async () => {
         if (updateCategoryName) {
-            let res = await putData(UPDATE_CATEGORY, {name: updateCategoryName, _id: updateCategory._id});
+            let res = await putData(UPDATE_CATEGORY, {
+                        name: updateCategoryName, 
+                        _id: updateCategory._id, 
+                        isUnbrandCategory: updateCategory.isUnbrandCategory 
+                    });
 
             if (res?.data?.isSuccess) {
                 toast("Category Update Successfully");
