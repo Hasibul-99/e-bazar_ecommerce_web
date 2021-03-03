@@ -70,6 +70,8 @@ export default function ProductModalView(props) {
                                         imageAlt="Example"
                                         largeImageSrc={`http://easyexpress24.com:5000/static/${selected}`}
                                         magnifierSize="50%"
+                                        allowOverflow="true"
+                                        zoom="200%"
                                     />
                                 </div>
                                 

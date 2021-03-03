@@ -31,22 +31,22 @@ export default function ItemType() {
         <div id="js-container-item-types" className="card item-types"> 
             <div className="card-body p-0">
                 <Slider {...settings}>
-                    <div className="cursor-pointer item-type-container">
+                    <div className="cursore-pointer item-type-container">
                         <Link to="/products?sort=-discountPrice">Top Discount</Link>
                     </div>
-                    <div className="cursor-pointer item-type-container">
+                    <div className="cursore-pointer item-type-container">
                         <Link to="/products?sort=-creatingDate">New Products</Link>
                     </div>
-                    <div className="cursor-pointer item-type-container">
+                    <div className="cursore-pointer item-type-container">
                         <Link to="/products?isFlushSell=true">Flash Sale</Link>
                     </div>
-                    <div className="cursor-pointer item-type-container">
+                    <div className="cursore-pointer item-type-container">
                         <Link to="/auth/marchent-signup">Marchant</Link>
                     </div>
-                    <div className="cursor-pointer item-type-container">
+                    <div className="cursore-pointer item-type-container">
                         <Link>Most Sells</Link>
                     </div>
-                    <div className="cursor-pointer item-type-container">
+                    <div className="cursore-pointer item-type-container">
                         <Link>Tips</Link>
                     </div>
                 </Slider>

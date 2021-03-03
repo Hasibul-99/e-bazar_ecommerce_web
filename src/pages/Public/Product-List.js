@@ -113,10 +113,10 @@ function ProductCard( {product}) {
                             }
                         </div>
                         <div className="product-links">
-                            <span className="cursor-pointer" onClick={()=> openModal(product._id)}>
+                            <span className="cursore-pointer mr-2" onClick={()=> openModal(product._id)}>
                                 <i className="fa fa-eye"></i>
                             </span>
-                            <span className="cursor-pointer" onClick={() => addProductIncard(product)}>
+                            <span className="cursore-pointer" onClick={() => addProductIncard(product)}>
                                 <i className="fa fa-shopping-cart"></i>
                             </span>
                         </div>
