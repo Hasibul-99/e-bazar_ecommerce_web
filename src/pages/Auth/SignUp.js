@@ -12,6 +12,7 @@ export default class SignUp extends Component {
         this.state = {
             email: "",
             name: "",
+            mobile: '',
             password: "",
             conPassword: "",
             error: ""
@@ -28,10 +29,12 @@ export default class SignUp extends Component {
 
     registrationSubmit = async (e) => {
         e.preventDefault();
-        let {email, name, password, conPassword} = this.state;
+        let {email, mobile, name, password, conPassword} = this.state;
         
-        if (email && name && password && conPassword && password === conPassword) {
+        if (mobile && name && password && conPassword && password === conPassword) {
+            
             let signUpdata = {
+                mobile: mobile.trim(),
                 email: email.trim(),
                 name: name.trim(),
                 password: password
@@ -47,8 +50,8 @@ export default class SignUp extends Component {
             } else if(!res.data.isSuccess) {
                 this.setState({ error: res.data.msg });
             }
-        } else if (!email.trim()) {
-            this.setState({error: "Email is Required"});
+        } else if (!mobile.trim()) {
+            this.setState({error: "Mobile is Required"});
         } else if (!name.trim()) {
             this.setState({error: "Name is required"});
         } else if (password !== conPassword) {
@@ -73,6 +76,12 @@ export default class SignUp extends Component {
                         <label for="exampleFormControlInput1">Name</label>
                         <input type="text" onChange={this.chnageHandler} 
                             className="form-control" name="name" placeholder="Enter Name"/>
+                    </div>
+                    
+                    <div className="form-group">
+                        <label for="exampleFormControlInput1">Mobile</label>
+                        <input type="text" onChange={this.chnageHandler} 
+                            className="form-control" name="mobile" placeholder="Enter Mobile Number"/>
                     </div>
 
                     <div className="form-group">

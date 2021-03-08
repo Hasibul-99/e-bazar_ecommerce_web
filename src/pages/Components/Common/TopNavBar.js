@@ -79,12 +79,18 @@ export default function TopNavBar() {
                     <nav className="navbar navbar-expand">
                         <div className="collapse navbar-collapse justify-content-between">
                             <div className="header-left">
-                                <div className="dashboard_bar d-none">
-                                    <div className="input-group search-area d-lg-inline-flex d-none">
-                                        <div className="input-group-append">
-                                            <span className="input-group-text"><i className="flaticon-381-search-2"></i></span>
+                                <div className="dashboard_bar row">
+                                    <div className="col-md-7">
+                                        <div className="input-group search-area d-lg-inline-flex">
+                                            <div className="input-group-append">
+                                                <span className="input-group-text"><i className="flaticon-381-search-2"></i></span>
+                                            </div>
+                                            <input type="text" className="form-control" placeholder="Search here..."/>
                                         </div>
-                                        <input type="text" className="form-control" placeholder="Search here..."/>
+                                    </div>
+                                    <div className="col-md-5 compani-info pt-2">
+                                        <p className="mb-0">Email: info.easyexpress24@gmail.com</p>
+                                        <p>Mobile: 01911559933</p>
                                     </div>
                                 </div>
                             </div>

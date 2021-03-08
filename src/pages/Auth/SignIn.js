@@ -10,7 +10,7 @@ export default class SignIn extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
+            mobile: "",
             password: "",
             error: ""
         };
@@ -27,12 +27,12 @@ export default class SignIn extends Component {
     loginSubmit = async (e) => {
         e.preventDefault();
 
-        const {email, password} = this.state;
+        const {mobile, password} = this.state;
 
-        if (email && password) {
+        if (mobile && password) {
 
             let signIn = {
-                email: email.trim(),
+                userName: mobile.trim(),
                 password: password
             }
 
@@ -45,8 +45,8 @@ export default class SignIn extends Component {
             } else if(!res.data.isSuccess) {
                 this.setState({ error: res.data.msg });
             }
-        } else if (!email) {
-            this.setState({error: "Email is required"})
+        } else if (!mobile) {
+            this.setState({error: "Mobile number is required"})
         } else if (!password) {
             this.setState({error: "Password is required"})
         }
@@ -65,9 +65,9 @@ export default class SignIn extends Component {
                 </div>
                 <form className="form" onSubmit={this.loginSubmit}>
                     <div className="form-group">
-                        <label htmlFor="exampleFormControlInput1">Email address</label>
-                        <input type="email" className="form-control" name="email"
-                            onChange={this.changeHandeler}  placeholder="name@example.com"/>
+                        <label htmlFor="exampleFormControlInput1">Mobile Number</label>
+                        <input type="text" className="form-control" name="mobile"
+                            onChange={this.changeHandeler}  placeholder="Enter Mobile Number"/>
                     </div>
 
                     <div className="form-group">

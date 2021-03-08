@@ -22,6 +22,7 @@ export default function MarchentSignup() {
             "nid": data.nid,
             "address": data.address,
             "dateOfBirth": data.dateOfBirth,
+            'facebook': data.facebook,
             "marchant":{
                 "bussinessName": data.bussinessName,
                 "marchantDesignation": data.marchantDesignation,
@@ -84,6 +85,12 @@ export default function MarchentSignup() {
                                 </div>
 
                                 <div className="form-group">
+                                    <label>Mobile Number</label>
+                                    <input type="text" className="form-control"
+                                        name="mobile" ref={register}  placeholder="Enter Mobile Number"/>
+                                </div>
+
+                                <div className="form-group">
                                     <label for="exampleFormControlInput1">Email address</label>
                                     <input type="email" className="form-control" name="email"
                                         ref={register}  placeholder="Enter Email"/>
@@ -110,12 +117,6 @@ export default function MarchentSignup() {
                                         </div>
                                     </div>
                                 </fieldset>
-
-                                <div className="form-group">
-                                    <label>Mobile Number</label>
-                                    <input type="text" className="form-control"
-                                        name="mobile" ref={register}  placeholder="Enter Mobile Number"/>
-                                </div>
 
                                 <div className="form-group">
                                     <label  >Date of Birth</label>
@@ -195,9 +196,9 @@ export default function MarchentSignup() {
                                 </div>
 
                                 
-                                <div className="form-group d-none">
+                                <div className="form-group">
                                     <label  >Facebook Page Link</label>
-                                    <input type="text" className="form-control" name="fbpage" ref={register}  placeholder="Enter Facebook Page Link"/>
+                                    <input type="text" className="form-control" name="facebook" ref={register}  placeholder="Enter Facebook Page Link"/>
                                 </div>
 
                                 
