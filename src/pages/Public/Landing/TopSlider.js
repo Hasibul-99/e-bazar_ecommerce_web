@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Slider from 'react-animated-slider';
+import $ from "jquery";
 import 'react-animated-slider/build/horizontal.css';
 import "../../../assets/css/slider-animations.css";
 
@@ -10,6 +11,7 @@ import slider1 from '../../../assets/images/slider/01.jpg';
 import slider2 from '../../../assets/images/slider/02.jpg';
 import slider3 from '../../../assets/images/slider/03.jpg';
 import { Link } from 'react-router-dom';
+import ProductModalView from "../../Components/Common/ProductModalView";
 
 
 const content = [
@@ -48,6 +50,7 @@ const content = [
 
 export default function TopSlider() {
     const [products, setProduct] = useState([]);
+    const [product, setProducts] = useState([]);
 
     useEffect(() => {
         getSliderProducts();
@@ -68,14 +71,23 @@ export default function TopSlider() {
                             description: item.productDetails,
                             button: 'VIEW OUR PRODUCT',
                             image: `http://easyexpress24.com:5000/static/${item.photos[0]}`,
-                            classAdd: "right-allian-text"
+                            classAdd: "right-allian-text",
+                            _id: item._id
                         })
                     }
                 });
             }
-
+            setProducts(data);
             setProduct(content);
         }
+    }
+
+    const handelModalClose = () => {};
+
+    const openModal = (productId) => {
+        $(`#product-view-modal-${productId}`).modal("show");
+        // setIsOpen(true);
+
     }
 
     return (
@@ -85,7 +97,7 @@ export default function TopSlider() {
                 <Slider className="slider-wrapper"
                     autoplay= "1500" touchDisabled = "true">
                     {products.map((item, index) => (
-                        <div className="item slider-content" key={index}>
+                        <div className="item slider-content cursore-pointer" onClick={()=> openModal(item._id)} key={index}>
                             <img src={item.image} alt={'image' + index}/>
                             <div className={"inner " + item.classAdd}>
                                 <h2 className="text-capitalize">{item.title}</h2>
@@ -99,6 +111,19 @@ export default function TopSlider() {
             ) : ''
         }
         
+        {
+            product && product.length ? (
+                product.map(value => {
+                    <ProductModalView
+                        productId={value._id} 
+                        isOpen={true}
+                        product={value}
+                        update={Math.random()}
+                        HandelModalClose={handelModalClose}>
+                    </ProductModalView>
+                })
+            ) : ''
+        }
         </>
     )
 }
