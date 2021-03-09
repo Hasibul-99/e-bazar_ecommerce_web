@@ -18,7 +18,7 @@ export default function RandomProduct() {
     }, []);
 
     const getProductList = async () => {
-        let res = await getData(GET_RPODUCT);
+        let res = await getData(GET_RPODUCT + '?limit=60');
 
         if (res?.data?.isSuccess) {
             setProducts(res?.data?.data);

@@ -18,6 +18,7 @@ export default class Users extends Component {
         super(props);
         this.state = {
             pageValue: 1, 
+            userType: 'all',
             users: []
         };
     }
@@ -29,6 +30,11 @@ export default class Users extends Component {
 
     getUsersList = async (page) => {
         let url = page ? GET_USERS + '?page='+ page : GET_USERS;
+
+        if (this.state.userType !== 'all') {
+            url = page ? GET_USERS + '?page='+ page + '&userType=' + this.state.userType : GET_USERS + '?userType=' + this.state.userType;
+        }
+
         let res = await getData(url);
 
         if (res?.data?.isSuccess) {
@@ -63,6 +69,15 @@ export default class Users extends Component {
         })
     }
 
+    changeStatus = (e) => {
+        let value = e.target.value;
+        this.setState({userType: value});
+        console.log('Hello');
+        setTimeout(() => {
+            this.getUsersList();
+        }, 500)
+    }
+
     render() {
         return (
             <Fragment>
@@ -72,23 +87,24 @@ export default class Users extends Component {
                         <h3>Users</h3>
                     </div>
                     <div className="col-6">
-                        {/* <div className="row">
+                        <div className="row">
                             <div className="col-6">
-                                <div className="form-group">
+                                {/* <div className="form-group">
                                     <input type="text" className="form-control input-default "
                                         placeholder="Quick Search by ID"/>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="col-6">
                                 <div className="form-group">
-                                    <select className="form-control form-control-lg">
-                                        <option>Status</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
+                                    <select className="form-control form-control-lg" onChange={this.changeStatus }>
+                                        <option value="all">All</option>
+                                        <option value="USER">USER</option>
+                                        <option value="MARCHANT">MARCHANT</option>
+                                        <option value="ADMIN">ADMIN</option>
                                     </select>
                                 </div>
                             </div>
-                        </div> */}
+                        </div>
                     </div>
                 </div>
 

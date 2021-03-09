@@ -25,6 +25,12 @@ export default class Orders extends Component {
 
     getOrderList = async (page) => {
         let url = page ? GET_ORDER_LIST + '?page='+ page : GET_ORDER_LIST;
+        let user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
+
+        if (user && user.userType === "MARCHANT") {
+            url = page ? GET_ORDER_LIST + '?page='+ page + '&products.productOwner=' + user._id : GET_ORDER_LIST + '?products.productOwner=' + user._id;
+        }
+
         let res = await getData(url);
 
         if (res?.data?.isSuccess) {
