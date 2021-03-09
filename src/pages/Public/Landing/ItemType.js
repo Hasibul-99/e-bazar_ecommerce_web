@@ -58,7 +58,7 @@ export default function ItemType() {
                         <Link to="/auth/marchent-signup">Marchant</Link>
                     </div>
                     <div className="cursore-pointer item-type-container">
-                        <Link>Most Sells</Link>
+                        <Link to="/products?sort=-totalSell">Most Sells</Link>
                     </div>
                     <div className="cursore-pointer item-type-container">
                         <Link className="d-flex">
