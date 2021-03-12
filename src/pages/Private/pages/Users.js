@@ -19,7 +19,8 @@ export default class Users extends Component {
         this.state = {
             pageValue: 1, 
             userType: 'all',
-            users: []
+            users: [],
+            allUsers: []
         };
     }
 
@@ -30,15 +31,10 @@ export default class Users extends Component {
 
     getUsersList = async (page) => {
         let url = page ? GET_USERS + '?page='+ page : GET_USERS;
-
-        if (this.state.userType !== 'all') {
-            url = page ? GET_USERS + '?page='+ page + '&userType=' + this.state.userType : GET_USERS + '?userType=' + this.state.userType;
-        }
-
         let res = await getData(url);
 
         if (res?.data?.isSuccess) {
-            this.setState({users: res?.data?.data});
+            this.setState({users: res?.data?.data, allUsers: res?.data?.data});
         }
     }
 
@@ -71,11 +67,13 @@ export default class Users extends Component {
 
     changeStatus = (e) => {
         let value = e.target.value;
-        this.setState({userType: value});
-        console.log('Hello');
-        setTimeout(() => {
-            this.getUsersList();
-        }, 500)
+        let listUser = this.state.allUsers.filter(u => u.userType === value);
+        
+        if (value !== 'all') {
+            this.setState({users: listUser});
+        } else {
+            this.setState({users: this.state.allUsers});
+        }
     }
 
     render() {
