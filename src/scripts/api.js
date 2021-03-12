@@ -31,3 +31,7 @@ export const REMOVE_PRODUCT_PHOTO = "api/product/updateProductPhoto"
 export const GET_ORDER_LIST = "api/order";
 export const CREATE_ORDER = "api/order";
 export const UPDATE_ORDER = "api/order";
+
+// Tips 
+export const GET_TIPS = "api/tips";
+export const CREATE_TIPS = "api/tips";

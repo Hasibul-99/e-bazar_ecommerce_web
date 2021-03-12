@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 
 import { postData, getData } from "../../../scripts/api-service";
 import { GET_USERS, VERIFY_USER } from "../../../scripts/api";
-import Pagination from "../common/Pagination";
 
 import {loadPageVar, dateFormat} from "../../../scripts/helper";
 import { Link } from 'react-router-dom';
@@ -166,10 +165,6 @@ export default class Users extends Component {
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <Pagination
-                                    handelPagination={this.handelPagination}
-                                ></Pagination>
                             </div>
                         </div>
                     </div>    

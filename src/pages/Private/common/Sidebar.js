@@ -49,6 +49,13 @@ export default function Sidebar() {
                                     <span className="nav-text">Category</span>
                                 </Link>
                             </li>
+                            <li className={className(window.location.pathname, "/admin/tips")}>
+                                <Link className="ai-icon menu-list-header" 
+                                    to="/admin/tips" aria-expanded="false">
+                                    <i className="flaticon-381-television"></i>
+                                    <span className="nav-text">Tips</span>
+                                </Link>
+                            </li>
                         </Fragment> : ''
                     }
                     

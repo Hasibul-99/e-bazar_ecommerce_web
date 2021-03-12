@@ -6,6 +6,7 @@ import Category from "../pages/Private/pages/Category";
 import Brand from "../pages/Private/pages/Brand";
 import SubCategory from "../pages/Private/pages/SubCategory";
 import ProductEdit from "../pages/Private/pages/ProductEdit";
+import Tips from "../pages/Private/pages/Tips";
 
 const PrivateRoutes = [
     {
@@ -63,7 +64,14 @@ const PrivateRoutes = [
         component: SubCategory,
         layout: "/admin",
         exact: true
-    }
+    },
+    {
+        path: "/tips",
+        name: "Tips",
+        component: Tips,
+        layout: "/admin",
+        exact: true
+    },
 ];
 
 export default PrivateRoutes;
