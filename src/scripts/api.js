@@ -35,3 +35,6 @@ export const UPDATE_ORDER = "api/order";
 // Tips 
 export const GET_TIPS = "api/tips";
 export const CREATE_TIPS = "api/tips";
+export const UPDATE_TIPS = "api/tips";
+export const UPDATE_TIPS_PHOTO = "api/tips/updateTipsPhoto";
+export const ADD_TIPS_PHOTO = "api/tips/addTipsPhoto";
