@@ -5,7 +5,7 @@ import $ from "jquery";
 import { toast } from 'react-toastify';
 
 import { postData, getData } from "../../../scripts/api-service";
-import { GET_USERS, VERIFY_USER } from "../../../scripts/api";
+import { GET_USERS, VERIFY_USER, COUNT_USER } from "../../../scripts/api";
 
 import {loadPageVar, dateFormat} from "../../../scripts/helper";
 import { Link } from 'react-router-dom';
@@ -19,21 +19,31 @@ export default class Users extends Component {
             pageValue: 1, 
             userType: 'all',
             users: [],
-            allUsers: []
+            allUsers: [],
+            totalUser: 0,
         };
     }
 
     componentDidMount() {
         this.setState({pageValue: loadPageVar('page') });
         this.getUsersList(loadPageVar('page'));
+        this.countUser();
     }
 
     getUsersList = async (page) => {
         let url = page ? GET_USERS + '?page='+ page : GET_USERS;
         let res = await getData(url);
-
+        
         if (res?.data?.isSuccess) {
             this.setState({users: res?.data?.data, allUsers: res?.data?.data});
+        }
+    }
+
+    countUser = async () => {
+        let res = await getData(COUNT_USER);
+
+        if (res?.data?.isSuccess) {
+            this.setState({totalUser: res.data.data});
         }
     }
 
@@ -82,6 +92,7 @@ export default class Users extends Component {
                 <div className="row">
                     <div className="col-6">
                         <h3>Users</h3>
+                        <h4>Total user: {this.state.totalUser} </h4>
                     </div>
                     <div className="col-6">
                         <div className="row">
@@ -152,7 +163,7 @@ export default class Users extends Component {
                                                                             </svg>
                                                                         </button>
                                                                         <div className="dropdown-menu">
-                                                                            {/* <a className="dropdown-item">View</a> */}
+                                                                            <Link to={`/admin/user-profile/${user._id}`} className="dropdown-item">View</Link>
                                                                             <Link className="dropdown-item" onClick={() => this.verifiedUser(user)}>Active</Link>
                                                                         </div>
                                                                     </div>

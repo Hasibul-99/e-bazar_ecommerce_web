@@ -7,6 +7,7 @@ export const UPDATE_USER = "api/user";
 export const GET_USERS = "api/user";
 export const CREATE_MARCHANT_USER = "api/user/createMarchant";
 export const VERIFY_USER = "api/user/verifyUser";
+export const COUNT_USER = "api/user/count";
 
 // Category
 export const CREATE_CATEGORY = "api/category";

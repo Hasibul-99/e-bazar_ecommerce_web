@@ -7,6 +7,7 @@ import Brand from "../pages/Private/pages/Brand";
 import SubCategory from "../pages/Private/pages/SubCategory";
 import ProductEdit from "../pages/Private/pages/ProductEdit";
 import Tips from "../pages/Private/pages/Tips";
+import UserProfile from '../pages/Private/pages/UserProfile';
 
 const PrivateRoutes = [
     {
@@ -69,6 +70,13 @@ const PrivateRoutes = [
         path: "/tips",
         name: "Tips",
         component: Tips,
+        layout: "/admin",
+        exact: true
+    },
+    {
+        path: "/user-profile/:userId",
+        name: "user",
+        component: UserProfile,
         layout: "/admin",
         exact: true
     },
