@@ -7,6 +7,7 @@ import demoProduct from "../../assets/images/demo-product.png";
 import ProductModalView from "../Components/Common/ProductModalView";
 import Pagination from "../Private/common/Pagination";
 import {orderListContext} from "../../contexts/OrderListContext";
+import ItemType from "./Landing/ItemType";
 
 export default function ProductList(props) {
     const {location} = props;
@@ -38,6 +39,8 @@ export default function ProductList(props) {
 
     return (
         <div className="home-landing">
+            <ItemType></ItemType>
+
             <div className="non-Brand-items card">
                 <div className="card-body">
                     <div className="row">

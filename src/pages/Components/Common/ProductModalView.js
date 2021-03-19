@@ -87,10 +87,12 @@ export default function ProductModalView(props) {
                             </div>
                             <div id={`card-content-${productId}`} className="col-sm-12 col-md-6 pt-5" 
                             style={{display: 'none'}}>
-                            <h2>{product.name}</h2>
+                                 <h2>{product.name}</h2>
                                  <h5 className="gold-text my-4">
                                    ৳{ product.sellPrice - product.discountPrice } 
                                  </h5>
+
+                                 <h5 className="my-4">{product.productDetails}</h5>
 
                                  <div className="form-group d-none">
                                      <label for="exampleFormControlSelect1">COLOR</label>

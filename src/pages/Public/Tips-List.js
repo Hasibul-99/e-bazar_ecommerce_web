@@ -3,6 +3,7 @@ import { getData } from "../../scripts/api-service";
 import { GET_TIPS } from "../../scripts/api";
 import demoProduct from "../../assets/images/demo-product.png";
 import {Link} from "react-router-dom";
+import ItemType from "./Landing/ItemType";
 
 export default function Tips() {
     const [tips, setTips] = useState();
@@ -22,6 +23,8 @@ export default function Tips() {
 
     return (
         <div className="home-landing">
+            <ItemType></ItemType>
+            
             <div className="non-Brand-items card">
                 <div className="card-body">
                     <div className="row">
@@ -41,7 +44,7 @@ export default function Tips() {
                                             </div>
                                             <div className="product-details">
                                                 {/* <span className="product-catagory">Women,bag</span> */}
-                                                <h5><Link to={`/tips/${tip._id}`}>{tip.name}</Link></h5>
+                                                <h5><Link to={`/tip/${tip._id}`}>{tip.name}</Link></h5>
                                                 <div className="product-bottom-details">
                                                     
                                                 </div>

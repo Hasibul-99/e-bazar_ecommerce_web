@@ -1,0 +1,16 @@
+.tips-info {
+    .product-images {
+        margin-right: 5px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        img {
+            width: 90px;
+            height: auto;
+            max-height: 90px;
+            min-height: 40px;
+        }
+    } 
+}

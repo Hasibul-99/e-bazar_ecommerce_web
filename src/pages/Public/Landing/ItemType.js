@@ -61,7 +61,7 @@ export default function ItemType() {
                         <Link to="/products?sort=-totalSell">Most Sells</Link>
                     </div>
                     <div className="cursore-pointer item-type-container">
-                        <Link className="d-flex">
+                        <Link to="/tips" className="d-flex">
                             <img src={tips} height="30" width="30" alt="Tips"/>
                             <span className="ml-3 mt-1">Tips</span>
                         </Link>

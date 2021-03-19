@@ -3,6 +3,7 @@ import UserProfile from "../pages/Public/UserProfile";
 import ProductList from "../pages/Public/Product-List";
 import OrderDetails from "../pages/Public/OrderDetails";
 import Tips from "../pages/Public/Tips-List";
+import TipsDetails from "../pages/Public/Tips-details";
 
 const PublicRoutes = [
     {
@@ -37,6 +38,13 @@ const PublicRoutes = [
         path: "/tips",
         name: "Tips List",
         component: Tips,
+        layout: "/",
+        exact: true
+    },
+    {
+        path: "/tip/:tipId",
+        name: "Tips Info",
+        component: TipsDetails,
         layout: "/",
         exact: true
     },
