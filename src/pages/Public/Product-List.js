@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState, useContext} from 'react';
 import $ from "jquery";
-import {Link,useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import { getData } from "../../scripts/api-service";
 import { GET_RPODUCT } from "../../scripts/api";
 import demoProduct from "../../assets/images/demo-product.png";
@@ -94,15 +94,16 @@ function ProductCard( {product}) {
                 <div className="product-tumb">
                     {
                         product?.photos?.length ? <Fragment>
-                            <img src={`http://easyexpress24.com:5000/static/${product?.photos[0]}`} alt=""/>
+                            <img onClick={()=> openModal(product._id)}
+                                src={`http://easyexpress24.com:5000/static/${product?.photos[0]}`} alt=""/>
                         </Fragment> : <Fragment>
                             <img src={demoProduct} alt=""/>
                         </Fragment>
                     }
                 </div>
                 <div className="product-details">
-                    <span className="product-catagory">Women,bag</span>
-                    <h5><a href="">{product.name}</a></h5>
+                    {/* <span className="product-catagory">Women,bag</span> */}
+                    <h5><a onClick={()=> openModal(product._id)}>{product.name}</a></h5>
                     <div className="product-bottom-details">
                         <div className="product-price">
                             {

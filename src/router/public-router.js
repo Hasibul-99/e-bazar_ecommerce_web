@@ -2,6 +2,7 @@ import Landing from "../pages/Public/Landing/index";
 import UserProfile from "../pages/Public/UserProfile";
 import ProductList from "../pages/Public/Product-List";
 import OrderDetails from "../pages/Public/OrderDetails";
+import Tips from "../pages/Public/Tips-List";
 
 const PublicRoutes = [
     {
@@ -29,6 +30,13 @@ const PublicRoutes = [
         path: "/order-details/:orderId",
         name: "order details",
         component: OrderDetails,
+        layout: "/",
+        exact: true
+    },
+    {
+        path: "/tips",
+        name: "Tips List",
+        component: Tips,
         layout: "/",
         exact: true
     },
