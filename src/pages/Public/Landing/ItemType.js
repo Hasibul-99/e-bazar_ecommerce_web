@@ -8,6 +8,8 @@ import newProduct from '../../../assets/icons/Icon/New Products.png';
 import flashSale from '../../../assets/icons/Icon/Flash Sale.png';
 import topDiscount from '../../../assets/icons/Icon/Top Discount.png';
 import tips from '../../../assets/icons/Icon/Tips.png';
+import mostSell from '../../../assets/images/most-sell.png';
+import merchant from '../../../assets/images/merchant.png';
 
 export default function ItemType() {
     const [slidesToShow, setSlidesToShow] = useState(5);
@@ -55,10 +57,16 @@ export default function ItemType() {
                         </Link>
                     </div>
                     <div className="cursore-pointer item-type-container">
-                        <Link to="/auth/marchent-signup">Marchant</Link>
+                        <Link to="/auth/marchent-signup" className="d-flex">
+                            <img src={merchant} height="50" width="50" alt="Flash Sale"/>
+                            <span className="ml-3 mt-3">Marchant</span>
+                        </Link>
                     </div>
                     <div className="cursore-pointer item-type-container">
-                        <Link to="/products?sort=-totalSell">Most Sells</Link>
+                        <Link to="/products?sort=-totalSell" className="d-flex">
+                            <img src={mostSell} height="35" width="50" alt="Flash Sale"/>
+                            <span className="ml-3 mt-3">Most Sells</span>
+                        </Link>
                     </div>
                     <div className="cursore-pointer item-type-container">
                         <Link to="/tips" className="d-flex">
