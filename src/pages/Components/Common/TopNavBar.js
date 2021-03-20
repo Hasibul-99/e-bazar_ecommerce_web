@@ -3,15 +3,18 @@ import Cookies from "js-cookie";
 
 import user from "../../../assets/images/profile/17.jpg";
 import logo1 from "../../../assets/images/Easyexpress24-final.png";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
-import { LOGIN_USER_INFO } from "../../../scripts/api";
+import { LOGIN_USER_INFO, PRODUCT_SEARCH, SEARCH_CATEGORY, SEARCH_BRAND, SEARCH_CATEGORY_BRAND_SUBCATEGORY } from "../../../scripts/api";
 import { checkRes } from "../../../scripts/checkRes";
 import { getData } from "../../../scripts/api-service";
 
 export default function TopNavBar() {
+        
+    const history = useHistory();
     const [token, isSetToken] = useState();
     const [userData, setUserData] = useState();
+    const [searchResult, setSearchReasult] = useState([]);
 
     const hideShowLeftMenu = () => {
         let sidebar = document.getElementById("js-public-left-sidebar");
@@ -61,6 +64,56 @@ export default function TopNavBar() {
         }
     }
 
+    const searchKeyPresss = async (e) => {
+        let value = e.target.value,
+            products = [],
+            category = [],
+            brand = [],
+            subcategory = [];
+
+        if (value.length > 3) {
+            let res1 = await getData(PRODUCT_SEARCH + value);
+            if (res1.data.isSuccess) {
+                products = res1.data.data;
+            }
+
+            let res2 = await getData(SEARCH_CATEGORY + value);
+            if (res2.data.isSuccess) {
+                category = res2.data.data;
+            }
+
+            let res3  = await getData(SEARCH_BRAND + value);
+            if (res3.data.isSuccess) {
+                brand = res3.data.data;
+            }
+
+            let res4  = await getData(SEARCH_CATEGORY_BRAND_SUBCATEGORY + value);
+            if (res4.data.isSuccess) {
+                subcategory = res4.data.data;
+            }
+
+            let search = [...products, ...category, ...brand, ...subcategory]
+            setSearchReasult(search);
+
+        } else if (value.length === 0) {
+            setSearchReasult([]);
+        }
+    }
+
+    const showReasult = (res) => {
+        console.log("res", res);
+
+        if ('productDetails' in res) {
+
+        } else if ('isUnbrandCategory' in res) {
+            history.push(`/products?category=${res._id}`);
+        } else if (res.category) {
+            history.push(`/products?categoryBrand=${res._id}`);
+        } else if (res.category && res.categoryBrand) {
+            history.push(`/products?categoryBrandSubCategory=${res._id}`);
+        }
+    }
+
     return (
         <Fragment>
             <div className="nav-header custom-nav-header">
@@ -80,12 +133,22 @@ export default function TopNavBar() {
                         <div className="collapse navbar-collapse justify-content-between">
                             <div className="header-left">
                                 <div className="dashboard_bar row">
-                                    <div className="col-md-7">
+                                    <div className="col-md-7 search-container">
                                         <div className="input-group search-area d-lg-inline-flex">
                                             <div className="input-group-append">
                                                 <span className="input-group-text"><i className="flaticon-381-search-2"></i></span>
                                             </div>
-                                            <input type="text" className="form-control" placeholder="Search here..."/>
+                                            <input type="text" className="form-control" onKeyPress={searchKeyPresss} placeholder="Search here..."/>
+                                        </div>
+                                        <div className="search-option">
+                                            <ul className="select-dropdown-menu">
+                                                {searchResult.length ? (
+                                                    searchResult.map(sea => {
+                                                        return <li key={sea._id} className="select-dropdown-menu-item" onClick={() => showReasult(sea)}>
+                                                            {sea.name}</li>
+                                                    })
+                                                ) : ''}
+                                            </ul>
                                         </div>
                                     </div>
                                     <div className="col-md-5 compani-info pt-2">

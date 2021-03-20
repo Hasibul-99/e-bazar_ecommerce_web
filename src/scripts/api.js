@@ -20,14 +20,18 @@ export const GET_CATEGORY_MENU_LIST = "api/category/menuList";
 export const UPDATE_CATEGORY =  "api/category";
 export const UPDATE_BRAND = "api/category/categoryBrand";
 export const UPDATE_SUBCATEGORY = "api/category/categoryBrandSubCategory";
+export const SEARCH_CATEGORY = "api/category/search?name=";
+export const SEARCH_BRAND = "api/category/categoryBrand/search?name=";
+export const SEARCH_CATEGORY_BRAND_SUBCATEGORY = "api/category/categoryBrandSubCategory/search?name=";
 
 // product 
 export const ADD_PRODUCT = "api/product";
 export const UPLOAD_RPODUCT_IMAGE = "api/product/addProductPhoto";
 export const GET_RPODUCT = "api/product";
 export const UPDATE_PRODUCT = "api/product";
-export const REMOVE_PRODUCT_PHOTO = "api/product/updateProductPhoto"
-
+export const REMOVE_PRODUCT_PHOTO = "api/product/updateProductPhoto";
+export const PRODUCT_SEARCH = "api/product/search?name="
+ 
 // Order
 export const GET_ORDER_LIST = "api/order";
 export const CREATE_ORDER = "api/order";
