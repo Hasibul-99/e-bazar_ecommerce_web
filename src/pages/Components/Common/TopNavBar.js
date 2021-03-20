@@ -71,6 +71,8 @@ export default function TopNavBar() {
             brand = [],
             subcategory = [];
 
+            console.log("value",value);
+
         if (value.length > 2) {
             let res1 = await getData(PRODUCT_SEARCH + value);
             if (res1.data.isSuccess) {
@@ -140,7 +142,7 @@ export default function TopNavBar() {
                                             <div className="input-group-append">
                                                 <span className="input-group-text"><i className="flaticon-381-search-2"></i></span>
                                             </div>
-                                            <input type="text" className="form-control" onKeyPress={searchKeyPresss} placeholder="Search here..."/>
+                                            <input type="text" className="form-control" onKeyUp={searchKeyPresss} placeholder="Search here..."/>
                                         </div>
                                         <div className="search-option">
                                             <ul className="select-dropdown-menu">
