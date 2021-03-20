@@ -71,7 +71,7 @@ export default function TopNavBar() {
             brand = [],
             subcategory = [];
 
-        if (value.length > 3) {
+        if (value.length > 2) {
             let res1 = await getData(PRODUCT_SEARCH + value);
             if (res1.data.isSuccess) {
                 products = res1.data.data;

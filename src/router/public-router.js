@@ -5,6 +5,10 @@ import OrderDetails from "../pages/Public/OrderDetails";
 import Tips from "../pages/Public/Tips-List";
 import TipsDetails from "../pages/Public/Tips-details";
 import ProductInfo from "../pages/Public/Product-Info";
+import About from "../pages/Public/About";
+import TermsConditions from "../pages/Public/TermsConditions";
+import PrivacyPolicy from "../pages/Public/PrivacyPolicy";
+import ReturnPolicy from "../pages/Public/ReturnPolicy";
 
 const PublicRoutes = [
     {
@@ -53,6 +57,34 @@ const PublicRoutes = [
         path: "/tip/:tipId",
         name: "Tips Info",
         component: TipsDetails,
+        layout: "/",
+        exact: true
+    },
+    {
+        path: "/about",
+        name: "Tips Info",
+        component: About,
+        layout: "/",
+        exact: true
+    },
+    {
+        path: "/terms-conditions",
+        name: "Tips Info",
+        component: TermsConditions,
+        layout: "/",
+        exact: true
+    },
+    {
+        path: "/privacy-policy",
+        name: "Tips Info",
+        component: PrivacyPolicy,
+        layout: "/",
+        exact: true
+    },
+    {
+        path: "/return-policy",
+        name: "Tips Info",
+        component: ReturnPolicy,
         layout: "/",
         exact: true
     },

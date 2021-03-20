@@ -100,7 +100,7 @@ export default function TopSlider() {
                             <img src={item.image} alt={'image' + index}/>
                             <div className={"inner " + item.classAdd}>
                                 <h2 className="text-capitalize">{item.title}</h2>
-                                <h1 className="text-uppercase">{item.description}</h1>
+                                {/* <h1 className="text-uppercase">{item.description}</h1> */}
                                 {/* <Link to="/products" className="btn-transparent link-decaration">{item.button}</Link> */}
                             </div>
                         </div>
