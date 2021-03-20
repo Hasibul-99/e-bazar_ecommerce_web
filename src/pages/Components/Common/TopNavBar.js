@@ -101,10 +101,8 @@ export default function TopNavBar() {
     }
 
     const showReasult = (res) => {
-        console.log("res", res);
-
         if ('productDetails' in res) {
-
+            history.push(`/product/${res._id}`);
         } else if ('isUnbrandCategory' in res) {
             history.push(`/products?category=${res._id}`);
         } else if (res.category) {
@@ -112,6 +110,10 @@ export default function TopNavBar() {
         } else if (res.category && res.categoryBrand) {
             history.push(`/products?categoryBrandSubCategory=${res._id}`);
         }
+
+        setTimeout(() => {
+            setSearchReasult([]);
+        }, 1000)
     }
 
     return (

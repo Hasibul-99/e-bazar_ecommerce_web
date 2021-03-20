@@ -10,9 +10,8 @@ import { GET_RPODUCT } from "../../../scripts/api";
 import slider1 from '../../../assets/images/slider/01.jpg';
 import slider2 from '../../../assets/images/slider/02.jpg';
 import slider3 from '../../../assets/images/slider/03.jpg';
-import { Link } from 'react-router-dom';
 import ProductModalView from "../../Components/Common/ProductModalView";
-
+import {Link, useHistory} from "react-router-dom";
 
 const content = [
 	{
@@ -49,6 +48,7 @@ const content = [
 
 
 export default function TopSlider() {
+    const history = useHistory();
     const [products, setProduct] = useState([]);
     const [product, setProducts] = useState([]);
 
@@ -85,9 +85,8 @@ export default function TopSlider() {
     const handelModalClose = () => {};
 
     const openModal = (productId) => {
-        $(`#product-view-modal-${productId}`).modal("show");
-        // setIsOpen(true);
-
+        // $(`#product-view-modal-${productId}`).modal("show");
+        history.push(`/product/${productId}`);
     }
 
     return (

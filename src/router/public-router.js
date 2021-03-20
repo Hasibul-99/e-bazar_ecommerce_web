@@ -4,6 +4,7 @@ import ProductList from "../pages/Public/Product-List";
 import OrderDetails from "../pages/Public/OrderDetails";
 import Tips from "../pages/Public/Tips-List";
 import TipsDetails from "../pages/Public/Tips-details";
+import ProductInfo from "../pages/Public/Product-Info";
 
 const PublicRoutes = [
     {
@@ -24,6 +25,13 @@ const PublicRoutes = [
         path: "/products",
         name: "Landing",
         component: ProductList,
+        layout: "/",
+        exact: true
+    },
+    {
+        path: "/product/:productId",
+        name: "product info",
+        component: ProductInfo,
         layout: "/",
         exact: true
     },
