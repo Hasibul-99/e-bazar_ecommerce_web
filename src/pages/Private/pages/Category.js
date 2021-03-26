@@ -6,7 +6,7 @@ import Pagination from "../common/Pagination";
 
 // import { checkRes } from "../../../scripts/checkRes";
 import { postData, getData, putData } from "../../../scripts/api-service";
-import { CREATE_CATEGORY, GET_CATEGORY_LIST, UPDATE_CATEGORY } from "../../../scripts/api";
+import { CREATE_CATEGORY, GET_CATEGORY_LIST, UPDATE_CATEGORY, CATEGORY_IMAGE } from "../../../scripts/api";
 import { dateFormat } from "../../../scripts/helper";
 import swal from 'sweetalert2';
 
@@ -27,14 +27,38 @@ export default function Category() {
             let res = await postData(CREATE_CATEGORY, {name: categoryName, isUnbrandCategory: isUnbrandCategory});
 
             if (res?.data?.isSuccess) {
-                toast.success("Category Add successfully");
-                $("#create-category-modal").modal('hide');
-                setCategoryName("");
+                let e = document.getElementById('js-cat-image')
+
+                if (e.files.length) {
+                    uploadImage(res.data.data);
+                } else {
+                    toast.success("Category Add successfully");
+                    $("#create-category-modal").modal('hide');
+                    setCategoryName("");
+                }
             } else {
                 toast.error(res.msg);
             }
         } else {
             toast("Category name is required");
+        }
+    }
+
+    const uploadImage = async (cat) => {
+        if (cat._id) {
+            let data = new FormData();
+            let ele = document.getElementById('js-cat-image')
+
+            data.append('img', ele.files[0]);
+
+            let res = await postData(CATEGORY_IMAGE + cat._id, data);
+
+            if (res?.data?.isSuccess) {
+                toast.success("Category Add successfully");
+                $("#create-category-modal").modal('hide');
+                setCategoryName("");
+                ele.files = null;
+            }
         }
     }
 
@@ -90,17 +114,42 @@ export default function Category() {
                     });
 
             if (res?.data?.isSuccess) {
-                toast("Category Update Successfully");
-                $("#update-category-modal").modal('hide');
-                setUpdateCategory();
-                setUpdateCategoryName();
+                let ele  = document.getElementById('js-cat-image-update');
 
-                getCategoryList();
+                if (ele.files.length) {
+                    editUploadImage(updateCategory._id)
+                } else {
+                    toast("Category Update Successfully");
+                    $("#update-category-modal").modal('hide');
+                    setUpdateCategory();
+                    setUpdateCategoryName();
+                    getCategoryList();
+                }
             } else {
                 toast("Something went wrong");
             }
         } else {
             toast("Category name is required");
+        }
+    }
+
+    const editUploadImage  = async (catId) => {
+        if (catId) {
+            let data = new FormData();
+            let ele = document.getElementById('js-cat-image-update')
+
+            data.append('img', ele.files[0]);
+
+            let res = await postData(CATEGORY_IMAGE + catId, data);
+
+            if (res?.data?.isSuccess) {
+                toast.success("Category Update Successfully");
+                $("#update-category-modal").modal('hide');
+                setUpdateCategory();
+                setUpdateCategoryName();
+                getCategoryList();
+                ele.files = null;
+            }
         }
     }
 
@@ -131,6 +180,7 @@ export default function Category() {
                                         <tr>
                                             <th><strong>NAME</strong></th>
                                             <th><strong>Date</strong></th>
+                                            <th><strong>Image</strong></th>
                                             <th><strong>Status</strong></th>
                                         </tr>
                                     </thead>
@@ -141,6 +191,11 @@ export default function Category() {
                                                     return (<tr key={i}>
                                                         <td>{category.name}</td>
                                                         <td>{dateFormat(category.creatingDate)}</td>
+                                                        <td>
+                                                            {category.photo ? (
+                                                                <img src={`http://easyexpress24.com:5000/static/${category.photo}`} height="50" width="50"></img>
+                                                            ) : ''}
+                                                        </td>
                                                         <td>{category.status ? "Active" : "Inactive"}</td>
                                                         <td>
                                                             <div className="d-flex">
@@ -188,6 +243,12 @@ export default function Category() {
                                 <input type="text" name="category_name" onChange={changeHandeler} className="form-control"/>
                             </div>
                         </div>
+                        <div className="form-row">
+                            <div className="form-group col-md-12">
+                                <label>Image</label>
+                                <input type="file" name="image" id="js-cat-image" className="form-control"/>
+                            </div>
+                        </div>
                         <div className="form-check">
                             <input type="checkbox" className="form-check-input" onChange={(e) => setIsUnbrandCategory(e.target.checked)} id="exampleCheck1"/>
                             <label className="form-check-label" for="exampleCheck1">Check it for make it non brand category.</label>
@@ -214,6 +275,12 @@ export default function Category() {
                             <div className="form-group col-md-12">
                                 <label>Category Name</label>
                                 <input type="text" name="update_category_name" value={updateCategoryName} onChange={changeUpdateHandeler} className="form-control"/>
+                            </div>
+                        </div>
+                        <div className="form-row">
+                            <div className="form-group col-md-12">
+                                <label>Image</label>
+                                <input type="file" name="image" id="js-cat-image-update" className="form-control"/>
                             </div>
                         </div>
                     </div>

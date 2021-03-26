@@ -6,7 +6,7 @@
 
 .left-sidebar {
     position: fixed;
-    max-height: 30em;
+    max-height: 27em;
     overflow-y: scroll;
     margin-top: 8em;
     padding-top: 0;
@@ -112,7 +112,7 @@
 .bundles-packages-offer {
     position: fixed;
     max-height: 30em;
-    margin-top: 39em;
+    margin-top: 36em;
     padding-top: 0;
     border-radius: 10px;
     width: 21.563rem;
@@ -194,4 +194,26 @@
     .content-body {
         margin-left: 0px;
     }
+}
+
+.cat-image-content {
+    font-size: 1.5rem;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: 0;
+    line-height: 1;
+    line-height: 60px;
+    transition: all 0.5s;
+    margin-right: 15px;
+    height: 30px;
+    width: 30px;
+    background: transparent;
+    text-align: center;
+    padding: 0px;
+    border-radius: 5rem;
+    margin-left: 15px;
+    margin-right: 30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }

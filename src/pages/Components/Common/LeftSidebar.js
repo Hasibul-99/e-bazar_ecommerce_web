@@ -32,7 +32,8 @@ export default function LeftSidebar() {
             category.forEach(cat => {
                 let list = {
                     _id: cat._id,
-                    parent: cat.name
+                    parent: cat.name,
+                    photo: cat.photo
                 },
                 brands = brand?.length ? brand.filter(b => b.category === cat._id ) : [];
 
@@ -86,12 +87,20 @@ function Category (props) {
         history.push(`/products?category=${item._id}`);
     }
 
+    console.log("item", item);
+
     return (
         // className="mm-active"
         <li className={`menu-list ${isActive ? 'has-selected' : ''}`}>
             <a onClick={slectCategory} className={`ai-icon menu-list-header ${item?.child?.length ? " has-arrow" : ""}`} 
                 href="javascript:void()" aria-expanded="false">
-                <i className="flaticon-381-television"></i>
+                    {
+                        item.photo ? (
+                            <img className="cat-image-content" src={`http://easyexpress24.com:5000/static/${item.photo}`} height="50" width="50" />
+                        ) : (
+                            <i className="flaticon-381-television"></i>
+                            )
+                    }
                 <span className="nav-text">{item.parent}</span>
             </a>
             {/* className="mm-collapse" */}

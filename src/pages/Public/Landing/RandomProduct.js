@@ -98,7 +98,7 @@ function ProductCard( {product}) {
                     }
                 </div>
                 <div className="product-details">
-                    <span className="product-catagory">Women,bag</span>
+                    {/* <span className="product-catagory">Women,bag</span> */}
                     <h5><a onClick={()=> openModal(product._id)}>{product.name}</a></h5>
                     <div className="product-bottom-details">
                         <div className="product-price">

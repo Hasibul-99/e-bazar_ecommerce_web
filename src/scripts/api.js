@@ -23,6 +23,7 @@ export const UPDATE_SUBCATEGORY = "api/category/categoryBrandSubCategory";
 export const SEARCH_CATEGORY = "api/category/search?name=";
 export const SEARCH_BRAND = "api/category/categoryBrand/search?name=";
 export const SEARCH_CATEGORY_BRAND_SUBCATEGORY = "api/category/categoryBrandSubCategory/search?name=";
+export const CATEGORY_IMAGE = "api/category/updateCategoryPhoto/";
 
 // product 
 export const ADD_PRODUCT = "api/product";

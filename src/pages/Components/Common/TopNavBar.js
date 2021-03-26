@@ -71,7 +71,7 @@ export default function TopNavBar() {
             brand = [],
             subcategory = [];
 
-            console.log("value",value);
+            // console.log("value",value);
 
         if (value.length > 2) {
             let res1 = await getData(PRODUCT_SEARCH + value);
@@ -97,6 +97,12 @@ export default function TopNavBar() {
             let search = [...products, ...category, ...brand, ...subcategory]
             setSearchReasult(search);
 
+            if(e.keyCode == 13) {
+                if (search[0]) {
+                    showReasult(search[0]);
+                }
+            }
+
         } else if (value.length === 0) {
             setSearchReasult([]);
         }
@@ -116,6 +122,13 @@ export default function TopNavBar() {
         setTimeout(() => {
             setSearchReasult([]);
         }, 1000)
+    }
+
+    const keyPress = (e) => {
+        if(e.keyCode == 13) {
+            // console.log('value', e.target.value);
+            // put the login here
+        }
     }
 
     return (
@@ -142,7 +155,8 @@ export default function TopNavBar() {
                                             <div className="input-group-append">
                                                 <span className="input-group-text"><i className="flaticon-381-search-2"></i></span>
                                             </div>
-                                            <input type="text" className="form-control" onKeyUp={searchKeyPresss} placeholder="Search here..."/>
+                                            <input type="text" className="form-control" onKeyUp={searchKeyPresss} 
+                                                onKeyDown={keyPress} placeholder="Search here..."/>
                                         </div>
                                         <div className="search-option">
                                             <ul className="select-dropdown-menu">
