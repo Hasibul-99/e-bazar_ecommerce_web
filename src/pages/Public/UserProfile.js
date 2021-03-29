@@ -277,8 +277,8 @@ export default class UserProfile extends Component {
                             <h3>Orders</h3>
 
                             <div className="col-lg-12">
-                                <div className="card">
-                                    <div className="card-body">
+                                {/* <div className="card">
+                                    <div className="card-body"> */}
                                         <div className="table-responsive">
                                             <table className="table table-responsive-md">
                                                 <thead>
@@ -299,7 +299,7 @@ export default class UserProfile extends Component {
                                                             return <Fragment>
                                                                 <tr key={list._id}>
                                                                     <td><strong>{key + 1}</strong></td>
-                                                                    <td>{list?.user?.name}</td>
+                                                                    {/* <td>{list?.user?.name}</td> */}
                                                                     <td>{list?.products?.length} Items</td>
                                                                     <td>{dateFormat(list.creatingDate)}</td>
                                                                     <td>
@@ -323,12 +323,16 @@ export default class UserProfile extends Component {
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
-                                </div>
+                                    {/* </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                <br/>
+                <br/>
+                <br/>
             </div>
         )
     }

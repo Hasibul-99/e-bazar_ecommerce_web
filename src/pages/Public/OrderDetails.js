@@ -40,7 +40,7 @@ export default class OrderDetails extends Component {
                     order ? (
                     <div className="order-details row">
                         <div className="col-lg-12">
-                            <div className="card">
+                            <div className="card h-auto">
                                 <main className="card-body">
                                     <div class="row">
                                         <div class="col-sm-6"><strong>Date: </strong>{order.creatingDate}</div>
@@ -69,64 +69,63 @@ export default class OrderDetails extends Component {
                                             </address>
                                         </div>
                                     </div>
-                                    <div class="card">
-        
-                                        <div class="table-responsive-sm">
-                                            <div class="card-header px-2 py-0">
-                                                <table class="table mb-0">
-                                                    <thead>
-                                                        <tr>
-                                                            <td class="border-0 width-200"><strong>Products</strong></td>
-                                                            <td class="border-0 width-200"><strong>Description</strong></td>
-                                                            <td class="text-center border-0 width-100"><strong>Rate</strong></td>
-                                                            <td class="text-center border-0 width-100"><strong>QTY</strong></td>
-                                                            <td class="text-right border-0 width-100"><strong>Amount</strong></td>
-                                                        </tr>
-                                                    </thead>
-                                                </table>
-                                            </div>
-                                            <div class="card-body px-2">
-                                                <table class="table">
-                                                    <tbody>
-                                                        {
-                                                            order.products.map(pro => {
-                                                                return (
-                                                                    <tr>
-                                                                        <td class="border-top-none width-200">
-                                                                            <div>
-                                                                                <img  width="80" height="65" 
-                                                                                src={pro?.product?.photos[0] ? "http://easyexpress24.com:5000/static/" + pro?.product?.photos[0] : demoProduct} />
-                                                                            </div>
-                                                                            <strong>{pro?.product?.name}</strong>
-                                                                        </td>
-                                                                        <td class="text-1 border-top-none width-200">{pro?.product?.productDetails}</td>
-                                                                        <td class="text-center border-top-none width-100 ">{pro?.product?.sellPrice}</td>
-                                                                        <td class="text-center border-top-none width-100 ">{pro.unit}</td>
-                                                                        <td class="text-right border-top-none width-100 ">{pro.price}</td>
-                                                                    </tr>
-                                                                )
-                                                            })
-                                                        }
-                                                        
-        
-                                                        {/* <tr>
-                                                            <td colspan="4" class="bg-light-2 text-right"><strong>Sub Total:</strong></td>
-                                                            <td class="bg-light-2 text-right">$2150.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="4" class="bg-light-2 text-right"><strong>Tax:</strong></td>
-                                                            <td class="bg-light-2 text-right">$215.00</td>
-                                                        </tr> */}
-                                                        <tr>
-                                                            <td colspan="4" class="bg-light-2 text-right"><strong>Total:</strong></td>
-                                                            <td class="bg-light-2 text-right">{order?.totalPrice}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </main>
+                            </div>
+                            <div class="card h-auto">
+                                <div class="table-responsive-sm">
+                                    <div class="card-header px-2 py-0">
+                                        <table class="table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <td class="border-0 width-200"><strong>Products</strong></td>
+                                                    <td class="border-0 width-200"><strong>Description</strong></td>
+                                                    <td class="text-center border-0 width-100"><strong>Rate</strong></td>
+                                                    <td class="text-center border-0 width-100"><strong>QTY</strong></td>
+                                                    <td class="text-right border-0 width-100"><strong>Amount</strong></td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <div class="card-body px-2">
+                                        <table class="table">
+                                            <tbody>
+                                                {
+                                                    order.products.map(pro => {
+                                                        return (
+                                                            <tr>
+                                                                <td class="border-top-none width-200">
+                                                                    <div>
+                                                                        <img  width="80" height="65" 
+                                                                        src={pro?.product?.photos[0] ? "http://easyexpress24.com:5000/static/" + pro?.product?.photos[0] : demoProduct} />
+                                                                    </div>
+                                                                    <strong>{pro?.product?.name}</strong>
+                                                                </td>
+                                                                <td class="text-1 border-top-none width-200">{pro?.product?.productDetails}</td>
+                                                                <td class="text-center border-top-none width-100 ">{pro?.product?.sellPrice}</td>
+                                                                <td class="text-center border-top-none width-100 ">{pro.unit}</td>
+                                                                <td class="text-right border-top-none width-100 ">{pro.price}</td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
+                                                
+
+                                                {/* <tr>
+                                                    <td colspan="4" class="bg-light-2 text-right"><strong>Sub Total:</strong></td>
+                                                    <td class="bg-light-2 text-right">$2150.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" class="bg-light-2 text-right"><strong>Tax:</strong></td>
+                                                    <td class="bg-light-2 text-right">$215.00</td>
+                                                </tr> */}
+                                                <tr>
+                                                    <td colspan="4" class="bg-light-2 text-right"><strong>Total:</strong></td>
+                                                    <td class="bg-light-2 text-right">{order?.totalPrice}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

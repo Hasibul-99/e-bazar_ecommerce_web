@@ -16,7 +16,7 @@ export default function Sidebar() {
     }, []);
 
     return (
-        <div className="deznav left-sidebar">
+        <div className="deznav left-sidebar admin-left-sidebar">
             <div className="deznav-scroll mm-active ps ps--active-y">
                 <ul className="metismenu mm-show" id="menu">
                     <li className={className(window.location.pathname, "/admin/orders")}>

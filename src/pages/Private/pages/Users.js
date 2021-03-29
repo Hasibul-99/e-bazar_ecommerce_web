@@ -42,7 +42,7 @@ export default class Users extends Component {
     }
 
     countUser = async () => {
-        let res = await getData(COUNT_USER);
+        let res = await getData(COUNT_USER+ "?userType=USER");
 
         if (res?.data?.isSuccess) {
             this.setState({totalUser: res.data.data});
