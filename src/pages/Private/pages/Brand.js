@@ -217,6 +217,9 @@ export default function Brand() {
                 </div>
             </div>
         </div>
+        <br/>
+        <br/>
+        <br/>
         </Fragment>
     )
 }

@@ -293,6 +293,9 @@ export default function Category() {
             </div>
         </div>
 
+        <br/>
+        <br/>
+        <br/>
     </Fragment>
     )
 }

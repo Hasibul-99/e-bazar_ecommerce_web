@@ -135,6 +135,10 @@ function ProductCard( {product}) {
                 update={update}
                 HandelModalClose={handelModalClose}>
             </ProductModalView>
+
+            <br/>
+            <br/>
+            <br/>
         </Fragment>
         
     )

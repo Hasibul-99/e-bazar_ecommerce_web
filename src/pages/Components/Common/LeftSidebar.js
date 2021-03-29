@@ -88,8 +88,6 @@ function Category (props) {
         history.push(`/products?category=${item._id}`);
     }
 
-    console.log("item", item);
-
     return (
         // className="mm-active"
         <li className={`menu-list ${isActive ? 'has-selected' : ''}`}>

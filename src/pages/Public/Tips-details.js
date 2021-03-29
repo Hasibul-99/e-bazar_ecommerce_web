@@ -74,6 +74,9 @@ export default function TipsDetails() {
                     ) : ''}
                 </div>
             </div>
+            <br/>
+            <br/>
+            <br/>
         </div>
 
     )

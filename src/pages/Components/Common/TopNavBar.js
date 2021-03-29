@@ -8,6 +8,8 @@ import {Link, useHistory} from "react-router-dom";
 import { LOGIN_USER_INFO, PRODUCT_SEARCH, SEARCH_CATEGORY, SEARCH_BRAND, SEARCH_CATEGORY_BRAND_SUBCATEGORY } from "../../../scripts/api";
 import { checkRes } from "../../../scripts/checkRes";
 import { getData } from "../../../scripts/api-service";
+import { withSwalInstance } from 'sweetalert2-react';
+import swal from 'sweetalert2';
 
 export default function TopNavBar() {
         
@@ -100,6 +102,12 @@ export default function TopNavBar() {
             if(e.keyCode == 13) {
                 if (search[0]) {
                     showReasult(search[0]);
+                } else {
+                    swal.fire({
+                        text:`There is no data with ${value}`,
+                        icon: 'warning',
+                        confirmButtonText:'Ok',
+                      })
                 }
             }
 
@@ -109,14 +117,19 @@ export default function TopNavBar() {
     }
 
     const showReasult = (res) => {
+
+        console.log("res", res);
         if ('productDetails' in res) {
-            history.push(`/product/${res._id}`);
+            // history.push(`/product/${res._id}`);
+            window.location = `/product/${res._id}`;
         } else if ('isUnbrandCategory' in res) {
             history.push(`/products?category=${res._id}`);
         } else if (res.category) {
             history.push(`/products?categoryBrand=${res._id}`);
         } else if (res.category && res.categoryBrand) {
             history.push(`/products?categoryBrandSubCategory=${res._id}`);
+        } else {
+            history.push(`/products?category=no_data`);
         }
 
         setTimeout(() => {

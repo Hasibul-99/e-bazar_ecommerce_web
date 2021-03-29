@@ -13,6 +13,9 @@ export default class Landing extends Component {
                 <ItemType></ItemType>
                 <NonBrandItems></NonBrandItems>
                 <RandomProduct></RandomProduct>
+                <br/>
+                <br/>
+                <br/>
             </div>
         )
     }

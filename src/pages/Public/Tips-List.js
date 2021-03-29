@@ -56,6 +56,10 @@ export default function Tips() {
                     </div>
                 </div>
             </div>
+            <br/>
+            <br/>
+            <br/>
+
         </div>
     )
 }

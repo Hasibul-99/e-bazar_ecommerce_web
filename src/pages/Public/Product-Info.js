@@ -57,7 +57,7 @@ export default function ProductInfo() {
 
 
     return (
-        <div className="home-landing tips-info">
+        <div className="home-landing tips-info mb-5">
             <div className="non-Brand-items card">
                 <div className="card-body">
                     {product ? (
@@ -107,6 +107,9 @@ export default function ProductInfo() {
                     ) : ''}
                 </div>
             </div>
+            <br/>
+            <br/>
+            <br/>
         </div>
     )
 }

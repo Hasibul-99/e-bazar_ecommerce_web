@@ -426,6 +426,10 @@ export default class ProductEdit extends Component {
                         </div>
                     </div>
                 </div>
+                
+        <br/>
+        <br/>
+        <br/>
             </div>
         )
     }

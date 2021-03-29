@@ -148,6 +148,10 @@ export default class Orders extends Component {
                     </div>
                 </div>
             </div>
+            
+        <br/>
+        <br/>
+        <br/>
             </Fragment>
         )
     }

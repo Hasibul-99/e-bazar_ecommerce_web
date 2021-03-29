@@ -131,6 +131,10 @@ export default class OrderDetails extends Component {
                     </div>
                 ) : ''
             }
+
+            <br/>
+            <br/>
+            <br/>
             </Fragment>
         )
     }

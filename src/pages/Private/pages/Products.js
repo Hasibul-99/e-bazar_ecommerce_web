@@ -136,6 +136,10 @@ export default class Products extends Component {
                         </div>
                     </div>    
                 </div>
+                
+        <br/>
+        <br/>
+        <br/>
             </div>
         )
     }
