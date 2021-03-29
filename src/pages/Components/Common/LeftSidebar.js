@@ -2,6 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {Link,useHistory} from "react-router-dom";
 import { getData } from "../../../scripts/api-service";
 import { GET_CATEGORY_MENU_LIST } from "../../../scripts/api";
+import categoryIcon from "../../../assets/images/category-icon.png"
 
 export default function LeftSidebar() {
     const [category, setCategory] = useState();
@@ -98,7 +99,8 @@ function Category (props) {
                         item.photo ? (
                             <img className="cat-image-content" src={`http://easyexpress24.com:5000/static/${item.photo}`} height="50" width="50" />
                         ) : (
-                            <i className="flaticon-381-television"></i>
+                            // <i className="flaticon-381-television"></i>
+                            <img className="cat-image-content" src={categoryIcon} height="50" width="50" />
                             )
                     }
                 <span className="nav-text">{item.parent}</span>
