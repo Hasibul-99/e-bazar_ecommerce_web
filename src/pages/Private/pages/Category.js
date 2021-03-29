@@ -110,7 +110,8 @@ export default function Category() {
             let res = await putData(UPDATE_CATEGORY, {
                         name: updateCategoryName, 
                         _id: updateCategory._id, 
-                        isUnbrandCategory: updateCategory.isUnbrandCategory 
+                        isUnbrandCategory: updateCategory.isUnbrandCategory,
+                        status: true
                     });
 
             if (res?.data?.isSuccess) {

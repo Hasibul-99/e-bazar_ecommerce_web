@@ -86,7 +86,8 @@ export default function SubCategory() {
                     "_id": subCategoryUpadet._id,
                     "name": subCategoryUpadetName,
                     "category": subCategoryUpadet.category,
-                    "categoryBrand": subCategoryUpadet.categoryBrand
+                    "categoryBrand": subCategoryUpadet.categoryBrand,
+                    "status": true,
             });
 
             if (res?.data?.isSuccess) {

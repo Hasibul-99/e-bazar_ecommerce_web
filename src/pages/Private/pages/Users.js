@@ -21,6 +21,7 @@ export default class Users extends Component {
             users: [],
             allUsers: [],
             totalUser: 0,
+            totalMerchant: 0
         };
     }
 
@@ -28,6 +29,7 @@ export default class Users extends Component {
         this.setState({pageValue: loadPageVar('page') });
         this.getUsersList(loadPageVar('page'));
         this.countUser();
+        this.countMarchant();
     }
 
     getUsersList = async (page) => {
@@ -44,6 +46,14 @@ export default class Users extends Component {
 
         if (res?.data?.isSuccess) {
             this.setState({totalUser: res.data.data});
+        }
+    }
+
+    countMarchant = async () => {
+        let res = await getData(COUNT_USER+ "?userType=MARCHANT");
+
+        if (res?.data?.isSuccess) {
+            this.setState({totalMerchant: res.data.data});
         }
     }
 
@@ -92,7 +102,8 @@ export default class Users extends Component {
                 <div className="row">
                     <div className="col-6">
                         <h3>Users</h3>
-                        <h4>Total user: {this.state.totalUser} </h4>
+                        <h4>Total user: {this.state.totalUser}</h4>
+                        <h4>Total Merchant: {this.state.totalMerchant}</h4>
                     </div>
                     <div className="col-6">
                         <div className="row">

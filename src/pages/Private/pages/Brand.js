@@ -91,7 +91,8 @@ export default function Brand() {
             let res = await putData(UPDATE_BRAND, 
                 {name: updateBrandName,
                 _id: updateBrand._id,
-                category: updateBrand.category
+                category: updateBrand.category,
+                status: true,
             });
 
             if (res?.data?.isSuccess) {

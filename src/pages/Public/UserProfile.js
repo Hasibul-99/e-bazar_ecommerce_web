@@ -231,7 +231,7 @@ export default class UserProfile extends Component {
 
                                     <div className="col-md-6">
                                         <div class="form-group">
-                                            <label>Marchent Designation</label>
+                                            <label>Merchant Designation</label>
                                             <input type="text" value={this.state?.formData?.marchentDesignation} 
                                                 onChange={this.changeHandeler}  name="marchentDesignation"  class="form-control"/>
                                         </div>

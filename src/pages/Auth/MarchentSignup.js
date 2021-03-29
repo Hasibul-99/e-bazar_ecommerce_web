@@ -66,7 +66,7 @@ export default function MarchentSignup() {
                 <div className="sign-form">
                     <div className="sign-card">
                         <ul className="nav nav-tabs">
-                            <li> <span className="nav-link active"> Marchent SIGN UP</span></li>
+                            <li> <span className="nav-link active"> Merchant SIGN UP</span></li>
                         </ul>
                     </div>
 
