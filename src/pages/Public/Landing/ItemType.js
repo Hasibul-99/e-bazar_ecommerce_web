@@ -59,13 +59,13 @@ export default function ItemType() {
                     <div className="cursore-pointer item-type-container">
                         <Link to="/auth/marchent-signup" className="d-flex">
                             <img src={merchant} height="50" width="50" alt="Flash Sale"/>
-                            <span className="ml-3 mt-3">Marchant</span>
+                            <span className="ml-3 mt-3">Merchant</span>
                         </Link>
                     </div>
                     <div className="cursore-pointer item-type-container">
                         <Link to="/products?sort=-totalSell" className="d-flex">
                             <img src={mostSell} height="35" width="50" alt="Flash Sale"/>
-                            <span className="ml-3 mt-3">Most Sells</span>
+                            <span className="ml-3 mt-3">Most Sales</span>
                         </Link>
                     </div>
                     <div className="cursore-pointer item-type-container">
