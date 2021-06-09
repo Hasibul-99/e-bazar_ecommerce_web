@@ -9,6 +9,7 @@ import {
 import PublicLayout from "../layouts/Public";
 import PrivateLayout from "../layouts/Private";
 import AuthLayout from "../layouts/Auth";
+import PaymentLayout from '../layouts/Payment';
 
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -33,6 +34,7 @@ class App extends Component {
             <>
             {/* // <Provider store={store}> */}
                 <Switch>
+                    <Route path="/payment" render={props => <PaymentLayout {...props} />}></Route> 
                     <Route path="/admin" render={props => <PrivateLayout {...props} />} ></Route>
                     <Route path="/auth" render={props => <AuthLayout {...props} />}></Route> 
                     <Route path="/" render={props => <PublicLayout {...props} />}></Route>
