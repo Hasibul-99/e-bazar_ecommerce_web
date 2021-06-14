@@ -1,7 +1,4 @@
 import React, {useEffect} from 'react';
-import easyCheckout from 'easycheckout';
-
-
 
 export default function About() {   
     return (

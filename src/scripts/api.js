@@ -44,3 +44,6 @@ export const CREATE_TIPS = "api/tips";
 export const UPDATE_TIPS = "api/tips";
 export const UPDATE_TIPS_PHOTO = "api/tips/updateTipsPhoto";
 export const ADD_TIPS_PHOTO = "api/tips/addTipsPhoto";
+
+//Payment
+export const PAYMENT_BY_ORDERID = "api/payment/";

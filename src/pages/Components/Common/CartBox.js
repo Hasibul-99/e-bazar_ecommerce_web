@@ -8,12 +8,10 @@ import demoProduct from "../../../assets/images/demo-product.png";
 
 import {orderListContext} from "../../../contexts/OrderListContext";
 import swal from 'sweetalert2';
-
-// import Localbase from 'localbase'
-// let db = new Localbase('db');
-// db.config.debug = false;
+import { useHistory } from "react-router-dom";
 
 export default function CartBox() {
+    const history = useHistory();
     const {products, updateQuamtity, deleteProductCollection} = useContext(orderListContext);
 
     const productPrice = (product) => {
@@ -72,11 +70,16 @@ export default function CartBox() {
             let res = await postData(CREATE_ORDER, data);
 
             if (res?.data?.isSuccess) {
-                toast.success("Order Submit Successfully");
+                
                 deleteProductCollection();
-
                 $("#cart-modal-lg").modal('hide');
-                swal.fire('You can show your order status from your profile.');
+
+                let masterData = res.data.data;
+                history.push('/payment/process/'+ masterData._id);
+
+                // toast.success("Order Submit Successfully");
+
+                // swal.fire('You can show your order status from your profile.');
             } else if (res.msg) {
                 toast.error(res.msg);
             } else {
