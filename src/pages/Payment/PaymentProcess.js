@@ -3,6 +3,7 @@ import easyCheckout from 'easycheckout';
 import { useParams } from 'react-router-dom';
 import { PAYMENT_BY_ORDERID} from "../../scripts/api";
 import { getData } from "../../scripts/api-service";
+import TopNavBar from "../Components/Common/TopNavBar";
 
 export default function PaymentProcess() {
     const { orderId } = useParams();
@@ -22,8 +23,8 @@ export default function PaymentProcess() {
         }
     }
     return (
-        <div>
-            
-        </div>
+        <>
+            <TopNavBar></TopNavBar>
+        </>
     )
 }
