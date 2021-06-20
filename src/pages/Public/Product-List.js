@@ -78,13 +78,19 @@ function ProductCard( {product}) {
     }
 
     const addProductIncard = (item) => {
-        findCardProduct(item._id).then(res => {
-            if (res) {
-                updateQuamtity(item._id, res.total + 1);
-            } else {
-                addNewProduct(item);
-            }
-        });
+        let user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
+        if (user && user._id) {
+            findCardProduct(item._id).then(res => {
+                if (res) {
+                    // updateQuamtity(item._id, res.total + 1);
+                } else {
+                    addNewProduct(item);
+                }
+            });
+        } else {
+            window.location = "/auth/registration"
+        }
+        
     }
 
     return (
