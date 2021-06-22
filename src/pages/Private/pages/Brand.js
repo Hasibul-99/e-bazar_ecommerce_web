@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import { toast } from 'react-toastify';
 import $ from "jquery";
 import { useParams } from 'react-router-dom';
+import swal from 'sweetalert2';
 
 import { postData, getData, putData } from "../../../scripts/api-service";
 import { CREATE_CATEGORY_BRAND, GET_CATEGORY_LIST, GET_CATEGORY_BRAND, UPDATE_BRAND } from "../../../scripts/api";
@@ -114,6 +115,30 @@ export default function Brand() {
         getCategoryBrand(page);
     }
 
+    const deleteBrand = (barnd) => {
+        swal.fire({
+            title: 'Are you sure?',
+            text:'You want to delete this Brand!',
+            icon: 'warning',
+            showCancelButton: "true",
+            confirmButtonText:'Yes, Approve it!',
+            cancelButtonText: 'Cancel',
+          }).then( async result => {
+            if (result.value) {
+                let res = await putData(UPDATE_BRAND, {name: barnd.name,
+                    _id: barnd._id,
+                    category: barnd.category,
+                    status: false,
+                });
+                if (res?.data?.isSuccess) {
+                    getCategoryBrand();
+                } else {
+                    toast("Something went wrong");
+                }
+            }
+        })
+    }
+
 
 
     return (
@@ -151,7 +176,7 @@ export default function Brand() {
                                                             <div className="d-flex">
                                                                 <Link to={`/admin/sub-category/${brand.category}/${brand._id}`} className="btn btn-dark shadow btn-xs sharp mr-1"><i className="fa fa-eye"></i></Link>
                                                                 <a onClick={() => updateBrandContent(brand)} className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
-                                                                {/* <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a> */}
+                                                                <a onClick={() => deleteBrand(brand)} className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a>
                                                             </div>
                                                         </td>
                                                     </tr>)

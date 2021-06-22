@@ -2,6 +2,7 @@ import React, {Fragment, useState, useEffect} from 'react'
 import { toast } from 'react-toastify';
 import $ from "jquery";
 import { useParams } from 'react-router-dom';
+import swal from 'sweetalert2';
 
 import { postData, getData, putData } from "../../../scripts/api-service";
 import { GET_CATEGORY_BRAND, GET_CATEGORY_BRAND_SUB_CATEGORY, CREATE_SUB_CATEGORY, UPDATE_SUBCATEGORY } from "../../../scripts/api";
@@ -109,6 +110,34 @@ export default function SubCategory() {
         getSubBrandCategory(page);
     }
 
+    const deleteSubcategory = (subCategoryUpadet) => {
+        swal.fire({
+            title: 'Are you sure?',
+            text:'You want to delete this sub category!',
+            icon: 'warning',
+            showCancelButton: "true",
+            confirmButtonText:'Yes, Approve it!',
+            cancelButtonText: 'Cancel',
+          }).then( async result => {
+            if (result.value) {
+                let res = await putData(UPDATE_SUBCATEGORY, 
+                    {
+                        "_id": subCategoryUpadet._id,
+                        "name": subCategoryUpadet.name,
+                        "category": subCategoryUpadet.category,
+                        "categoryBrand": subCategoryUpadet.categoryBrand,
+                        "status": false,
+                });
+
+                if (res?.data?.isSuccess) {
+                    getSubBrandCategory();
+                } else {
+                    toast("Something went wrong");
+                }
+            }
+        })
+    }
+
     return (
         <Fragment>
             <div className="sub-category">
@@ -142,7 +171,7 @@ export default function SubCategory() {
                                                         <td>
                                                             <div className="d-flex">
                                                                 <a onClick={() => updateSubcategory(data)} className="btn btn-primary shadow btn-xs sharp mr-1"><i className="fa fa-pencil"></i></a>
-                                                                {/* <a href="#" className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a> */}
+                                                                <a onClick={() => deleteSubcategory(data)} className="btn btn-danger shadow btn-xs sharp"><i className="fa fa-trash"></i></a>
                                                             </div>
                                                         </td>
                                                     </tr>

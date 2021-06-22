@@ -83,10 +83,15 @@ export default function Category() {
             cancelButtonText: 'Cancel',
           }).then( async result => {
             if (result.value) {
-                let res = await getData(GET_CATEGORY_LIST);
-
+                let res = await putData(UPDATE_CATEGORY, {
+                    name: data.name, 
+                    _id: data._id, 
+                    isUnbrandCategory: data.isUnbrandCategory,
+                    status: false
+                });
                 if (res?.data?.isSuccess) {
-                    setCategoryList(res.data.data);
+                    // setCategoryList(res.data.data);
+                    getCategoryList();
                 } else {
                     toast("Something went wrong");
                 }
@@ -207,9 +212,9 @@ export default function Category() {
                                                                 <a onClick={() => updateCategoryContent(category)} className="btn btn-primary shadow btn-xs sharp mr-1">
                                                                     <i className="fa fa-pencil"></i>
                                                                 </a>
-                                                                {/* <a onClick={() => deleteCategory(category)} className="btn btn-danger shadow btn-xs sharp">
+                                                                <a onClick={() => deleteCategory(category)} className="btn btn-danger shadow btn-xs sharp">
                                                                     <i className="fa fa-trash"></i>
-                                                                </a> */}
+                                                                </a>
                                                             </div>
                                                         </td>
                                                     </tr>)
