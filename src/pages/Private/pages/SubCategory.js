@@ -37,6 +37,8 @@ export default function SubCategory() {
     const getSubBrandCategory = async (page) => {
         // let res = await getData(GET_CATEGORY_BRAND_SUB_CATEGORY+ '?categoryBrand=' + brandId);
         let query = page ? GET_CATEGORY_BRAND_SUB_CATEGORY+ '?categoryBrand=' + brandId + '&page='+ page : GET_CATEGORY_BRAND_SUB_CATEGORY+ '?categoryBrand=' + brandId;
+        query = query + "&limit=60";
+
         let res = await getData(query);
 
         if (res?.data?.isSuccess) {

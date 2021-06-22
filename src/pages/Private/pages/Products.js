@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Link} from "react-router-dom";
 import { toast } from 'react-toastify';
 
+import swal from 'sweetalert2';
 import { postData, getData } from "../../../scripts/api-service";
 import { GET_RPODUCT } from "../../../scripts/api";
 import Pagination from "../common/Pagination";
@@ -14,7 +15,10 @@ export default class Products extends Component {
         this.state = {
             pageValue: 1, 
             products: [],
-            userData: null
+            userData: null,
+            search: {
+                name: ''
+            }
         };
     }
 
@@ -29,9 +33,10 @@ export default class Products extends Component {
     getProductList = async (page = 1) => {
         let user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
 
-        console.log("this", user);
+        let url = user.userType === "MARCHANT" ? GET_RPODUCT + '?page='+ page + "&limit=60" + '&productOwner=' + user._id  : GET_RPODUCT + '?page='+ page + "&limit=60" ;
+        
+        if (this.state.search.name) url = url + "&name=" + this.state.search.name;
 
-        let url = user.userType === "MARCHANT" ? GET_RPODUCT + '?page='+ page + '&productOwner=' + user._id  : GET_RPODUCT + '?page='+ page;
         let res = await getData(url);
 
         if (res?.data?.isSuccess) {
@@ -44,6 +49,48 @@ export default class Products extends Component {
         this.getProductList(page);
     }
 
+    deleteProduct = (data) => {
+        swal.fire({
+            title: 'Are you sure?',
+            text:'You want to delete this product!',
+            icon: 'warning',
+            showCancelButton: "true",
+            confirmButtonText:'Yes, Approve it!',
+            cancelButtonText: 'Cancel',
+          }).then( async result => {
+            if (result.value) {
+                // let res = await putData(UPDATE_SUBCATEGORY, 
+                //     {
+                //         "_id": subCategoryUpadet._id,
+                //         "name": subCategoryUpadet.name,
+                //         "category": subCategoryUpadet.category,
+                //         "categoryBrand": subCategoryUpadet.categoryBrand,
+                //         "status": false,
+                // });
+
+                // if (res?.data?.isSuccess) {
+                //     getSubBrandCategory();
+                // } else {
+                //     toast("Something went wrong");
+                // }
+            }
+        })
+    }
+
+    searchKeyPresss = async (e) => {
+        let value = e.target.value;
+        if (value.length > 2) {
+            this.setState(prevState => ({
+                search: {                   // object that we want to update
+                    ...prevState.search,    // keep all other key-value pairs
+                    name: value       // update the value of specific key
+                }
+            }));
+
+            this.getProductList();
+        }
+    }
+
     render() {
         return (
             <div className="order">
@@ -53,12 +100,7 @@ export default class Products extends Component {
                     </div>
                     <div className="col-8">
                         <div className="row">
-                            <div className="col-4">
-                                <div className="form-group d-none">
-                                    <input type="text" className="form-control input-default "
-                                        placeholder="Quick Search by ID"/>
-                                </div>
-                            </div>
+                            
                             <div className="col-4">
                                 <div className="form-group d-none">
                                     <select className="form-control form-control-lg">
@@ -66,6 +108,12 @@ export default class Products extends Component {
                                         <option>Option 2</option>
                                         <option>Option 3</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div className="col-4">
+                                <div className="form-group ">
+                                    <input type="text" className="form-control input-default" onKeyUp={this.searchKeyPresss}
+                                        placeholder="Search by Name"/>
                                 </div>
                             </div>
                             <div className="col-4 text-right">
@@ -105,11 +153,16 @@ export default class Products extends Component {
                                             {
                                                this.state.products?.length ? (
                                                     this.state.products.map((data) => {
-                                                    return <tr>
+                                                    return <tr key={data._id}>
                                                                 <td>{data.name}</td>
                                                                 <td>{data.regularPrice}</td>
                                                                 <td>{data.sellPrice}</td>
-                                                                <td>{data.stock}</td>
+                                                                <td>
+                                                                    {data.stock > 1 ? 
+                                                                        <span className="badge badge-success">{data.stock}</span> : 
+                                                                        <span className="badge badge-danger">{data.stock}</span>
+                                                                    }
+                                                                </td>
                                                                 <td>{data.totalSell}</td>
                                                                 <td>{data.discountPrice}</td>
                                                                 <td>{data.status ? 
@@ -117,9 +170,12 @@ export default class Products extends Component {
                                                                     <span className="badge badge-danger">Not Availabe</span>}
                                                                 </td>
                                                                 <td>
-                                                                    <Link to={`/admin/edit-products/${data._id}`} className="btn btn-info">
-                                                                        Edit
+                                                                    <Link to={`/admin/edit-products/${data._id}`} className="btn btn-primary shadow btn-xs sharp mr-1">
+                                                                        <i className="fa fa-pencil"></i>
                                                                     </Link>
+                                                                    <a onClick={() => this.deleteProduct(data)} className="btn btn-danger shadow btn-xs sharp">
+                                                                        <i className="fa fa-trash"></i>
+                                                                    </a>
                                                                 </td>
                                                             </tr>   
                                                     })

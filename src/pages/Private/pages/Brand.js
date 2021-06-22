@@ -26,7 +26,7 @@ export default function Brand() {
     }, []);
 
     const getCategorie = async () => {
-        let res = await getData(GET_CATEGORY_LIST+ '?_id=' + categoryId);
+        let res = await getData(GET_CATEGORY_LIST+ '?_id=' + categoryId + "&limit=60");
 
         if (res?.data?.isSuccess) {
             setCategories(res?.data?.data[0]);

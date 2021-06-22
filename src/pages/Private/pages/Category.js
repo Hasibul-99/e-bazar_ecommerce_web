@@ -63,7 +63,8 @@ export default function Category() {
     }
 
     const getCategoryList = async (page) => {
-        let query = page ? GET_CATEGORY_LIST + '?page='+ page : GET_CATEGORY_LIST;
+        let query = page ? GET_CATEGORY_LIST + '?page='+ page + "&limit=60"  : GET_CATEGORY_LIST + "?limit=60";
+
         let res = await getData(query);
 
         if (res?.data?.isSuccess) {
