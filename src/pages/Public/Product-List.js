@@ -8,6 +8,7 @@ import ProductModalView from "../Components/Common/ProductModalView";
 import Pagination from "../Private/common/Pagination";
 import {orderListContext} from "../../contexts/OrderListContext";
 import ItemType from "./Landing/ItemType";
+import StartContent from "../Components/Common/StartContent"
 
 export default function ProductList(props) {
     const {location} = props;
@@ -95,7 +96,7 @@ function ProductCard( {product}) {
 
     return (
         <Fragment>
-            <div className="product-card">
+            <div className="product-card 324">
                 {
                     !(product.stock - product.totalSell) ? 
                     <div className="badge">Out of Stock</div> : ''
@@ -113,6 +114,9 @@ function ProductCard( {product}) {
                 <div className="product-details">
                     {/* <span className="product-catagory">Women,bag</span> */}
                     <h5><a className="cursore-pointer" onClick={()=> openModal(product._id)}>{product.name}</a></h5>
+                    <div>
+                        <StartContent></StartContent>
+                    </div>
                     <div className="product-bottom-details">
                         <div className="product-price">
                             {
