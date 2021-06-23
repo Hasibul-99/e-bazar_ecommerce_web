@@ -8,7 +8,8 @@ import {Link, useHistory} from "react-router-dom";
 import { LOGIN_USER_INFO, PRODUCT_SEARCH, SEARCH_CATEGORY, SEARCH_BRAND, SEARCH_CATEGORY_BRAND_SUBCATEGORY } from "../../../scripts/api";
 import { checkRes } from "../../../scripts/checkRes";
 import { getData } from "../../../scripts/api-service";
-import { withSwalInstance } from 'sweetalert2-react';
+// import { withSwalInstance } from 'sweetalert2-react';
+import appicon from "../../../assets/images/Apps-Android-icon.png";
 import swal from 'sweetalert2';
 
 export default function TopNavBar() {
@@ -189,6 +190,12 @@ export default function TopNavBar() {
                                 </div>
                             </div>
                             <ul className="navbar-nav header-right">
+                                <li className="nav-item">
+                                    <Link to="/auth/registration">
+                                        <img src={appicon} height="50" width="50"/>
+                                    </Link>
+                                </li>
+                                
                                 {
                                     token ? (
                                         <li className="nav-item dropdown header-profile">

@@ -135,7 +135,7 @@ export default function CartBox() {
                                                     </div>
                                                 </div>
                                                 <div className="col-md-2 mt-5">
-                                                    Price: <span className="gold-text"> 
+                                                    Price: <span className="brand-color"> 
                                                         ৳{productPrice(product)}
                                                     </span>
                                                 </div>
@@ -147,7 +147,7 @@ export default function CartBox() {
                                                     ></QuantityInput>
                                                 </div>
                                                 <div className="col-md-2 mt-5">
-                                                    Total Price: <span className="gold-text">
+                                                    Total Price: <span className="brand-color">
                                                         ৳{productTotalPrice(product)}
                                                     </span>
                                                 </div>

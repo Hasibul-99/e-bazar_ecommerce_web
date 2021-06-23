@@ -87,7 +87,7 @@ export default function ProductInfo() {
                             </div>
                             <div className="col-sm-12 col-md-6 pt-5">
                                 <h2>{product.name}</h2>
-                                <h5 className="gold-text my-4">
+                                <h5 className="brand-color my-4">
                                    ৳{ product.sellPrice - product.discountPrice } 
                                 </h5>
                                 <h5 className="my-4">{product.productDetails}</h5>
