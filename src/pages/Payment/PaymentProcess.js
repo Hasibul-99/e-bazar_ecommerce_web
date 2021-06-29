@@ -18,8 +18,10 @@ export default function PaymentProcess() {
         let res = await getData(PAYMENT_BY_ORDERID+ '/' + orderId);
 
         let masterData = res.data;
+
+        console.log("masterData", masterData);
         if (masterData) {
-            easyCheckout(masterData.directPaymentURL, masterData.storeLogo, null, true)
+            easyCheckout(masterData.directPaymentURL || masterData.GatewayPageURL, masterData.storeLogo, null, true)
         }
     }
     return (

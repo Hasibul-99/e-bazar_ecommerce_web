@@ -34,4 +34,26 @@
             min-height: 40px;
         }
     }
+
+    .product-price {
+        small {
+            font-size: 80%;
+            font-weight: 400;
+            text-decoration: line-through;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    }
+
+    .product-start {
+        i {
+            font-size: 25px;
+            color: $brandcolor;
+            cursor: pointer;
+
+            &:hover {
+                color: $starcolor;
+            }
+        }
+    }
 }

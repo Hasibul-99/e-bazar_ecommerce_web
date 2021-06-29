@@ -88,39 +88,39 @@ export default function ProductModalView(props) {
                             <div id={`card-content-${productId}`} className="col-sm-12 col-md-6 pt-5" 
                             style={{display: 'none'}}>
                                  <h2>{product.name}</h2>
-                                 <h5 className="brand-color my-4">
-                                   ৳{ product.sellPrice - product.discountPrice } 
+                                 <h5 className="product-price brand-color my-4">
+                                   {/* { product.sellPrice - product.discountPrice }  */}
+                                   {
+                                        product.discountPrice ? <Fragment>
+                                            <small>৳{product.sellPrice}</small>
+                                            ৳{ product.sellPrice - product.discountPrice }
+                                        </Fragment> : <Fragment>৳{product.sellPrice}</Fragment> 
+                                    }
                                  </h5>
 
                                  <h5 className="my-4">{product.productDetails}</h5>
-
-                                 <div className="form-group d-none">
-                                     <label for="exampleFormControlSelect1">COLOR</label>
-                                     <select className="form-control" id="exampleFormControlSelect1">
-                                     <option>1</option>
-                                     <option>2</option>
-                                     <option>3</option>
-                                     <option>4</option>
-                                    <option>5</option>
-                                     </select>
-                                 </div>
-
-                                 <div className="form-group d-none">
-                                     <label for="exampleFormControlSelect1">SIZE</label>
-                                     <select className="form-control" id="exampleFormControlSelect1">
-                                     <option>1</option>
-                                     <option>2</option>
-                                     <option>3</option>
-                                     <option>4</option>
-                                     <option>5</option>
-                                    </select>
-                                 </div>
 
                                  <QuantityInput
                                      total = {product.total || 1}
                                      productId={productId}
                                     handelQuantuty={handelQuantuty} 
                                  ></QuantityInput>
+
+                                <div class="product-start">
+                                    <div class="bg-light border">
+                                        <div id="starrate" class="starrate my-2 text-center" 
+                                        data-val="2.5" data-max="5">
+                                            <span class="ctrl"></span>
+                                            <span class="cont m-1">
+                                            <i class="fas fa-fw fa-star mr-2"></i> 
+                                            <i class="fas fa-fw fa-star  mr-2"></i> 
+                                            <i class="fas fa-fw fa-star-half-alt mr-2"></i> 
+                                            <i class="far fa-fw fa-star mr-2"></i> 
+                                            <i class="far fa-fw fa-star mr-2"></i> 
+                                            </span>
+                                        </div>              
+                                    </div>                
+                                </div>
 
                                  <div>
                                      <button type="button" className="btn light btn-warning w-100 my-5"

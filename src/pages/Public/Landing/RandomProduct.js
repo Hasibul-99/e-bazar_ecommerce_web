@@ -6,6 +6,7 @@ import { GET_RPODUCT } from "../../../scripts/api";
 import demoProduct from "../../../assets/images/demo-product.png";
 import ProductModalView from "../../Components/Common/ProductModalView";
 import {orderListContext} from "../../../contexts/OrderListContext";
+import StartContent from "../../Components/Common/StartContent"
 
 
 export default function RandomProduct() {
@@ -108,6 +109,9 @@ function ProductCard( {product}) {
                 <div className="product-details">
                     {/* <span className="product-catagory">Women,bag</span> */}
                     <h5><a className="cursore-pointer" onClick={()=> openModal(product._id)}>{product.name}</a></h5>
+                    <div>
+                        <StartContent></StartContent>
+                    </div>
                     <div className="product-bottom-details">
                         <div className="product-price">
                             {

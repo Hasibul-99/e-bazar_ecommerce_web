@@ -32,6 +32,7 @@ export const GET_RPODUCT = "api/product";
 export const UPDATE_PRODUCT = "api/product";
 export const REMOVE_PRODUCT_PHOTO = "api/product/updateProductPhoto";
 export const PRODUCT_SEARCH = "api/product/search?name="
+export const PRODUCT_RATING = "api/rating/product/"
  
 // Order
 export const GET_ORDER_LIST = "api/order";

@@ -22,18 +22,22 @@ export default function TopNavBar() {
     const hideShowLeftMenu = () => {
         let sidebar = document.getElementById("js-public-left-sidebar");
 
-        if (sidebar.classList.contains('d-none')) {
-            sidebar.classList.remove("d-none");
-        } else {
-            sidebar.classList.add("d-none");
+        if (sidebar) {
+            if (sidebar.classList.contains('d-none')) {
+                sidebar.classList.remove("d-none");
+            } else {
+                sidebar.classList.add("d-none");
+            }
         }
-
+        
         let bundles = document.getElementById("js-left-bundles");
 
-        if (bundles.classList.contains('d-none')) {
-            bundles.classList.remove("d-none");
-        } else {
-            bundles.classList.add("d-none");
+        if (bundles) {
+            if (bundles.classList.contains('d-none')) {
+                bundles.classList.remove("d-none");
+            } else {
+                bundles.classList.add("d-none");
+            }
         }
     };
 

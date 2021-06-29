@@ -6,7 +6,6 @@ export default class Payment extends Component {
     getRoutes = routes => {
         return routes.map((prop, key) => {
           if (prop.layout === "/payment") {
-              console.log("prop", prop);
             return(<Route
               path={prop.layout + prop.path}
               component={prop.component}
