@@ -5,6 +5,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import QuantityInput from "../Common/QuantityInput";
 import 'react-medium-image-zoom/dist/styles.css'
 import {orderListContext} from "../../../contexts/OrderListContext";
+import {PRODUCT_RATING} from "../../../scripts/api";
+import {postData} from "../../../scripts/api-service";
+import { toast } from 'react-toastify';
 
 import {
     Magnifier,
@@ -24,6 +27,7 @@ export default function ProductModalView(props) {
     const {productId, isOpen, product, HandelModalClose} = props;
     const [selected, setSelected] = useState(null);
     const [quan, setQuan] = useState(1);
+    const [rating, setRating ] = useState(0);
  
     useEffect(() => {
         setSelected(product.photos[0]);
@@ -35,7 +39,14 @@ export default function ProductModalView(props) {
                 $(`#card-content-${productId}`).show();
             }, 1000)
         };
-      }, [isOpen]);
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (product) {
+            let rating = (product.totalRating * 5) / (product.givenByRating * 5);
+            if (rating) setRating(rating);
+        }
+    }, [])
 
     const handelQuantuty = ({qun, productId}) => {
         setQuan(qun);
@@ -52,6 +63,20 @@ export default function ProductModalView(props) {
                 addNewProduct(product, quan);
             }
         });
+    }
+
+    const ratingProduct = async (rate) => {
+        let res = await postData(PRODUCT_RATING + productId, {"totalRating": rate});
+        if (res?.data?.isSuccess) {
+            let masterData = res.data.data;
+            
+            if (masterData) {
+                let rating = (masterData.totalRating * 5) / (masterData.givenByRating * 5);
+                if (rating) setRating(rating);
+            }
+        } else {
+            toast("Something went wrong");
+        }
     }
 
     return (
@@ -106,17 +131,24 @@ export default function ProductModalView(props) {
                                     handelQuantuty={handelQuantuty} 
                                  ></QuantityInput>
 
-                                <div class="product-start">
+                                <div class="product-start mt-3">
                                     <div class="bg-light border">
                                         <div id="starrate" class="starrate my-2 text-center" 
                                         data-val="2.5" data-max="5">
                                             <span class="ctrl"></span>
                                             <span class="cont m-1">
-                                            <i class="fas fa-fw fa-star mr-2"></i> 
+                                            {/* <i class="fas fa-fw fa-star mr-2"></i> 
                                             <i class="fas fa-fw fa-star  mr-2"></i> 
                                             <i class="fas fa-fw fa-star-half-alt mr-2"></i> 
                                             <i class="far fa-fw fa-star mr-2"></i> 
-                                            <i class="far fa-fw fa-star mr-2"></i> 
+                                            <i class="far fa-fw fa-star mr-2"></i>  */}
+                                            {
+                                                [...Array(5)].map((n, i) => { 
+                                                    return rating >= i+1 ? 
+                                                    <i class="fas fa-fw fa-star mr-2" onClick={() => ratingProduct(i+1)}></i> : 
+                                                    <i class="far fa-fw fa-star mr-2" onClick={() => ratingProduct(i+1)}></i>
+                                                })
+                                            }
                                             </span>
                                         </div>              
                                     </div>                

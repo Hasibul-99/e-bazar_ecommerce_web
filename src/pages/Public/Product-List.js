@@ -115,7 +115,7 @@ function ProductCard( {product}) {
                     {/* <span className="product-catagory">Women,bag</span> */}
                     <h5><a className="cursore-pointer" onClick={()=> openModal(product._id)}>{product.name}</a></h5>
                     <div>
-                        <StartContent></StartContent>
+                        <StartContent product={product}></StartContent>
                     </div>
                     <div className="product-bottom-details">
                         <div className="product-price">
