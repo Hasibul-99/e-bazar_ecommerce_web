@@ -45,7 +45,8 @@ export default function CartBox() {
 
     const orderProduct = async () => {
         let orderData = [],
-            userInfo = JSON.parse(localStorage.getItem("ExpressUserInfo"));
+            userInfo = JSON.parse(localStorage.getItem("ExpressUserInfo")),
+            productStockAvailable = true;
 
         
         if (!(userInfo && userInfo._id)) {
@@ -54,6 +55,7 @@ export default function CartBox() {
 
         products.forEach(item => {
             if (item.total > 0) {
+                if (item.stock <= item.total) productStockAvailable = false;
                 orderData.push({
                     product: item._id,
                     qty: item.total
@@ -64,6 +66,11 @@ export default function CartBox() {
         let data = {
             "userId": userInfo._id,
             "products": orderData
+        }
+
+        if (!productStockAvailable) {
+            toast.error("Sorry, Product is not available!")
+            return false;
         }
 
         if (data.userId && data.products && data.products.length ) {
