@@ -9,6 +9,7 @@ import About from "../pages/Public/About";
 import TermsConditions from "../pages/Public/TermsConditions";
 import PrivacyPolicy from "../pages/Public/PrivacyPolicy";
 import ReturnPolicy from "../pages/Public/ReturnPolicy";
+import SearchProduct from  "../pages/Public/SearchProduct";
 
 const PublicRoutes = [
     {
@@ -36,6 +37,13 @@ const PublicRoutes = [
         path: "/product/:productId",
         name: "product info",
         component: ProductInfo,
+        layout: "/",
+        exact: true
+    },
+    {
+        path: "/search/:searchValue",
+        name: "Search Product",
+        component: SearchProduct,
         layout: "/",
         exact: true
     },

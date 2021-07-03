@@ -106,7 +106,8 @@ export default function TopNavBar() {
 
             if(e.keyCode == 13) {
                 if (search[0]) {
-                    showReasult(search[0]);
+                    // showReasult(search[0]);
+                    history.push(`/search/${value}`);
                 } else {
                     swal.fire({
                         text:`There is no data with ${value}`,
@@ -114,6 +115,7 @@ export default function TopNavBar() {
                         confirmButtonText:'Ok',
                       })
                 }
+                setSearchReasult([]);
             }
 
         } else if (value.length === 0) {

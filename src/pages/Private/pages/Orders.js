@@ -14,7 +14,10 @@ export default class Orders extends Component {
         super(props);
         this.state = {
             pageValue: 1, 
-            orderList: []
+            orderList: [],
+            search: {
+                orderId: ''
+            }
         };
     }
 
@@ -24,12 +27,14 @@ export default class Orders extends Component {
     }
 
     getOrderList = async (page) => {
-        let url = page ? GET_ORDER_LIST + '?page='+ page : GET_ORDER_LIST;
+        let url = page ? GET_ORDER_LIST + '?' + '&page='+ page : GET_ORDER_LIST + '?';
         let user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
 
         if (user && user.userType === "MARCHANT") {
-            url = page ? GET_ORDER_LIST + '?page='+ page + '&products.productOwner=' + user._id : GET_ORDER_LIST + '?products.productOwner=' + user._id;
+            url = page ? GET_ORDER_LIST + '&page='+ page + '&products.productOwner=' + user._id : GET_ORDER_LIST + '&products.productOwner=' + user._id;
         }
+
+        if (this.state.search.orderId) url = url + "&_id=" + this.state.search.orderId;
 
         let res = await getData(url);
 
@@ -57,6 +62,21 @@ export default class Orders extends Component {
         this.getOrderList(page);
     }
 
+    searchKeyPresss = async (e) => {
+        let value = e.target.value;
+
+        if (value.length > 2) {
+            this.setState(prevState => ({
+                search: {                   // object that we want to update
+                    ...prevState.search,    // keep all other key-value pairs
+                    orderId: value       // update the value of specific key
+                }
+            }));
+
+            this.getOrderList();
+        }
+    }
+
     render() {
         return (
             <Fragment>
@@ -66,14 +86,16 @@ export default class Orders extends Component {
                         <h3>Orders</h3>
                     </div>
                     <div className="col-6">
-                        <div className="row d-none">
+                        <div className="row ">
+                            <div className="col-6"></div>
                             <div className="col-6">
                                 <div className="form-group">
-                                    <input type="text" className="form-control input-default "
-                                        placeholder="Quick Search by ID"/>
+                                    <input type="text" className="form-control input-default" 
+                                        onKeyUp={this.searchKeyPresss}
+                                        placeholder="Search by order ID"/>
                                 </div>
                             </div>
-                            <div className="col-6">
+                            {/* <div className="col-6 d-none">
                                 <div className="form-group">
                                     <select className="form-control form-control-lg">
                                         <option>Status</option>
@@ -81,7 +103,7 @@ export default class Orders extends Component {
                                         <option>Option 3</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -97,7 +119,7 @@ export default class Orders extends Component {
                                     <table className="table table-responsive-md">
                                         <thead>
                                             <tr>
-                                                {/* <th><strong>Order</strong></th> */}
+                                                <th><strong>Order ID</strong></th>
                                                 <th><strong>Customer</strong></th>
                                                 <th><strong>Purchased</strong></th>
                                                 <th><strong>DATE</strong></th>
@@ -112,7 +134,7 @@ export default class Orders extends Component {
                                                 this.state.orderList.map(list => {
                                                     return <Fragment>
                                                         <tr key={list._id}>
-                                                            {/* <td><strong>01</strong></td> */}
+                                                            <td>{list._id}</td>
                                                             <td>{list?.user?.name}</td>
                                                             <td>{list?.products?.length} Items</td>
                                                             <td>{dateFormat(list.creatingDate)}</td>
