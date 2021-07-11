@@ -23,7 +23,7 @@ export default function ProductList(props) {
 
     const getProducts = async (query) => {
         let url = query ? GET_RPODUCT + query : GET_RPODUCT;
-        let res = await getData(url);
+        let res = await getData(url + "&limit=60");
 
         if (res?.data?.isSuccess) {
             setProducts(res?.data?.data);

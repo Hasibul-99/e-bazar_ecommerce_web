@@ -166,6 +166,7 @@ export default function CartBox() {
                             }                            
                         </div>
                         <div className="modal-footer">
+                            <button type="button" className="btn btn-success mr-auto" onClick={orderProduct}>Cash on Delivery</button>
                             <button type="button" className="btn btn-danger light" data-dismiss="modal">Close</button>
                             <button type="button" className="btn btn-primary" onClick={orderProduct}>Save Order</button>
                         </div>
