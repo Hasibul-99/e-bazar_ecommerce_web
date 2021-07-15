@@ -125,3 +125,31 @@ export const putData = async (query, data, no_token) => {
 //     console.log("error", error);
 //   }
 // };
+
+export const deleteData = async (query, no_token) => {
+  try {
+    let data = await axios.delete(`${base_url}${query}`, {
+      headers: no_token
+        ? {}
+        : {
+          'x-auth-token': `${token}`,
+          },
+    });
+    return data;
+    // if (checkRes(data.status)) {
+    //     // setUserProfile();
+    //     return data;
+    // } else {
+    //     toast.error(msg_undefined);
+    // }
+  } catch (error) {
+    // checkRes(error?.response?.status);
+    // error.response?.data?.messages &&
+    // typeof error.response?.data?.messages === "object"
+    // ? error.response.data.messages.map((err) => {
+    //     alertPop(error_status, err);
+    //     })
+    // : errorHandle(error);
+    // return false;
+  }
+};

@@ -288,6 +288,7 @@ export default class UserProfile extends Component {
                                                         <th><strong>Purchased</strong></th>
                                                         <th><strong>DATE</strong></th>
                                                         <th><strong>STATUS</strong></th>
+                                                        <th><strong>Payment Type</strong></th>
                                                         <th><strong>TOTAL PRICE</strong></th>
                                                         <th></th>
                                                     </tr>
@@ -305,6 +306,7 @@ export default class UserProfile extends Component {
                                                                     <td>
                                                                         <span className={`badge light ${list.orderStatus === 'PENDING' ? 'badge-warning' : list.orderStatus === 'CANCLED' ? 'badge-danger' : 'badge-success'}`}>{list.orderStatus}</span>
                                                                     </td>
+                                                                    <td>{list.paymentType}</td>
                                                                     <td>{list.totalPrice}</td>
                                                                     <td>
                                                                         <div className="dropdown">

@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useState, useContext} from 'react';
 import $ from 'jquery'
 import QuantityInput from "./QuantityInput";
-import {CREATE_ORDER} from "../../../scripts/api";
+import {CREATE_ORDER, CASH_ON_DELEVARY } from "../../../scripts/api";
 import { postData } from "../../../scripts/api-service";
 import { toast } from 'react-toastify';
 import demoProduct from "../../../assets/images/demo-product.png";
@@ -103,6 +103,68 @@ export default function CartBox() {
         } else return demoProduct
     }
 
+    const cashOnDelevary = async () => {
+        let orderData = [],
+            userInfo = JSON.parse(localStorage.getItem("ExpressUserInfo")),
+            productStockAvailable = true;
+
+        
+        if (!(userInfo && userInfo._id)) {
+            window.location = "/auth/registration";
+        };
+
+        products.forEach(item => {
+            if (item.total > 0) {
+                if (item.stock <= item.total) productStockAvailable = false;
+                orderData.push({
+                    product: item._id,
+                    qty: item.total
+                });
+            }
+        });
+
+        let data = {
+            "userId": userInfo._id,
+            "products": orderData
+        }
+
+        if (!productStockAvailable) {
+            toast.error("Sorry, Product is not available!")
+            return false;
+        }
+
+        if (data.userId && data.products && data.products.length ) {
+            let res = await postData(CREATE_ORDER, data);
+
+            if (res?.data?.isSuccess) {
+                
+                deleteProductCollection();
+                $("#cart-modal-lg").modal('hide');
+
+                let masterData = res.data.data;
+                
+                processCashOnDelevary(masterData);
+            } else if (res.msg) {
+                toast.error(res.msg);
+            } else {
+                toast.error("Something Went Wrong")
+            }
+        } else {
+            toast.error("First Add Product")
+        }
+    }
+
+    const processCashOnDelevary = async (data) => {
+        console.log("data", data);
+        let res = await postData(CASH_ON_DELEVARY + data._id + '/CANCELLED', {});
+
+        if (res) {
+
+        } else {
+            toast.error("Something Went Wrong")
+        }
+    }
+
     return (
         <Fragment>
             <button className="cart-box" data-toggle="modal" data-target="#cart-modal-lg">
@@ -166,7 +228,7 @@ export default function CartBox() {
                             }                            
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-success mr-auto" onClick={orderProduct}>Cash on Delivery</button>
+                            <button type="button" className="btn btn-success mr-auto" onClick={cashOnDelevary}>Cash on Delivery</button>
                             <button type="button" className="btn btn-danger light" data-dismiss="modal">Close</button>
                             <button type="button" className="btn btn-primary" onClick={orderProduct}>Save Order</button>
                         </div>

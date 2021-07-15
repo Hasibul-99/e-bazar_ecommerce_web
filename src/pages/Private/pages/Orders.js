@@ -123,6 +123,7 @@ export default class Orders extends Component {
                                                 <th><strong>Customer</strong></th>
                                                 <th><strong>Purchased</strong></th>
                                                 <th><strong>DATE</strong></th>
+                                                <th><strong>Payment Type</strong></th>
                                                 <th><strong>STATUS</strong></th>
                                                 <th><strong>TOTAL PRICE</strong></th>
                                                 <th></th>
@@ -138,6 +139,7 @@ export default class Orders extends Component {
                                                             <td>{list?.user?.name}</td>
                                                             <td>{list?.products?.length} Items</td>
                                                             <td>{dateFormat(list.creatingDate)}</td>
+                                                            <td>{list.paymentType}</td>
                                                             <td>
                                                                 <span className={`badge light ${list.orderStatus === 'PENDING' ? 'badge-warning' : list.orderStatus === 'CANCLED' ? 'badge-danger' : 'badge-success'}`}>{list.orderStatus}</span>
                                                             </td>

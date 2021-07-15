@@ -3,8 +3,8 @@ import {Link} from "react-router-dom";
 import { toast } from 'react-toastify';
 
 import swal from 'sweetalert2';
-import { postData, getData } from "../../../scripts/api-service";
-import { GET_RPODUCT } from "../../../scripts/api";
+import { postData, getData, deleteData } from "../../../scripts/api-service";
+import { GET_RPODUCT, PRODUCT_DELETE } from "../../../scripts/api";
 import Pagination from "../common/Pagination";
 
 import {loadPageVar} from "../../../scripts/helper";
@@ -55,24 +55,18 @@ export default class Products extends Component {
             text:'You want to delete this product!',
             icon: 'warning',
             showCancelButton: "true",
-            confirmButtonText:'Yes, Approve it!',
+            confirmButtonText:'Yes, Delete it!',
             cancelButtonText: 'Cancel',
           }).then( async result => {
             if (result.value) {
-                // let res = await putData(UPDATE_SUBCATEGORY, 
-                //     {
-                //         "_id": subCategoryUpadet._id,
-                //         "name": subCategoryUpadet.name,
-                //         "category": subCategoryUpadet.category,
-                //         "categoryBrand": subCategoryUpadet.categoryBrand,
-                //         "status": false,
-                // });
+                let res = await deleteData(PRODUCT_DELETE + data._id);
 
-                // if (res?.data?.isSuccess) {
-                //     getSubBrandCategory();
-                // } else {
-                //     toast("Something went wrong");
-                // }
+                if (res?.data?.isSuccess) {
+                    this.getProductList(this.state.pageValue);
+                    toast.success("Product Deleted Successfully");
+                } else {
+                    toast("Something went wrong");
+                }
             }
         })
     }
