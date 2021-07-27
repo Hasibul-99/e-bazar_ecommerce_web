@@ -7,11 +7,13 @@ export default function Pagination(props) {
     const changePage = (value) => {
         if (value === 'nxt') {
             setPage(page + 1);
+            handelPagination(page + 1);
         } else {
-            if (page > 1)setPage(page -1)
+            if (page > 1) {
+                setPage(page -1);
+                handelPagination(page - 1);
+            }
         }
-
-        handelPagination(page);
     }
 
     return (

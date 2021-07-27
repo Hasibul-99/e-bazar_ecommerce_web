@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import swal from 'sweetalert2';
 import { postData, getData, deleteData } from "../../../scripts/api-service";
-import { GET_RPODUCT, PRODUCT_DELETE } from "../../../scripts/api";
+import { GET_RPODUCT, PRODUCT_DELETE, PRODUCT_LIST_SEARCH } from "../../../scripts/api";
 import Pagination from "../common/Pagination";
 
 import {loadPageVar} from "../../../scripts/helper";
@@ -33,7 +33,7 @@ export default class Products extends Component {
     getProductList = async (page = 1) => {
         let user = JSON.parse(localStorage.getItem("ExpressUserInfo"));
 
-        let url = user.userType === "MARCHANT" ? GET_RPODUCT + '?page='+ page + "&limit=60" + '&productOwner=' + user._id  : GET_RPODUCT + '?page='+ page + "&limit=60" ;
+        let url = user.userType === "MARCHANT" ? PRODUCT_LIST_SEARCH + '?page='+ page + "&limit=60" + '&productOwner=' + user._id  : PRODUCT_LIST_SEARCH + '?page='+ page + "&limit=60" ;
         
         if (this.state.search.name) url = url + "&name=" + this.state.search.name;
 
@@ -73,7 +73,7 @@ export default class Products extends Component {
 
     searchKeyPresss = async (e) => {
         let value = e.target.value;
-        if (value.length > 2) {
+        if (value.length) {
             this.setState(prevState => ({
                 search: {                   // object that we want to update
                     ...prevState.search,    // keep all other key-value pairs
@@ -81,6 +81,8 @@ export default class Products extends Component {
                 }
             }));
 
+            this.getProductList();
+        } else {
             this.getProductList();
         }
     }
@@ -159,7 +161,7 @@ export default class Products extends Component {
                                                                 </td>
                                                                 <td>{data.totalSell}</td>
                                                                 <td>{data.discountPrice}</td>
-                                                                <td>{data.status ? 
+                                                                <td>{data.stock > 1 ? 
                                                                     <span className="badge badge-success">Availabe</span> : 
                                                                     <span className="badge badge-danger">Not Availabe</span>}
                                                                 </td>

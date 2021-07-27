@@ -144,6 +144,8 @@ export default function CartBox() {
                 let masterData = res.data.data;
                 
                 processCashOnDelevary(masterData);
+                
+                toast.success("Thank you! Your order was successfully submitted!")
             } else if (res.msg) {
                 toast.error(res.msg);
             } else {

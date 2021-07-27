@@ -16,7 +16,8 @@ export default class Orders extends Component {
             pageValue: 1, 
             orderList: [],
             search: {
-                orderId: ''
+                orderId: '',
+                orderStatus: ''
             }
         };
     }
@@ -35,6 +36,11 @@ export default class Orders extends Component {
         }
 
         if (this.state.search.orderId) url = url + "&_id=" + this.state.search.orderId;
+        if (this.state.search.orderStatus) url = url + "&orderStatus=" + this.state.search.orderStatus;
+
+        url = url + "&limit=60"
+
+        console.log("this.state.search.orderStatus", this.state.search.orderStatus);
 
         let res = await getData(url);
 
@@ -77,6 +83,20 @@ export default class Orders extends Component {
         }
     }
 
+    shatusFilter = (e) => {
+        let value = e.target.value;
+
+        this.setState(prevState => ({
+            search: {                   // object that we want to update
+                ...prevState.search,    // keep all other key-value pairs
+                orderStatus: value       // update the value of specific key
+            }
+        }));
+        setTimeout(() => {
+            this.getOrderList();
+        }, 1000)
+    }
+
     render() {
         return (
             <Fragment>
@@ -87,7 +107,17 @@ export default class Orders extends Component {
                     </div>
                     <div className="col-6">
                         <div className="row ">
-                            <div className="col-6"></div>
+                            {/* <div className="col-6"></div> */}
+                            <div className="col-6">
+                                <div className="form-group">
+                                    <select className="form-control form-control-lg" onChange={this.shatusFilter}>
+                                        <option>Select Status</option>
+                                        <option value="DELIVERD">DELIVERD</option>
+                                        <option value='CANCEL'>CANCEL</option>
+                                        <option value="PENDING">PENDING</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div className="col-6">
                                 <div className="form-group">
                                     <input type="text" className="form-control input-default" 
@@ -95,15 +125,7 @@ export default class Orders extends Component {
                                         placeholder="Search by order ID"/>
                                 </div>
                             </div>
-                            {/* <div className="col-6 d-none">
-                                <div className="form-group">
-                                    <select className="form-control form-control-lg">
-                                        <option>Status</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                    </select>
-                                </div>
-                            </div> */}
+
                         </div>
                     </div>
                 </div>

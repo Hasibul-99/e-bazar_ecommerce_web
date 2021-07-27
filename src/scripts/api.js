@@ -34,6 +34,7 @@ export const REMOVE_PRODUCT_PHOTO = "api/product/updateProductPhoto";
 export const PRODUCT_SEARCH = "api/product/search?name="
 export const PRODUCT_RATING = "api/rating/product/"
 export const PRODUCT_DELETE = "api/product/"
+export const PRODUCT_LIST_SEARCH = "api/product/search"
  
 // Order
 export const GET_ORDER_LIST = "api/order";
