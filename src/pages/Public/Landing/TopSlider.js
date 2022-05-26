@@ -70,7 +70,7 @@ export default function TopSlider() {
                             title: item.name,
                             description: item.productDetails,
                             button: 'VIEW OUR PRODUCT',
-                            image: `http://easyexpress24.com:5000/static/${item.photos[0]}`,
+                            image: `http://103.163.246.31:5000:5000/static/${item.photos[0]}`,
                             classAdd: "right-allian-text",
                             _id: item._id
                         })

@@ -46,9 +46,9 @@ export default function TipsDetails() {
                             <div className="col-sm-12 col-md-6">
                                 <div className="selected-image">
                                     <GlassMagnifier
-                                        imageSrc={`http://easyexpress24.com:5000/static/${selected}`}
+                                        imageSrc={`http://103.163.246.31:5000:5000/static/${selected}`}
                                         imageAlt="Example"
-                                        largeImageSrc={`http://easyexpress24.com:5000/static/${selected}`}
+                                        largeImageSrc={`http://103.163.246.31:5000:5000/static/${selected}`}
                                         magnifierSize="50%"
                                         allowOverflow="true"
                                         zoom="200%"
@@ -60,7 +60,7 @@ export default function TipsDetails() {
 
                                         tipInfo?.photos.map(item => {
                                             return <div className="product-images" key={item} onClick={() => changeProduct(item)}>
-                                                    <img src={`http://easyexpress24.com:5000/static/${item}`}/>
+                                                    <img src={`http://103.163.246.31:5000:5000/static/${item}`}/>
                                                 </div>
                                         })
                                     }

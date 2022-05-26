@@ -90,7 +90,7 @@ export default function SearchProduct() {
                                                         <Link to={`/products?category=${cat._id}`}>{/* &name=${searchValue} */}
                                                                 {
                                                                     cat.photo ? (
-                                                                        <img className="cat-image-content" src={`http://easyexpress24.com:5000/static/${cat.photo}`} height="50" width="50" />
+                                                                        <img className="cat-image-content" src={`http://103.163.246.31:5000:5000/static/${cat.photo}`} height="50" width="50" />
                                                                     ) : (
                                                                         <img className="cat-image-content" src={categoryIcon} height="50" width="50" />
                                                                         )
@@ -200,7 +200,7 @@ function ProductCard( {product}) {
                     {
                         product?.photos?.length ? <Fragment>
                             <img className="cursore-pointer" onClick={()=> openModal(product._id)}
-                                src={`http://easyexpress24.com:5000/static/${product?.photos[0]}`} alt=""/>
+                                src={`http://103.163.246.31:5000:5000/static/${product?.photos[0]}`} alt=""/>
                         </Fragment> : <Fragment>
                             <img className="cursore-pointer" src={demoProduct} alt=""/>
                         </Fragment>

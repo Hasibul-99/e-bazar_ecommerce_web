@@ -200,7 +200,7 @@ export default function Category() {
                                                         <td>{dateFormat(category.creatingDate)}</td>
                                                         <td>
                                                             {category.photo ? (
-                                                                <img src={`http://easyexpress24.com:5000/static/${category.photo}`} height="50" width="50"></img>
+                                                                <img src={`http://103.163.246.31:5000:5000/static/${category.photo}`} height="50" width="50"></img>
                                                             ) : ''}
                                                         </td>
                                                         <td>{category.status ? "Active" : "Inactive"}</td>

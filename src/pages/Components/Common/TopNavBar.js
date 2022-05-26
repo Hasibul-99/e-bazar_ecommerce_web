@@ -209,7 +209,7 @@ export default function TopNavBar() {
                                                 <div className="header-info">
                                                     <span className="text-black">Hello, <strong>{userData?.name}</strong></span>
                                                 </div>
-                                                <img src={ userData?.avatar ? `http://easyexpress24.com:5000/static/${userData.avatar}` : user} width="20" alt=""/>
+                                                <img src={ userData?.avatar ? `http://103.163.246.31:5000:5000/static/${userData.avatar}` : user} width="20" alt=""/>
                                             </Link>
                                             <div className="dropdown-menu dropdown-menu-right">
                                                 {

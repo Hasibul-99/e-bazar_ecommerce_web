@@ -14,7 +14,7 @@ export default function Tips() {
     const [name, setName] = useState('');
     const [tipsDetails, setTipsDetails] = useState('');
     const [productImages, setProductImages] = useState([]);
-    const baseurl = "http://easyexpress24.com:5000/static/";
+    const baseurl = "http://103.163.246.31:5000:5000/static/";
     const [updateTips, setUpdateTips] = useState();
     const { register, handleSubmit, errors } = useForm();
 

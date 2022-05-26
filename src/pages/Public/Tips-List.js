@@ -36,7 +36,7 @@ export default function Tips() {
                                             <div className="product-tumb">
                                                 {
                                                     tip?.photos?.length ? <Fragment>
-                                                        <img src={`http://easyexpress24.com:5000/static/${tip?.photos[0]}`} alt=""/>
+                                                        <img src={`http://103.163.246.31:5000:5000/static/${tip?.photos[0]}`} alt=""/>
                                                     </Fragment> : <Fragment>
                                                         <img src={demoProduct} alt=""/>
                                                     </Fragment>
