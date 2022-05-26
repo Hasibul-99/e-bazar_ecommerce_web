@@ -84,7 +84,7 @@ export default class UserProfile extends Component {
         if (res?.data?.isSuccess) {
             toast.success("Image Upload Successfully");
             let ele = document.getElementById('js-img-thumb');
-            if (ele) ele.src = `http://103.163.246.31:5000:5000/static/${res.data.data}`
+            if (ele) ele.src = `http://103.163.246.31:5000/static/${res.data.data}`
         } else {
             toast.error("Something went wrong!");
         }
@@ -160,7 +160,7 @@ export default class UserProfile extends Component {
                                     </div>
                                     <div className="user-acater">
                                         <img id="js-img-thumb" class="img-thumbnail"
-                                             src={ this.state?.userInfo?.avatar ? `http://103.163.246.31:5000:5000/static/${this.state.userInfo.avatar}` : demoUser} />
+                                             src={ this.state?.userInfo?.avatar ? `http://103.163.246.31:5000/static/${this.state.userInfo.avatar}` : demoUser} />
                                     </div>
                                 </div>
                             </div>

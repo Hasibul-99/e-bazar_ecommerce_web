@@ -96,7 +96,7 @@ export default class OrderDetails extends Component {
                                                                 <td class="border-top-none width-200">
                                                                     <div>
                                                                         <img  width="80" height="65" 
-                                                                        src={pro?.product?.photos[0] ? "http://103.163.246.31:5000:5000/static/" + pro?.product?.photos[0] : demoProduct} />
+                                                                        src={pro?.product?.photos[0] ? "http://103.163.246.31:5000/static/" + pro?.product?.photos[0] : demoProduct} />
                                                                     </div>
                                                                     <strong>{pro?.product?.name}</strong>
                                                                 </td>

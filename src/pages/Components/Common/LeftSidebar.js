@@ -95,7 +95,7 @@ function Category (props) {
                 href="javascript:void()" aria-expanded="false">
                     {
                         item.photo ? (
-                            <img className="cat-image-content" src={`http://103.163.246.31:5000:5000/static/${item.photo}`} height="50" width="50" />
+                            <img className="cat-image-content" src={`http://103.163.246.31:5000/static/${item.photo}`} height="50" width="50" />
                         ) : (
                             // <i className="flaticon-381-television"></i>
                             <img className="cat-image-content" src={categoryIcon} height="50" width="50" />

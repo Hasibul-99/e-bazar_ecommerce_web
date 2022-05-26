@@ -72,7 +72,7 @@ export default function Navbar() {
                                             <span className="text-black">Hello,<strong> {userData?.name}</strong></span>
                                             <p className="fs-12 mb-0">{userData?.userType}</p>
                                         </div>
-                                        <img src={ userData?.avatar ? `http://103.163.246.31:5000:5000/static/${userData.avatar}` : user} 
+                                        <img src={ userData?.avatar ? `http://103.163.246.31:5000/static/${userData.avatar}` : user} 
                                             width="20" alt=""/>
                                     </a>
                                     <div className="dropdown-menu dropdown-menu-right">

@@ -177,7 +177,7 @@ export default class ProductEdit extends Component {
 
 
     render() {
-        const baseurl = "http://103.163.246.31:5000:5000/static/";
+        const baseurl = "http://103.163.246.31:5000/static/";
         
         return (
             <div className="add-product">

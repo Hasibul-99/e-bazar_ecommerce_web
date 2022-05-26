@@ -99,7 +99,7 @@ function ProductCard( {product}) {
                     {
                         product?.photos?.length ? <Fragment>
                             <img className="cursore-pointer" onClick={()=> openModal(product._id)} 
-                                src={`http://103.163.246.31:5000:5000/static/${product?.photos[0]}`} alt=""/>
+                                src={`http://103.163.246.31:5000/static/${product?.photos[0]}`} alt=""/>
                         </Fragment> : <Fragment>
                             <img className="cursore-pointer" onClick={()=> openModal(product._id)} 
                                 src={demoProduct} alt=""/>

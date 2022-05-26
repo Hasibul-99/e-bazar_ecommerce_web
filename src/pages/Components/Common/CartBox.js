@@ -99,7 +99,7 @@ export default function CartBox() {
 
     const showProductImage = (pro) => {
         if (pro && pro.photos && pro.photos.length) {
-            return "http://103.163.246.31:5000:5000/static/" + pro.photos[0];
+            return "http://103.163.246.31:5000/static/" + pro.photos[0];
         } else return demoProduct
     }
 
